@@ -58,6 +58,7 @@
     <Compile Include="Commands\ListDuplicatesCommand.cs" />
     <Compile Include="Commands\PrependAppendCommand.cs" />
     <Compile Include="Commands\RemoveEmptyLinesCommand.cs" />
+    <Compile Include="Commands\SqlInClauseApostropheCommand.cs" />
     <Compile Include="Commands\SqlInClauseCommand.cs" />
     <Compile Include="Commands\TextProcessingCommandBase.cs" />
     <Compile Include="Commands\TrimCommand.cs" />

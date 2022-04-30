@@ -37,18 +37,19 @@ namespace JtvDevTools
             this.txtInput = new FastColoredTextBoxNS.FastColoredTextBox();
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrimToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RemoveEmptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormatJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormatXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.JoinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PrependAppendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoveEmptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SQLIn123ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TrimToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UniqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnClear = new System.Windows.Forms.Button();
             this.btnFlip = new System.Windows.Forms.Button();
-            this.FormatXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FormatJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PrependAppendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.JoinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SQLIn123ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.SQLInabcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOutput)).BeginInit();
@@ -199,19 +200,50 @@ namespace JtvDevTools
             this.PrependAppendToolStripMenuItem,
             this.RemoveEmptyToolStripMenuItem,
             this.SQLIn123ToolStripMenuItem,
+            this.SQLInabcToolStripMenuItem,
             this.TrimToolStripMenuItem,
             this.UniqueToolStripMenuItem});
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
             this.textToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.textToolStripMenuItem.Text = "Text";
             // 
-            // TrimToolStripMenuItem
+            // FormatJSONToolStripMenuItem
             // 
-            this.TrimToolStripMenuItem.Name = "TrimToolStripMenuItem";
-            this.TrimToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.TrimToolStripMenuItem.Tag = "1";
-            this.TrimToolStripMenuItem.Text = "Trim";
-            this.TrimToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            this.FormatJSONToolStripMenuItem.Name = "FormatJSONToolStripMenuItem";
+            this.FormatJSONToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.FormatJSONToolStripMenuItem.Tag = "6";
+            this.FormatJSONToolStripMenuItem.Text = "Format JSON";
+            this.FormatJSONToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            // 
+            // FormatXMLToolStripMenuItem
+            // 
+            this.FormatXMLToolStripMenuItem.Name = "FormatXMLToolStripMenuItem";
+            this.FormatXMLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.FormatXMLToolStripMenuItem.Tag = "5";
+            this.FormatXMLToolStripMenuItem.Text = "Format XML";
+            this.FormatXMLToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            // 
+            // JoinToolStripMenuItem
+            // 
+            this.JoinToolStripMenuItem.Name = "JoinToolStripMenuItem";
+            this.JoinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.JoinToolStripMenuItem.Text = "Join";
+            this.JoinToolStripMenuItem.Click += new System.EventHandler(this.JoinToolStripMenuItem_Click);
+            // 
+            // ListDuplicatesToolStripMenuItem
+            // 
+            this.ListDuplicatesToolStripMenuItem.Name = "ListDuplicatesToolStripMenuItem";
+            this.ListDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ListDuplicatesToolStripMenuItem.Tag = "4";
+            this.ListDuplicatesToolStripMenuItem.Text = "List Duplicates";
+            this.ListDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            // 
+            // PrependAppendToolStripMenuItem
+            // 
+            this.PrependAppendToolStripMenuItem.Name = "PrependAppendToolStripMenuItem";
+            this.PrependAppendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.PrependAppendToolStripMenuItem.Text = "Prepend && Append";
+            this.PrependAppendToolStripMenuItem.Click += new System.EventHandler(this.PrependAppendToolStripMenuItem_Click);
             // 
             // RemoveEmptyToolStripMenuItem
             // 
@@ -221,13 +253,21 @@ namespace JtvDevTools
             this.RemoveEmptyToolStripMenuItem.Text = "Remove empty";
             this.RemoveEmptyToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
             // 
-            // ListDuplicatesToolStripMenuItem
+            // SQLIn123ToolStripMenuItem
             // 
-            this.ListDuplicatesToolStripMenuItem.Name = "ListDuplicatesToolStripMenuItem";
-            this.ListDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ListDuplicatesToolStripMenuItem.Tag = "4";
-            this.ListDuplicatesToolStripMenuItem.Text = "List Duplicates";
-            this.ListDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            this.SQLIn123ToolStripMenuItem.Name = "SQLIn123ToolStripMenuItem";
+            this.SQLIn123ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SQLIn123ToolStripMenuItem.Tag = "9";
+            this.SQLIn123ToolStripMenuItem.Text = "SQL in (1,2,3)";
+            this.SQLIn123ToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            // 
+            // TrimToolStripMenuItem
+            // 
+            this.TrimToolStripMenuItem.Name = "TrimToolStripMenuItem";
+            this.TrimToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TrimToolStripMenuItem.Tag = "1";
+            this.TrimToolStripMenuItem.Text = "Trim";
+            this.TrimToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
             // 
             // UniqueToolStripMenuItem
             // 
@@ -247,16 +287,6 @@ namespace JtvDevTools
             this.panel1.Size = new System.Drawing.Size(1007, 35);
             this.panel1.TabIndex = 5;
             // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(8, 3);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 29);
-            this.btnClear.TabIndex = 0;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
             // btnFlip
             // 
             this.btnFlip.Location = new System.Drawing.Point(89, 3);
@@ -267,43 +297,23 @@ namespace JtvDevTools
             this.btnFlip.UseVisualStyleBackColor = true;
             this.btnFlip.Click += new System.EventHandler(this.btnFlip_Click);
             // 
-            // FormatXMLToolStripMenuItem
+            // btnClear
             // 
-            this.FormatXMLToolStripMenuItem.Name = "FormatXMLToolStripMenuItem";
-            this.FormatXMLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.FormatXMLToolStripMenuItem.Tag = "5";
-            this.FormatXMLToolStripMenuItem.Text = "Format XML";
-            this.FormatXMLToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            this.btnClear.Location = new System.Drawing.Point(8, 3);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 29);
+            this.btnClear.TabIndex = 0;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // FormatJSONToolStripMenuItem
+            // SQLInabcToolStripMenuItem
             // 
-            this.FormatJSONToolStripMenuItem.Name = "FormatJSONToolStripMenuItem";
-            this.FormatJSONToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.FormatJSONToolStripMenuItem.Tag = "6";
-            this.FormatJSONToolStripMenuItem.Text = "Format JSON";
-            this.FormatJSONToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
-            // 
-            // PrependAppendToolStripMenuItem
-            // 
-            this.PrependAppendToolStripMenuItem.Name = "PrependAppendToolStripMenuItem";
-            this.PrependAppendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.PrependAppendToolStripMenuItem.Text = "Prepend && Append";
-            this.PrependAppendToolStripMenuItem.Click += new System.EventHandler(this.PrependAppendToolStripMenuItem_Click);
-            // 
-            // JoinToolStripMenuItem
-            // 
-            this.JoinToolStripMenuItem.Name = "JoinToolStripMenuItem";
-            this.JoinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.JoinToolStripMenuItem.Text = "Join";
-            this.JoinToolStripMenuItem.Click += new System.EventHandler(this.JoinToolStripMenuItem_Click);
-            // 
-            // SQLIn123ToolStripMenuItem
-            // 
-            this.SQLIn123ToolStripMenuItem.Name = "SQLIn123ToolStripMenuItem";
-            this.SQLIn123ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.SQLIn123ToolStripMenuItem.Tag = "9";
-            this.SQLIn123ToolStripMenuItem.Text = "SQL in (1,2,3)";
-            this.SQLIn123ToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
+            this.SQLInabcToolStripMenuItem.Name = "SQLInabcToolStripMenuItem";
+            this.SQLInabcToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SQLInabcToolStripMenuItem.Tag = "10";
+            this.SQLInabcToolStripMenuItem.Text = "SQL in (\'a\', \'b\',\'c\')";
+            this.SQLInabcToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
             // 
             // MainForm
             // 
@@ -348,6 +358,7 @@ namespace JtvDevTools
         private System.Windows.Forms.ToolStripMenuItem PrependAppendToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem JoinToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SQLIn123ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SQLInabcToolStripMenuItem;
     }
 }
 

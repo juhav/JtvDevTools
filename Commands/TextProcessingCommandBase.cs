@@ -18,6 +18,7 @@ namespace JtvDevTools.Commands
             public const int PrependAppend = 7;
             public const int Join = 8;
             public const int SqlInClause = 9;
+            public const int SqlInClauseApostrophe = 10;
         }
     }
 
