@@ -1,0 +1,12 @@
+S:\code\JtvDevTools\JtvDevTools.Core\bin\Debug\net6.0\JtvDevTools.Core.deps.json
+S:\code\JtvDevTools\JtvDevTools.Core\bin\Debug\net6.0\JtvDevTools.Core.dll
+S:\code\JtvDevTools\JtvDevTools.Core\bin\Debug\net6.0\JtvDevTools.Core.pdb
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.csproj.AssemblyReference.cache
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.GeneratedMSBuildEditorConfig.editorconfig
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.AssemblyInfoInputs.cache
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.AssemblyInfo.cs
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.csproj.CoreCompileInputs.cache
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.dll
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\refint\JtvDevTools.Core.dll
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\JtvDevTools.Core.pdb
+S:\code\JtvDevTools\JtvDevTools.Core\obj\Debug\net6.0\ref\JtvDevTools.Core.dll

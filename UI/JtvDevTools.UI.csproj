@@ -52,17 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\FormatJsonCommand.cs" />
-    <Compile Include="Commands\FormatXmlCommand.cs" />
-    <Compile Include="Commands\JoinCommand.cs" />
-    <Compile Include="Commands\ListDuplicatesCommand.cs" />
-    <Compile Include="Commands\PrependAppendCommand.cs" />
-    <Compile Include="Commands\RemoveEmptyLinesCommand.cs" />
-    <Compile Include="Commands\SqlInClauseApostropheCommand.cs" />
-    <Compile Include="Commands\SqlInClauseCommand.cs" />
-    <Compile Include="Commands\TextProcessingCommandBase.cs" />
-    <Compile Include="Commands\TrimCommand.cs" />
-    <Compile Include="Commands\UniqueCommand.cs" />
     <Compile Include="EditorUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

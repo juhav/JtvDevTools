@@ -1,0 +1,43 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "FastColoredTextBox.Net5/2.16.26": {
+        "runtime": {
+          "lib/net5.0-windows7.0/FastColoredTextBox.dll": {
+            "assemblyVersion": "2.16.26.0",
+            "fileVersion": "2.16.26.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FastColoredTextBox.Net5/2.16.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tpeFJ0cNgO6RmEAl6M3A8wAXdycmqMk6rdZMe/DHNkQ4Yh5kgPHa8AdWp1SCxoswKm3QdQkDM7TW8mgraYjjxA==",
+      "path": "fastcoloredtextbox.net5/2.16.26",
+      "hashPath": "fastcoloredtextbox.net5.2.16.26.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    }
+  }
+}

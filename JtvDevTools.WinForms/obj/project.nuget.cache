@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Tz3H6m/mOfE2j2iXBjgjmftVZrGKVw/4vy267n/5G91hqd2SyRqIO809XdOnrylKa+amNlYW94UkG5XxNs3Zyg==",
+  "success": true,
+  "projectFilePath": "S:\\code\\JtvDevTools\\JtvDevTools.WinForms\\JtvDevTools.WinForms.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Juha\\.nuget\\packages\\fastcoloredtextbox.net5\\2.16.26\\fastcoloredtextbox.net5.2.16.26.nupkg.sha512",
+    "C:\\Users\\Juha\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

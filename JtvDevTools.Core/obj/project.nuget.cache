@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LQeWzEctOfMR+5tx4QZ9ngtg2359tWMk6sTmc4rlo026XnxmF8rOkC8/qeCm4D3HVCXLMARoEAMAiBl0Oou1Wg==",
+  "success": true,
+  "projectFilePath": "S:\\code\\JtvDevTools\\JtvDevTools.Core\\JtvDevTools.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Juha\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
