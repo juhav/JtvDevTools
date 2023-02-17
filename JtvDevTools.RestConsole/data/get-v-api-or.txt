@@ -1,0 +1,18 @@
+﻿[Variables]
+Name = Get something
+BaseUrl = <XAPI.TEST.BASEURL>
+Method = GET
+Resource = 
+Auth = NTLM
+User =
+Pwd =
+ClientCert = 
+DefaultCredentials = 
+
+[Headers]
+
+[Query]
+
+[Body]
+
+
