@@ -1,4 +1,4 @@
-﻿using JtvDevTools.RestConsole.Models;
+using JtvDevTools.RestConsole.Models;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -18,7 +18,7 @@ public class HttpService
     {
     }
 
-    public RestResponse Send(ApiOperation operation)
+    public RestResponse? Send(ApiOperation operation)
     {
         if (operation == null) return null;
 
@@ -32,26 +32,41 @@ public class HttpService
             throw new ArgumentException(nameof(baseUrl));
         }
 
-        var client = new RestClient(baseUrl);
-        client.Options.UseDefaultCredentials = operation.UseDefaultCredentials;
-        
-        var request = new RestRequest(operation.Resource);
-        request.RequestFormat = DataFormat.Json;
+        var options = new RestClientOptions()
+        {
+            BaseUrl = new Uri(baseUrl),
+            UseDefaultCredentials = operation.UseDefaultCredentials
+
+        };
 
         switch (authenticatorName)
         {
             case "NTLM":
                 if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(pwd))
                 {
-                    client.Options.Credentials = new NetworkCredential(user, pwd);
+                    options.Credentials = new NetworkCredential(user, pwd);
+                }
+                else
+                {
+                    options.Credentials = new NetworkCredential();
                 }
                 break;
+        }
 
+        SetClientCertificate(options, operation.ClientCertificate);
+
+        var client = new RestClient(options);
+
+        switch (authenticatorName)
+        {
             case "BASIC":
-                client.Options.UseDefaultCredentials = false;
+                options.UseDefaultCredentials = false;
                 client.Authenticator = new HttpBasicAuthenticator(user, pwd);
                 break;
         }
+
+        var request = new RestRequest(operation.Resource);
+        request.RequestFormat = DataFormat.Json;
 
         if (operation.Method != HttpMethod.GET && operation.Body != null)
         {
@@ -60,7 +75,7 @@ public class HttpService
 
         SetQueryParams(request, operation.QueryParams);
         SetHeaders(request, operation.Headers);
-        SetClientCertificate(client, operation.ClientCertificate);
+
 
         switch (operation.Method)
         {
@@ -97,9 +112,8 @@ public class HttpService
         }
     }
 
-    private void SetClientCertificate(RestClient client, string? clientCertificate)
+    private void SetClientCertificate(RestClientOptions options, string? clientCertificate)
     {
-        
         if (string.IsNullOrWhiteSpace(clientCertificate)) return;
         
         X509Certificate cert;
@@ -118,7 +132,10 @@ public class HttpService
         }
 
         cert = Utils.GetCertificateFromStore(storeLocation, clientCertificate);
-        client.Options.ClientCertificates!.Add(cert);
+
+        if (cert == null) throw new ApplicationException($"Client certificate '{clientCertificate}' not found.");
+                
+        options.ClientCertificates = new X509CertificateCollection() { cert };
     }
 
     
