@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -169,6 +169,10 @@ public class Parser
             if (variables.TryGetValue(value, out string? variable))
             {
                 value = variable;
+            }
+            else
+            {
+                throw new ApplicationException($"Variable '{value}' not found.");
             }
         }
 
