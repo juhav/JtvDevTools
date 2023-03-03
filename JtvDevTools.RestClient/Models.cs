@@ -11,6 +11,16 @@ using System.Windows.Input;
 
 namespace JtvDevTools.RestClient;
 
+public class TabItemViewModel : ObservableObject
+{
+    public string Title { get; set; }
+
+    public TabItemViewModel()
+    {
+        Title = "Item";
+    }
+}
+
 public class ActionTabItem : ObservableObject
 {
     public ActionTabViewModel Parent;

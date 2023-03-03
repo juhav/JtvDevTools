@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +30,31 @@ namespace JtvDevTools.RestClient
             var vmd = new ActionTabViewModel();
             vm.ActionTabViewModel = vmd;
             // Bind the xaml TabControl to view model tabs
-            tabControl.ItemsSource = vmd.Tabs;
+            //tabControl.ItemsSource = vmd.Tabs;
             // Populate the view model tabs
+            var items = new ObservableCollection<TabItemViewModel>();
+
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+            items.Add(new TabItemViewModel());
+
+            TabItemsControl.ItemsSource = items;
             vmd.Populate();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TabItemsScroller.LineLeft();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TabItemsScroller.LineRight();
+
         }
     }
 }

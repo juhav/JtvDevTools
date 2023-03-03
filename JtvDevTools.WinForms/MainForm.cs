@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace JtvDevTools
+namespace JtvDevTools.WinForms
 {
     public partial class MainForm : Form
     {
@@ -104,5 +104,49 @@ namespace JtvDevTools
 
             Execute(command, options);
         }
+
+        private void txtLog_Enter(object sender, EventArgs e)
+        {
+            if (tableLayoutPanel1.RowStyles[0].Height < tableLayoutPanel1.RowStyles[1].Height) return;
+
+            this.SuspendLayout();
+            var h = tableLayoutPanel1.RowStyles[0].Height;
+            tableLayoutPanel1.RowStyles[0].Height = tableLayoutPanel1.RowStyles[1].Height;
+            tableLayoutPanel1.RowStyles[1].Height = h;
+            this.ResumeLayout();
+        }
+
+        private void txtEditor_Enter(object sender, EventArgs e)
+        {
+            if (tableLayoutPanel1.RowStyles[1].Height < tableLayoutPanel1.RowStyles[0].Height) return;
+
+            this.SuspendLayout();
+            var h = tableLayoutPanel1.RowStyles[0].Height;
+            tableLayoutPanel1.RowStyles[0].Height = tableLayoutPanel1.RowStyles[1].Height;
+            tableLayoutPanel1.RowStyles[1].Height = h;
+            this.ResumeLayout();
+        }
+
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtEditor.Text = "";
+        }
+
+        private void LogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LogToolStripMenuItem.Checked = !LogToolStripMenuItem.Checked;
+
+            txtLog.Visible = LogToolStripMenuItem.Checked;
+
+            if (!txtLog.Visible)
+            {
+                tableLayoutPanel1.RowStyles[1].Height = 0;
+            }
+            else
+            {
+                tableLayoutPanel1.RowStyles[1].Height = 15;
+            }
+        }
+
     }
 }

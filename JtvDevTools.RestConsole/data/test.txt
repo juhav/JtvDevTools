@@ -1,4 +1,4 @@
-﻿[Variables]
+﻿[Request]
 Name = Get something
 BaseUrl = <TEST.BASEURL>
 Method = GET

@@ -1,5 +1,5 @@
 ﻿
-namespace JtvDevTools
+namespace JtvDevTools.WinForms
 {
     partial class MainForm
     {
@@ -32,10 +32,12 @@ namespace JtvDevTools
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtLog = new FastColoredTextBoxNS.FastColoredTextBox();
             this.txtEditor = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.txtLog = new FastColoredTextBoxNS.FastColoredTextBox();
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileToolStripMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EditToolStripMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FormatJSONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FormatXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.JoinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,9 +48,11 @@ namespace JtvDevTools
             this.SQLInabcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TrimToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UniqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewToolStripMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEditor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLog)).BeginInit();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,8 +61,8 @@ namespace JtvDevTools
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.txtLog, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtEditor, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtLog, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -68,6 +72,44 @@ namespace JtvDevTools
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.81872F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1175, 713);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // txtEditor
+            // 
+            this.txtEditor.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.txtEditor.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*" +
+    "(?<range>:)\\s*(?<range>[^;]+);";
+            this.txtEditor.AutoScrollMinSize = new System.Drawing.Size(25, 15);
+            this.txtEditor.BackBrush = null;
+            this.txtEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.txtEditor.CaretColor = System.Drawing.Color.WhiteSmoke;
+            this.txtEditor.CharHeight = 15;
+            this.txtEditor.CharWidth = 7;
+            this.txtEditor.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtEditor.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.txtEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtEditor.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtEditor.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtEditor.IsReplaceMode = false;
+            this.txtEditor.Location = new System.Drawing.Point(4, 3);
+            this.txtEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtEditor.Name = "txtEditor";
+            this.txtEditor.Paddings = new System.Windows.Forms.Padding(0);
+            this.txtEditor.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.txtEditor.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtEditor.ServiceColors")));
+            this.txtEditor.Size = new System.Drawing.Size(1168, 608);
+            this.txtEditor.TabIndex = 5;
+            this.txtEditor.Zoom = 100;
+            this.txtEditor.Enter += new System.EventHandler(this.txtEditor_Enter);
             // 
             // txtLog
             // 
@@ -106,48 +148,14 @@ namespace JtvDevTools
             this.txtLog.Size = new System.Drawing.Size(1168, 93);
             this.txtLog.TabIndex = 7;
             this.txtLog.Zoom = 100;
-            // 
-            // txtEditor
-            // 
-            this.txtEditor.AutoCompleteBracketsList = new char[] {
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '\"',
-        '\"',
-        '\'',
-        '\''};
-            this.txtEditor.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*" +
-    "(?<range>:)\\s*(?<range>[^;]+);";
-            this.txtEditor.AutoScrollMinSize = new System.Drawing.Size(25, 15);
-            this.txtEditor.BackBrush = null;
-            this.txtEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.txtEditor.CaretColor = System.Drawing.Color.WhiteSmoke;
-            this.txtEditor.CharHeight = 15;
-            this.txtEditor.CharWidth = 7;
-            this.txtEditor.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtEditor.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.txtEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEditor.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtEditor.ForeColor = System.Drawing.Color.Gainsboro;
-            this.txtEditor.IsReplaceMode = false;
-            this.txtEditor.Location = new System.Drawing.Point(4, 3);
-            this.txtEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtEditor.Name = "txtEditor";
-            this.txtEditor.Paddings = new System.Windows.Forms.Padding(0);
-            this.txtEditor.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.txtEditor.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtEditor.ServiceColors")));
-            this.txtEditor.Size = new System.Drawing.Size(1168, 608);
-            this.txtEditor.TabIndex = 5;
-            this.txtEditor.Zoom = 100;
+            this.txtLog.Enter += new System.EventHandler(this.txtLog_Enter);
             // 
             // MainMenuStrip
             // 
             this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.textToolStripMenuItem});
+            this.FileToolStripMainMenuItem,
+            this.EditToolStripMainMenuItem,
+            this.ViewToolStripMainMenuItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
             this.MainMenuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
@@ -155,9 +163,24 @@ namespace JtvDevTools
             this.MainMenuStrip.TabIndex = 4;
             this.MainMenuStrip.Text = "menuStrip1";
             // 
-            // textToolStripMenuItem
+            // FileToolStripMainMenuItem
             // 
-            this.textToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMainMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewToolStripMenuItem});
+            this.FileToolStripMainMenuItem.Name = "FileToolStripMainMenuItem";
+            this.FileToolStripMainMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.FileToolStripMainMenuItem.Text = "File";
+            // 
+            // NewToolStripMenuItem
+            // 
+            this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NewToolStripMenuItem.Text = "New";
+            this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
+            // 
+            // EditToolStripMainMenuItem
+            // 
+            this.EditToolStripMainMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FormatJSONToolStripMenuItem,
             this.FormatXMLToolStripMenuItem,
             this.JoinToolStripMenuItem,
@@ -168,9 +191,9 @@ namespace JtvDevTools
             this.SQLInabcToolStripMenuItem,
             this.TrimToolStripMenuItem,
             this.UniqueToolStripMenuItem});
-            this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            this.textToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.textToolStripMenuItem.Text = "Text";
+            this.EditToolStripMainMenuItem.Name = "EditToolStripMainMenuItem";
+            this.EditToolStripMainMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.EditToolStripMainMenuItem.Text = "Edit";
             // 
             // FormatJSONToolStripMenuItem
             // 
@@ -250,6 +273,23 @@ namespace JtvDevTools
             this.UniqueToolStripMenuItem.Text = "Unique";
             this.UniqueToolStripMenuItem.Click += new System.EventHandler(this.CommandMenuItem_Click);
             // 
+            // ViewToolStripMainMenuItem
+            // 
+            this.ViewToolStripMainMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LogToolStripMenuItem});
+            this.ViewToolStripMainMenuItem.Name = "ViewToolStripMainMenuItem";
+            this.ViewToolStripMainMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.ViewToolStripMainMenuItem.Text = "View";
+            // 
+            // LogToolStripMenuItem
+            // 
+            this.LogToolStripMenuItem.Checked = true;
+            this.LogToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LogToolStripMenuItem.Name = "LogToolStripMenuItem";
+            this.LogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LogToolStripMenuItem.Text = "Log";
+            this.LogToolStripMenuItem.Click += new System.EventHandler(this.LogToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -263,8 +303,8 @@ namespace JtvDevTools
             this.Text = "JtvDevTools";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEditor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLog)).EndInit();
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -277,7 +317,7 @@ namespace JtvDevTools
         private FastColoredTextBoxNS.FastColoredTextBox txtEditor;
         private FastColoredTextBoxNS.FastColoredTextBox txtLog;
         private System.Windows.Forms.MenuStrip MainMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem textToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EditToolStripMainMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TrimToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RemoveEmptyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ListDuplicatesToolStripMenuItem;
@@ -288,6 +328,10 @@ namespace JtvDevTools
         private System.Windows.Forms.ToolStripMenuItem JoinToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SQLIn123ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SQLInabcToolStripMenuItem;
+        private ToolStripMenuItem FileToolStripMainMenuItem;
+        private ToolStripMenuItem NewToolStripMenuItem;
+        private ToolStripMenuItem ViewToolStripMainMenuItem;
+        private ToolStripMenuItem LogToolStripMenuItem;
     }
 }
 

@@ -67,32 +67,6 @@ public static class Utils
         return null;
     }
 
-    public static string GetNewRequest()
-    {
-        var sb = new StringBuilder();
-
-        sb.AppendLine("[Variables]");
-        sb.AppendLine("BaseUrl = ");
-        sb.AppendLine("Resource = ");
-        sb.AppendLine("Auth = Ntlm");
-        sb.AppendLine("Method = GET");
-        sb.AppendLine("User =");
-        sb.AppendLine("Pwd =");
-        sb.AppendLine("ClientCert = ");
-        sb.AppendLine("PrettyPrint = true");
-        sb.AppendLine("DefaultCredentials = true");
-        sb.AppendLine("");
-        sb.AppendLine("[Headers]");
-        sb.AppendLine("Cache-Control = no-cache");
-        sb.AppendLine("");
-        sb.AppendLine("[Query]");
-        sb.AppendLine("");
-        sb.AppendLine("[Body]");
-        sb.AppendLine("");
-
-        return sb.ToString();
-    }
-
     public static string PrettyJson(string? json)
     {
         if (string.IsNullOrWhiteSpace(json)) return "";
@@ -107,8 +81,8 @@ public static class Utils
         if (string.IsNullOrWhiteSpace(xml)) return "";
 
         string result = "";
-        MemoryStream memoryStream = null;
-        System.Xml.XmlTextWriter writer = null;
+        MemoryStream? memoryStream = null;
+        System.Xml.XmlTextWriter? writer = null;
 
         try
         {
@@ -162,7 +136,7 @@ public static class Utils
     /// <param name="storeLocation">Store: CurrentUser or LocalMachine</param>
     /// <param name="nameOrThumbprint">Name or thumbprint (case insensitive and thumbprint must not contain spaces).</param>
     /// <returns></returns>
-    public static X509Certificate2 GetCertificateFromStore(StoreLocation storeLocation, string nameOrThumbprint)
+    public static X509Certificate2? GetCertificateFromStore(StoreLocation storeLocation, string nameOrThumbprint)
     {
         if (string.IsNullOrWhiteSpace(nameOrThumbprint)) return null;
 

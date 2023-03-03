@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JtvDevTools.RestConsole.Models;
+namespace JtvDevTools.RestConsole;
 
 public class Parser
 {
@@ -45,7 +45,7 @@ public class Parser
             {
                 switch (lines[i].ToUpperInvariant())
                 {
-                    case "[VARIABLES]":
+                    case "[REQUEST]":
                         currentSection = MessageSection.Variables;
                         break;
 
@@ -62,7 +62,7 @@ public class Parser
                         break;
 
                     default:
-                        throw new ApplicationException($"Unknown section: {lines[i]}.");
+                        throw new ApplicationException($"Unknown section in request: {lines[i]}.");
                 }
             }
             else
@@ -220,14 +220,14 @@ public class Parser
 
             case "PRETTYPRINT":
             case "PRETTY PRINT":
-                Operation.PrettyPrint = (value.ToLowerInvariant() == "true");
+                Operation.PrettyPrint = value.ToLowerInvariant() == "true";
                 break;
 
-            case "DEFAULTCREDENTIALS":
-            case "DEFAULT CREDENTIALS":
-                Operation.UseDefaultCredentials = (value.ToLowerInvariant() == "true"); ;
-                break;
-            
+            //case "DEFAULTCREDENTIALS":
+            //case "DEFAULT CREDENTIALS":
+            //    Operation.UseDefaultCredentials = value.ToLowerInvariant() == "true"; ;
+            //    break;
+
             case "NAME":
                 break;
 

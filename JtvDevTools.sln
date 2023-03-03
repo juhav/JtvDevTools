@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.WinForms", "Jtv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.Core", "JtvDevTools.Core\JtvDevTools.Core.csproj", "{0ABB0640-C756-4705-9B99-495A193AF1A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JtvDevTools.RestClient", "JtvDevTools.RestClient\JtvDevTools.RestClient.csproj", "{5B02F880-D4EE-4B0D-A28F-AEDE618D079F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.RestConsole", "JtvDevTools.RestConsole\JtvDevTools.RestConsole.csproj", "{0158E76D-DEC3-46C7-9521-493190F0DE2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JtvDevTools.RestConsole", "JtvDevTools.RestConsole\JtvDevTools.RestConsole.csproj", "{0158E76D-DEC3-46C7-9521-493190F0DE2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.RestClient.WinForms", "JtvDevTools.RestClient.WinForms\JtvDevTools.RestClient.WinForms.csproj", "{592BFBCE-5020-4525-9CE5-5C28D8084CC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{0ABB0640-C756-4705-9B99-495A193AF1A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ABB0640-C756-4705-9B99-495A193AF1A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ABB0640-C756-4705-9B99-495A193AF1A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B02F880-D4EE-4B0D-A28F-AEDE618D079F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B02F880-D4EE-4B0D-A28F-AEDE618D079F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B02F880-D4EE-4B0D-A28F-AEDE618D079F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B02F880-D4EE-4B0D-A28F-AEDE618D079F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{592BFBCE-5020-4525-9CE5-5C28D8084CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592BFBCE-5020-4525-9CE5-5C28D8084CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592BFBCE-5020-4525-9CE5-5C28D8084CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592BFBCE-5020-4525-9CE5-5C28D8084CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

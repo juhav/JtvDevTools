@@ -1,4 +1,3 @@
-using JtvDevTools.RestConsole.Models;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -8,7 +7,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using HttpMethod = JtvDevTools.RestConsole.Models.HttpMethod;
+using HttpMethod = JtvDevTools.RestConsole.HttpMethod;
 
 namespace JtvDevTools.RestConsole;
 
@@ -18,9 +17,9 @@ public class HttpService
     {
     }
 
-    public RestResponse? Send(ApiOperation operation)
+    public RestResponse Send(ApiOperation operation)
     {
-        if (operation == null) return null;
+        if (operation == null) throw new ArgumentException(nameof(operation));
 
         var baseUrl = operation.BaseUrl;
         var user = operation.User;
@@ -34,9 +33,7 @@ public class HttpService
 
         var options = new RestClientOptions()
         {
-            BaseUrl = new Uri(baseUrl),
-            UseDefaultCredentials = operation.UseDefaultCredentials
-
+            BaseUrl = new Uri(baseUrl)          
         };
 
         switch (authenticatorName)
@@ -45,10 +42,11 @@ public class HttpService
                 if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(pwd))
                 {
                     options.Credentials = new NetworkCredential(user, pwd);
+                    options.UseDefaultCredentials = false;
                 }
                 else
                 {
-                    options.Credentials = new NetworkCredential();
+                    options.UseDefaultCredentials = true;
                 }
                 break;
         }
@@ -60,6 +58,9 @@ public class HttpService
         switch (authenticatorName)
         {
             case "BASIC":
+                if (string.IsNullOrWhiteSpace(user)) throw new ApplicationException("User is not set for BASIC authentication.");
+                if (string.IsNullOrWhiteSpace(pwd)) throw new ApplicationException("Password is not set for BASIC authentication.");
+                
                 options.UseDefaultCredentials = false;
                 client.Authenticator = new HttpBasicAuthenticator(user, pwd);
                 break;
@@ -75,7 +76,6 @@ public class HttpService
 
         SetQueryParams(request, operation.QueryParams);
         SetHeaders(request, operation.Headers);
-
 
         switch (operation.Method)
         {
@@ -116,7 +116,7 @@ public class HttpService
     {
         if (string.IsNullOrWhiteSpace(clientCertificate)) return;
         
-        X509Certificate cert;
+        X509Certificate? cert;
         StoreLocation storeLocation = StoreLocation.LocalMachine;
 
         if (clientCertificate.Contains('|'))

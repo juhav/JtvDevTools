@@ -6,10 +6,24 @@
         xmlns:local="clr-namespace:JtvDevTools.RestClient"
         mc:Ignorable="d"
         Title="API Client" 
-        Background="DarkGray"
+        Background="#202020"
         Height="450" 
         Width="800">
     <Window.Resources>
+
+        <Style x:Key="TabItemGrid" TargetType="{x:Type Grid}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="DarkGray"></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+
+
         <SolidColorBrush x:Key="TabItemBgBrush" Color="DarkGray"/>
 
         <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
@@ -76,7 +90,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="ColumnDefinition0"/>
                                 <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
-                                
+
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
@@ -85,10 +99,10 @@
 
 
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                            <DockPanel x:Name="headerPanel" LastChildFill="False" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
-                                
+                                <DockPanel x:Name="headerPanel" LastChildFill="False" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+
                             </ScrollViewer>
-                            
+
                             <Border x:Name="contentPanel" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
                                 <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Border>
@@ -137,7 +151,50 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding NewTabCommand}" Key="N" Modifiers="Ctrl" />
     </Window.InputBindings>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" Click="Button_Click">&lt;</Button>
+        <ScrollViewer x:Name="TabItemsScroller" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="TabItemsControl">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" Background="Transparent" BorderThickness="1" >
+                            <Grid Margin="0" Background="Transparent" Style="{StaticResource TabItemGrid}">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="4,0,0,0" Background="Transparent" VerticalAlignment="Center" Foreground="LightGray" Text="{Binding Title}" />
+                                <Button Grid.Column="1" BorderBrush="Transparent" Background="Transparent" Foreground="LightGray">X</Button>
+
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Grid.Column="2" Click="Button_Click_1">&gt;</Button>
+    </Grid>
+
+    <!--<Grid>
         <TabControl Style="{DynamicResource TabControlStyle1}" x:Name="tabControl" Background="DarkGray" TabStripPlacement="Top" >
 
             <TabControl.Resources>
@@ -161,5 +218,5 @@
 
         </TabControl>
 
-    </Grid>
+    </Grid>-->
 </Window>
