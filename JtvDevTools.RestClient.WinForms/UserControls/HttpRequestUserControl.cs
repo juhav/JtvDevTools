@@ -14,70 +14,48 @@ namespace JtvDevTools.RestClient.WinForms.UserControls;
 
 public partial class HttpRequestUserControl : UserControl
 {
-    public event Action OnRequestChanged;
+    public HttpRequestViewModel ViewModel { get; set; }
+
+    public event Action? OnRequestChanged;
 
     public HttpRequestUserControl()
     {
         InitializeComponent();
 
-        cboApi.DisplayMember = "Name";
-        cboApi.ValueMember = "Id";
         MethodComboBox.SelectedIndex = 0;
         AuthenticationComboBox.SelectedIndex = 0;
+        
+        ViewModel = new HttpRequestViewModel();
+    }
+
+    public void SetEditMode(HttpRequestViewModel viewModel)
+    {
+        ViewModel = viewModel;
+
+        dgvHeaders.DataSource = ViewModel.Headers;
+        dgvQueryParams.DataSource = ViewModel.QueryParameters;
+    }
+
+    public void SetNewMode()
+    {
+        ViewModel = new HttpRequestViewModel();
+
+        dgvHeaders.DataSource = ViewModel.Headers;
+        dgvQueryParams.DataSource = ViewModel.QueryParameters;
     }
 
     public HttpRequestViewModel GetViewModel()
     {
-        var apiViewModel = (cboApi.SelectedItem as ApiViewModel);
-        
-        var result = new HttpRequestViewModel()
-        {
-            Name = (NameTextBox.Text ?? "").Trim(),
-            ApiId = apiViewModel != null ? apiViewModel.Id : Guid.Empty,
-            Method = (Models.HttpMethod)MethodComboBox.SelectedIndex,
-            BaseURL = BaseUrlComboBox.Text,
-            Resource = (ResourceTextBox.Text ?? "").Trim().TrimStart('/'),
-            Authentication = (AuthenticationType)AuthenticationComboBox.SelectedIndex,
-            ClientCertificate = ClientCertificateTextBox.Text,
-            Headers = new List<HttpRequestHeaderViewModel>(),
-            QueryParameters = new List<HttpRequestQueryParameterViewModel>()
-        };
+        ViewModel.Name = (txtRequestName.Text ?? "").Trim();
+        ViewModel.ApiName = (txtApiName.Text ?? "").Trim();
+        ViewModel.Method = (Models.HttpMethod)MethodComboBox.SelectedIndex;
+        ViewModel.BaseURL = new string[] { BaseUrlComboBox.Text };
+        ViewModel.Resource = (ResourceTextBox.Text ?? "").Trim().TrimStart('/');
+        ViewModel.Authentication = (AuthenticationType)AuthenticationComboBox.SelectedIndex;
+        ViewModel.ClientCertificate = ClientCertificateTextBox.Text;
+        ViewModel.Body = RequestBodyTextBox.Text;
 
-        var headers = HeadersTextBox.Lines;
-        foreach (var header in headers)
-        {
-            if (string.IsNullOrWhiteSpace(header)) continue;
-            
-            if (header.Contains(':'))
-            {
-                var fields = header.Split(':', 2);
-                var name = fields[0].Trim();
-                var value = fields[1].Trim();
-
-                if (string.IsNullOrWhiteSpace(name)) continue;
-
-                result.Headers.Add(new HttpRequestHeaderViewModel() { Name = name, Value = value });
-            }
-        }
-
-        var queryParameters = QueryParamsTextBox.Lines;
-        foreach (var queryParameter in queryParameters)
-        {
-            if (string.IsNullOrWhiteSpace(queryParameter)) continue;
-
-            if (queryParameter.Contains('='))
-            {
-                var fields = queryParameter.Split('=', 2);
-                var name = fields[0].Trim();
-                var value = fields[1].Trim();
-
-                if (string.IsNullOrWhiteSpace(name)) continue;
-
-                result.QueryParameters.Add(new HttpRequestQueryParameterViewModel() { Name = name, Value = value });
-            }
-        }
-
-        return result;
+        return ViewModel;
     }
 
     private void SelectClientCertButton_Click(object sender, EventArgs e)

@@ -114,6 +114,13 @@ public class Parser
                         throw new ApplicationException($"File not found: {filename}");
                     }
                     break;
+
+                case "INPUT":
+                    Console.Write(tokens[1]);
+                    Console.Write(" ");
+                    var input = Console.ReadLine();
+                    body = body.Replace(match.Value, input);
+                    break;
             }
 
         }

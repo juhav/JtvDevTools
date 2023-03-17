@@ -32,37 +32,6 @@ public interface IModel
     Guid Id { get; set; }
 }
 
-public class Api : IModel
-{
-    private string name = "";
-    private string description = "";
-
-    public Guid Id
-    {
-        get;
-        set;
-    }
-
-    public string Name
-    {
-        get => name;
-        set => name = (value ?? "").Trim();
-    }
-
-    public string Description
-    {
-        get => description;
-        set => description = (value ?? "").Trim();
-    }
-
-    public Api()
-    {
-        Id = Guid.NewGuid();
-    }
-
-}
-
-
 public class HttpRequestHeader
 {
     public string? Name { get; set; }
@@ -79,12 +48,13 @@ public class HttpRequest : IModel
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }
-    public Guid ApiId { get; set; }
+    public string? ApiName { get; set; }
     public HttpMethod Method { get; set; }
-    public string? BaseURL { get; set; }
+    public string[]? BaseURL { get; set; }
     public string? Resource { get; set; }
     public AuthenticationType Authentication { get; set; }
     public string? ClientCertificate { get; set; }
+    public string? Body { get; set; }
     public List<HttpRequestHeader>? Headers { get; set; }
     public List<HttpRequestQueryParameter>? QueryParameters { get; set; }
 }

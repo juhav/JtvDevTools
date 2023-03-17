@@ -1,4 +1,5 @@
-﻿using JtvDevTools.RestClient.WinForms.ViewModels;
+﻿using JtvDevTools.RestClient.WinForms.Core;
+using JtvDevTools.RestClient.WinForms.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,16 +28,19 @@ namespace JtvDevTools.RestClient.WinForms
             btnOK.Enabled = vm.IsValid();
         }
 
-        public DialogResult ShowDialog(IList<ApiViewModel> apis)
+        public DialogResult ShowDialog(ShowFormMode mode, HttpRequestViewModel? viewModel)
         {
-            uctHttpRequest.cboApi.Items.Clear();
-
-            if (apis != null)
+            switch (mode)
             {
-                foreach (var api in apis)
-                {
-                    uctHttpRequest.cboApi.Items.Add(api);
-                }
+                case ShowFormMode.New:
+                    uctHttpRequest.SetNewMode(); 
+                    break;
+
+                case ShowFormMode.Edit:
+                    if (viewModel == null) throw new ArgumentNullException(nameof(viewModel));
+
+                    uctHttpRequest.SetEditMode(viewModel);
+                    break;
             }
 
             return ShowDialog();

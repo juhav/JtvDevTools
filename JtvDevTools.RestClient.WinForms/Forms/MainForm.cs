@@ -1,3 +1,4 @@
+using JtvDevTools.RestClient.WinForms.Core;
 using JtvDevTools.RestClient.WinForms.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -29,7 +30,6 @@ namespace JtvDevTools.RestClient.WinForms
             app.LoadData();
             
             
-            ApisDataGridView.DataSource = new BindingSource(app.ApisBindingList, null);
             RequestsDataGridView.DataSource = new BindingSource(app.RequestsBindingList, null);
             dgvVariables.DataSource = new BindingSource(app.VariablesBindingList, null);
 
@@ -40,50 +40,18 @@ namespace JtvDevTools.RestClient.WinForms
 
         private void NewHTTPRequestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new HttpRequestForm())
-            {
-                var result = form.ShowDialog(app.ApisBindingList);
 
-                if (result == DialogResult.OK)
-                {
-                    var viewModel = form.GetHttpRequestViewModel();
-                    app.AddRequest(viewModel);
-                }
-            }
-        }
-
-        private void btnNewApiButton_Click(object sender, EventArgs e)
-        {
-            apiForm.ViewModel = new ApiViewModel();
-            var result = apiForm.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                app.AddApi(apiForm.ViewModel);
-            }
-        }
-
-        private void DeleteApiToolStripButton_Click(object sender, EventArgs e)
-        {
-            if (ApisDataGridView.SelectedRows.Count < 1) return;
-
-            var viewModel = ApisDataGridView.SelectedRows[0].DataBoundItem as ApiViewModel;
-
-            if (viewModel == null) return;
-
-            app.DeleteApi(viewModel);
         }
 
         private void btnNewRequest_Click(object sender, EventArgs e)
         {
             using (var form = new HttpRequestForm())
             {
-                var result = form.ShowDialog(app.ApisBindingList);
+                var result = form.ShowDialog(ShowFormMode.New, null);
 
                 if (result == DialogResult.OK)
                 {
                     var viewModel = form.GetHttpRequestViewModel();
-
                     app.AddRequest(viewModel);
                 }
             }
@@ -96,8 +64,6 @@ namespace JtvDevTools.RestClient.WinForms
             var viewModel = RequestsDataGridView.SelectedRows[0].DataBoundItem as HttpRequestViewModel;
 
             if (viewModel == null) return;
-
-            
         }
 
         private void btnEditRequest_Click(object sender, EventArgs e)
@@ -130,6 +96,7 @@ namespace JtvDevTools.RestClient.WinForms
         {
 
         }
+
 
         //private void FilterTextBox_TextChanged(object sender, EventArgs e)
         //{

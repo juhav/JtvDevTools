@@ -33,12 +33,6 @@
             this.FileToolStripMainMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewHTTPRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTabControl = new System.Windows.Forms.TabControl();
-            this.ApisTabPage = new System.Windows.Forms.TabPage();
-            this.ApisDataGridView = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnNewApi = new System.Windows.Forms.ToolStripButton();
-            this.DeleteApiToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.RequestsTabPage = new System.Windows.Forms.TabPage();
             this.RequestsDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -54,9 +48,6 @@
             this.btnDeleteVariable = new System.Windows.Forms.ToolStripButton();
             this.MainMenuStrip.SuspendLayout();
             this.MainTabControl.SuspendLayout();
-            this.ApisTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ApisDataGridView)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.RequestsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RequestsDataGridView)).BeginInit();
             this.toolStrip2.SuspendLayout();
@@ -92,7 +83,6 @@
             // 
             // MainTabControl
             // 
-            this.MainTabControl.Controls.Add(this.ApisTabPage);
             this.MainTabControl.Controls.Add(this.RequestsTabPage);
             this.MainTabControl.Controls.Add(this.VariablesTabPage);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -101,77 +91,6 @@
             this.MainTabControl.SelectedIndex = 0;
             this.MainTabControl.Size = new System.Drawing.Size(800, 426);
             this.MainTabControl.TabIndex = 1;
-            // 
-            // ApisTabPage
-            // 
-            this.ApisTabPage.Controls.Add(this.ApisDataGridView);
-            this.ApisTabPage.Controls.Add(this.toolStrip1);
-            this.ApisTabPage.Location = new System.Drawing.Point(4, 24);
-            this.ApisTabPage.Name = "ApisTabPage";
-            this.ApisTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ApisTabPage.Size = new System.Drawing.Size(792, 398);
-            this.ApisTabPage.TabIndex = 1;
-            this.ApisTabPage.Text = "APIs";
-            this.ApisTabPage.UseVisualStyleBackColor = true;
-            // 
-            // ApisDataGridView
-            // 
-            this.ApisDataGridView.AllowUserToAddRows = false;
-            this.ApisDataGridView.AllowUserToDeleteRows = false;
-            this.ApisDataGridView.AllowUserToOrderColumns = true;
-            this.ApisDataGridView.AllowUserToResizeRows = false;
-            this.ApisDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ApisDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ApisDataGridView.Location = new System.Drawing.Point(3, 28);
-            this.ApisDataGridView.MultiSelect = false;
-            this.ApisDataGridView.Name = "ApisDataGridView";
-            this.ApisDataGridView.ReadOnly = true;
-            this.ApisDataGridView.RowHeadersVisible = false;
-            this.ApisDataGridView.RowTemplate.Height = 25;
-            this.ApisDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ApisDataGridView.ShowCellToolTips = false;
-            this.ApisDataGridView.Size = new System.Drawing.Size(786, 367);
-            this.ApisDataGridView.TabIndex = 1;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnNewApi,
-            this.DeleteApiToolStripButton,
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(786, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // btnNewApi
-            // 
-            this.btnNewApi.Image = ((System.Drawing.Image)(resources.GetObject("btnNewApi.Image")));
-            this.btnNewApi.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNewApi.Name = "btnNewApi";
-            this.btnNewApi.Size = new System.Drawing.Size(72, 22);
-            this.btnNewApi.Text = "New API";
-            this.btnNewApi.Click += new System.EventHandler(this.btnNewApiButton_Click);
-            // 
-            // DeleteApiToolStripButton
-            // 
-            this.DeleteApiToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteApiToolStripButton.Image")));
-            this.DeleteApiToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeleteApiToolStripButton.Name = "DeleteApiToolStripButton";
-            this.DeleteApiToolStripButton.Size = new System.Drawing.Size(81, 22);
-            this.DeleteApiToolStripButton.Text = "Delete API";
-            this.DeleteApiToolStripButton.Click += new System.EventHandler(this.DeleteApiToolStripButton_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // RequestsTabPage
             // 
@@ -329,11 +248,6 @@
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
             this.MainTabControl.ResumeLayout(false);
-            this.ApisTabPage.ResumeLayout(false);
-            this.ApisTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ApisDataGridView)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.RequestsTabPage.ResumeLayout(false);
             this.RequestsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RequestsDataGridView)).EndInit();
@@ -357,15 +271,9 @@
         private TabControl MainTabControl;
         private TabPage RequestsTabPage;
         private DataGridView RequestsDataGridView;
-        private TabPage ApisTabPage;
-        private DataGridView ApisDataGridView;
-        private ToolStrip toolStrip1;
-        private ToolStripButton btnNewApi;
-        private ToolStripButton DeleteApiToolStripButton;
         private ToolStrip toolStrip2;
         private ToolStripLabel toolStripLabel1;
         private ToolStripComboBox toolStripComboBox1;
-        private ToolStripButton toolStripButton1;
         private ToolStripButton btnNewRequest;
         private ToolStripButton btnDeleteRequest;
         private ToolStripButton btnEditRequest;

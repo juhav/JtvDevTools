@@ -38,30 +38,30 @@
             this.label5 = new System.Windows.Forms.Label();
             this.ClientCertificateTextBox = new System.Windows.Forms.TextBox();
             this.SelectClientCertButton = new System.Windows.Forms.Button();
-            this.HeadersTextBox = new System.Windows.Forms.TextBox();
-            this.QueryParamsTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
-            this.cboApi = new System.Windows.Forms.ComboBox();
-            this.ApiBrowserButton = new System.Windows.Forms.Button();
+            this.txtRequestName = new System.Windows.Forms.TextBox();
             this.ResourceTextBox = new System.Windows.Forms.TextBox();
             this.RequestBodyTextBox = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.dgvHeaders = new System.Windows.Forms.DataGridView();
+            this.HeaderNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HeaderValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvQueryParams = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtApiName = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHeaders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQueryParams)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 93);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(7, 122);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 23);
@@ -71,7 +71,8 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 64);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(7, 93);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 23);
@@ -93,7 +94,7 @@
             "CONNECT",
             "OPTIONS",
             "TRACE"});
-            this.MethodComboBox.Location = new System.Drawing.Point(122, 64);
+            this.MethodComboBox.Location = new System.Drawing.Point(119, 93);
             this.MethodComboBox.Name = "MethodComboBox";
             this.MethodComboBox.Size = new System.Drawing.Size(154, 23);
             this.MethodComboBox.TabIndex = 2;
@@ -101,7 +102,7 @@
             // BaseUrlComboBox
             // 
             this.BaseUrlComboBox.FormattingEnabled = true;
-            this.BaseUrlComboBox.Location = new System.Drawing.Point(122, 93);
+            this.BaseUrlComboBox.Location = new System.Drawing.Point(119, 122);
             this.BaseUrlComboBox.Name = "BaseUrlComboBox";
             this.BaseUrlComboBox.Size = new System.Drawing.Size(326, 23);
             this.BaseUrlComboBox.TabIndex = 3;
@@ -109,7 +110,7 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(6, 122);
+            this.label3.Location = new System.Drawing.Point(7, 151);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 23);
@@ -119,7 +120,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(6, 151);
+            this.label4.Location = new System.Drawing.Point(7, 180);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 23);
@@ -136,14 +137,14 @@
             "Basic",
             "Windows with Default Credentials",
             "Windows"});
-            this.AuthenticationComboBox.Location = new System.Drawing.Point(122, 151);
+            this.AuthenticationComboBox.Location = new System.Drawing.Point(119, 180);
             this.AuthenticationComboBox.Name = "AuthenticationComboBox";
             this.AuthenticationComboBox.Size = new System.Drawing.Size(326, 23);
             this.AuthenticationComboBox.TabIndex = 9;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(6, 180);
+            this.label5.Location = new System.Drawing.Point(7, 208);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 23);
@@ -153,7 +154,7 @@
             // 
             // ClientCertificateTextBox
             // 
-            this.ClientCertificateTextBox.Location = new System.Drawing.Point(122, 180);
+            this.ClientCertificateTextBox.Location = new System.Drawing.Point(119, 209);
             this.ClientCertificateTextBox.MaxLength = 50;
             this.ClientCertificateTextBox.Name = "ClientCertificateTextBox";
             this.ClientCertificateTextBox.Size = new System.Drawing.Size(277, 23);
@@ -161,7 +162,7 @@
             // 
             // SelectClientCertButton
             // 
-            this.SelectClientCertButton.Location = new System.Drawing.Point(405, 180);
+            this.SelectClientCertButton.Location = new System.Drawing.Point(402, 209);
             this.SelectClientCertButton.Name = "SelectClientCertButton";
             this.SelectClientCertButton.Size = new System.Drawing.Size(43, 23);
             this.SelectClientCertButton.TabIndex = 12;
@@ -169,45 +170,21 @@
             this.SelectClientCertButton.UseVisualStyleBackColor = true;
             this.SelectClientCertButton.Click += new System.EventHandler(this.SelectClientCertButton_Click);
             // 
-            // HeadersTextBox
-            // 
-            this.HeadersTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.HeadersTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HeadersTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HeadersTextBox.ForeColor = System.Drawing.Color.Gainsboro;
-            this.HeadersTextBox.Location = new System.Drawing.Point(3, 3);
-            this.HeadersTextBox.Multiline = true;
-            this.HeadersTextBox.Name = "HeadersTextBox";
-            this.HeadersTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.HeadersTextBox.Size = new System.Drawing.Size(462, 355);
-            this.HeadersTextBox.TabIndex = 14;
-            // 
-            // QueryParamsTextBox
-            // 
-            this.QueryParamsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.QueryParamsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.QueryParamsTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.QueryParamsTextBox.ForeColor = System.Drawing.Color.Gainsboro;
-            this.QueryParamsTextBox.Location = new System.Drawing.Point(3, 3);
-            this.QueryParamsTextBox.Multiline = true;
-            this.QueryParamsTextBox.Name = "QueryParamsTextBox";
-            this.QueryParamsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.QueryParamsTextBox.Size = new System.Drawing.Size(462, 355);
-            this.QueryParamsTextBox.TabIndex = 16;
-            // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(6, 6);
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(7, 35);
             this.label9.Margin = new System.Windows.Forms.Padding(3);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 23);
+            this.label9.Size = new System.Drawing.Size(106, 23);
             this.label9.TabIndex = 18;
-            this.label9.Text = "Name:";
+            this.label9.Text = "Request Name:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(6, 35);
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(7, 64);
             this.label10.Margin = new System.Windows.Forms.Padding(3);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(89, 23);
@@ -215,36 +192,17 @@
             this.label10.Text = "API:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // NameTextBox
+            // txtRequestName
             // 
-            this.NameTextBox.Location = new System.Drawing.Point(122, 6);
-            this.NameTextBox.MaxLength = 50;
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(326, 23);
-            this.NameTextBox.TabIndex = 20;
-            // 
-            // cboApi
-            // 
-            this.cboApi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboApi.FormattingEnabled = true;
-            this.cboApi.Location = new System.Drawing.Point(122, 35);
-            this.cboApi.Name = "cboApi";
-            this.cboApi.Size = new System.Drawing.Size(277, 23);
-            this.cboApi.TabIndex = 21;
-            this.cboApi.SelectedIndexChanged += new System.EventHandler(this.cboApi_SelectedIndexChanged);
-            // 
-            // ApiBrowserButton
-            // 
-            this.ApiBrowserButton.Location = new System.Drawing.Point(405, 34);
-            this.ApiBrowserButton.Name = "ApiBrowserButton";
-            this.ApiBrowserButton.Size = new System.Drawing.Size(43, 23);
-            this.ApiBrowserButton.TabIndex = 22;
-            this.ApiBrowserButton.Text = "...";
-            this.ApiBrowserButton.UseVisualStyleBackColor = true;
+            this.txtRequestName.Location = new System.Drawing.Point(119, 36);
+            this.txtRequestName.MaxLength = 50;
+            this.txtRequestName.Name = "txtRequestName";
+            this.txtRequestName.Size = new System.Drawing.Size(326, 23);
+            this.txtRequestName.TabIndex = 20;
             // 
             // ResourceTextBox
             // 
-            this.ResourceTextBox.Location = new System.Drawing.Point(122, 122);
+            this.ResourceTextBox.Location = new System.Drawing.Point(119, 151);
             this.ResourceTextBox.MaxLength = 50;
             this.ResourceTextBox.Name = "ResourceTextBox";
             this.ResourceTextBox.Size = new System.Drawing.Size(326, 23);
@@ -252,107 +210,195 @@
             // 
             // RequestBodyTextBox
             // 
+            this.RequestBodyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RequestBodyTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.RequestBodyTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RequestBodyTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RequestBodyTextBox.ForeColor = System.Drawing.Color.Gainsboro;
-            this.RequestBodyTextBox.Location = new System.Drawing.Point(3, 3);
+            this.RequestBodyTextBox.Location = new System.Drawing.Point(7, 635);
             this.RequestBodyTextBox.Multiline = true;
             this.RequestBodyTextBox.Name = "RequestBodyTextBox";
             this.RequestBodyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.RequestBodyTextBox.Size = new System.Drawing.Size(462, 355);
+            this.RequestBodyTextBox.Size = new System.Drawing.Size(448, 273);
             this.RequestBodyTextBox.TabIndex = 25;
             // 
-            // tabControl1
+            // dgvHeaders
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(476, 389);
-            this.tabControl1.TabIndex = 26;
+            this.dgvHeaders.AllowUserToResizeRows = false;
+            this.dgvHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvHeaders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvHeaders.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvHeaders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHeaders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HeaderNameColumn,
+            this.HeaderValueColumn});
+            this.dgvHeaders.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvHeaders.Location = new System.Drawing.Point(7, 271);
+            this.dgvHeaders.Name = "dgvHeaders";
+            this.dgvHeaders.RowHeadersVisible = false;
+            this.dgvHeaders.RowTemplate.Height = 25;
+            this.dgvHeaders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvHeaders.ShowCellToolTips = false;
+            this.dgvHeaders.Size = new System.Drawing.Size(448, 135);
+            this.dgvHeaders.TabIndex = 1;
             // 
-            // tabPage1
+            // HeaderNameColumn
             // 
-            this.tabPage1.Controls.Add(this.AuthenticationComboBox);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.ResourceTextBox);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.ApiBrowserButton);
-            this.tabPage1.Controls.Add(this.MethodComboBox);
-            this.tabPage1.Controls.Add(this.cboApi);
-            this.tabPage1.Controls.Add(this.BaseUrlComboBox);
-            this.tabPage1.Controls.Add(this.NameTextBox);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.ClientCertificateTextBox);
-            this.tabPage1.Controls.Add(this.SelectClientCertButton);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(468, 361);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Request";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.HeaderNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.HeaderNameColumn.DataPropertyName = "Name";
+            this.HeaderNameColumn.HeaderText = "Name";
+            this.HeaderNameColumn.MaxInputLength = 100;
+            this.HeaderNameColumn.Name = "HeaderNameColumn";
+            this.HeaderNameColumn.Width = 200;
             // 
-            // tabPage2
+            // HeaderValueColumn
             // 
-            this.tabPage2.Controls.Add(this.HeadersTextBox);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(468, 361);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Headers";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.HeaderValueColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.HeaderValueColumn.DataPropertyName = "Value";
+            this.HeaderValueColumn.HeaderText = "Value";
+            this.HeaderValueColumn.MaxInputLength = 4096;
+            this.HeaderValueColumn.Name = "HeaderValueColumn";
+            this.HeaderValueColumn.Width = 200;
             // 
-            // tabPage3
+            // dgvQueryParams
             // 
-            this.tabPage3.Controls.Add(this.QueryParamsTextBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(468, 361);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Query Parameters";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.dgvQueryParams.AllowUserToResizeRows = false;
+            this.dgvQueryParams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvQueryParams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvQueryParams.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvQueryParams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvQueryParams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dgvQueryParams.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvQueryParams.Location = new System.Drawing.Point(7, 441);
+            this.dgvQueryParams.Name = "dgvQueryParams";
+            this.dgvQueryParams.RowHeadersVisible = false;
+            this.dgvQueryParams.RowTemplate.Height = 25;
+            this.dgvQueryParams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvQueryParams.ShowCellToolTips = false;
+            this.dgvQueryParams.Size = new System.Drawing.Size(448, 159);
+            this.dgvQueryParams.TabIndex = 2;
             // 
-            // tabPage4
+            // dataGridViewTextBoxColumn1
             // 
-            this.tabPage4.Controls.Add(this.RequestBodyTextBox);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(468, 361);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Body";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 100;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Value";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 4096;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 200;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.BackColor = System.Drawing.Color.LightGray;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(7, 242);
+            this.label6.Margin = new System.Windows.Forms.Padding(3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(448, 23);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "HEADERS";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.BackColor = System.Drawing.Color.LightGray;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(7, 412);
+            this.label7.Margin = new System.Windows.Forms.Padding(3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(448, 23);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "QUERY PARAMETERS";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.BackColor = System.Drawing.Color.LightGray;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(7, 606);
+            this.label8.Margin = new System.Windows.Forms.Padding(3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(448, 23);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "BODY";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.BackColor = System.Drawing.Color.LightGray;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(7, 7);
+            this.label11.Margin = new System.Windows.Forms.Padding(3);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(448, 23);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "REQUEST";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtApiName
+            // 
+            this.txtApiName.Location = new System.Drawing.Point(119, 64);
+            this.txtApiName.MaxLength = 50;
+            this.txtApiName.Name = "txtApiName";
+            this.txtApiName.Size = new System.Drawing.Size(326, 23);
+            this.txtApiName.TabIndex = 30;
             // 
             // HttpRequestUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.txtApiName);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.RequestBodyTextBox);
+            this.Controls.Add(this.dgvQueryParams);
+            this.Controls.Add(this.dgvHeaders);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.AuthenticationComboBox);
+            this.Controls.Add(this.SelectClientCertButton);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ClientCertificateTextBox);
+            this.Controls.Add(this.ResourceTextBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.MethodComboBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtRequestName);
+            this.Controls.Add(this.BaseUrlComboBox);
             this.Name = "HttpRequestUserControl";
-            this.Size = new System.Drawing.Size(476, 389);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.Padding = new System.Windows.Forms.Padding(4);
+            this.Size = new System.Drawing.Size(462, 915);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHeaders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQueryParams)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -368,19 +414,21 @@
         private Label label5;
         private TextBox ClientCertificateTextBox;
         private Button SelectClientCertButton;
-        private TextBox HeadersTextBox;
-        private TextBox QueryParamsTextBox;
         private Label label9;
         private Label label10;
-        private TextBox NameTextBox;
-        private Button ApiBrowserButton;
+        private TextBox txtRequestName;
         private TextBox ResourceTextBox;
         private TextBox RequestBodyTextBox;
-        private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
-        private TabPage tabPage3;
-        private TabPage tabPage4;
-        public ComboBox cboApi;
+        private DataGridView dgvHeaders;
+        private DataGridViewTextBoxColumn HeaderNameColumn;
+        private DataGridViewTextBoxColumn HeaderValueColumn;
+        private DataGridView dgvQueryParams;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label11;
+        private TextBox txtApiName;
     }
 }

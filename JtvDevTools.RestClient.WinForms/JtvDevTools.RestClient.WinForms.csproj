@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="CertificateBrowserForm.cs">
+    <Compile Update="Forms\CertificateBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="HttpRequestForm.cs">
+    <Compile Update="Forms\HttpRequestForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

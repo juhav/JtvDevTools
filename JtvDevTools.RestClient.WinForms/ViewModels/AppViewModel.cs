@@ -10,6 +10,5 @@ namespace JtvDevTools.RestClient.WinForms.ViewModels;
 
 public class AppViewModel
 {
-    public BindingList<Api> Apis { get; set; }
     public BindingList<HttpRequest> Requests { get; set; }
 }

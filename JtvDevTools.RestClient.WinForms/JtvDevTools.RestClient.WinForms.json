@@ -1,0 +1,8 @@
+{
+  "Scopes": [
+    "DEV",
+    "TEST",
+    "STAGING",
+    "PRODUCTION"
+  ]
+}

@@ -12,15 +12,12 @@ namespace JtvDevTools.RestClient.WinForms;
 
 public interface IDB
 {
-    void DeleteApi(Guid id);
     void DeleteRequest(Guid id);
     void DeleteVariable(Guid id);
 
-    List<Api> GetApis();
     List<HttpRequest> GetRequests();
     List<Variable> GetVariables();
 
-    void SaveApi(Api api);
     void SaveRequest(HttpRequest request);
     void SaveVariable(Variable variable);
 
@@ -30,7 +27,6 @@ public class LiteDB : IDB
 {
     private class Collections
     {
-        public const string Apis = "apis";
         public const string Requests = "requests";
         public const string Variables = "variables";
     }
@@ -44,11 +40,6 @@ public class LiteDB : IDB
         this.connectionString = connectionString;
     }
 
-    public void DeleteApi(Guid id)
-    {
-        Delete(id, Collections.Apis);
-    }
-
     public void DeleteRequest(Guid id)
     {
         Delete(id, Collections.Requests);
@@ -59,10 +50,6 @@ public class LiteDB : IDB
         Delete(id, Collections.Variables);
     }
 
-    public List<Api> GetApis()
-    {
-        return Get<Api>(Collections.Apis);
-    }
 
     public List<HttpRequest> GetRequests()
     {
@@ -72,11 +59,6 @@ public class LiteDB : IDB
     public List<Variable> GetVariables()
     {
         return Get<Variable>(Collections.Variables);
-    }
-
-    public void SaveApi(Api api)
-    {
-        Save(api, Collections.Apis);
     }
 
     public void SaveRequest(HttpRequest request)
