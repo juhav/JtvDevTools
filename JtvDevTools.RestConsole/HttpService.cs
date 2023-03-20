@@ -17,14 +17,14 @@ public class HttpService
     {
     }
 
-    public RestResponse Send(ApiOperation operation)
+    public RestResponse Send(ApiRequest apiRequest)
     {
-        if (operation == null) throw new ArgumentException(nameof(operation));
+        if (apiRequest == null) throw new ArgumentException(nameof(apiRequest));
 
-        var baseUrl = operation.BaseUrl;
-        var user = operation.User;
-        var pwd = operation.Pwd;
-        var authenticatorName = operation.AuthenticatorName;
+        var baseUrl = apiRequest.BaseUrl;
+        var user = apiRequest.User;
+        var pwd = apiRequest.Pwd;
+        var authenticatorName = apiRequest.AuthenticatorName;
 
         if (string.IsNullOrWhiteSpace(baseUrl))
         {
@@ -51,7 +51,7 @@ public class HttpService
                 break;
         }
 
-        SetClientCertificate(options, operation.ClientCertificate);
+        SetClientCertificate(options, apiRequest.ClientCertificate);
 
         var client = new RestClient(options);
 
@@ -66,18 +66,18 @@ public class HttpService
                 break;
         }
 
-        var request = new RestRequest(operation.Resource);
+        var request = new RestRequest(apiRequest.Resource);
         request.RequestFormat = DataFormat.Json;
 
-        if (operation.Method != HttpMethod.GET && operation.Body != null)
+        if (apiRequest.Method != HttpMethod.GET && apiRequest.Body != null)
         {
-            request.AddParameter("application/json", operation.Body, ParameterType.RequestBody);
+            request.AddParameter("application/json", apiRequest.Body, ParameterType.RequestBody);
         }
 
-        SetQueryParams(request, operation.QueryParams);
-        SetHeaders(request, operation.Headers);
+        SetQueryParams(request, apiRequest.QueryParams);
+        SetHeaders(request, apiRequest.Headers);
 
-        switch (operation.Method)
+        switch (apiRequest.Method)
         {
             case HttpMethod.GET:
                 return client.Get(request);

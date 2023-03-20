@@ -1,13 +1,13 @@
 ﻿[Request]
 Name = Get something
-BaseUrl = <TEST.BASEURL>
+BaseUrl = DEV https://catfact.ninja/
+BaseUrl = TEST https://catfact.ninja/
 Method = GET
 Resource = fact
 Auth = NTLM
 User =
 Pwd =
 ClientCert = 
-DefaultCredentials = 
 Pretty Print = true
 
 [Headers]

@@ -19,12 +19,12 @@ public class Parser
         Body
     }
 
-    public ApiOperation Operation { get; private set; }
+    public ApiRequest Operation { get; private set; }
 
     public Parser(Dictionary<string, string> variables)
     {
         this.variables = variables;
-        Operation = new ApiOperation();
+        Operation = new ApiRequest();
     }
 
     public void Parse(string instructions)
@@ -190,6 +190,8 @@ public class Parser
     {
         value = GetGlobalVariable(value);
 
+        var ucaseKey = key.ToUpperInvariant();
+
         switch (key.ToUpperInvariant())
         {
             case "METHOD":
@@ -205,7 +207,7 @@ public class Parser
                 break;
 
             case "BASEURL":
-                Operation.BaseUrl = value;
+                //Operation.BaseUrl.Add(value);
                 break;
 
             case "USER":

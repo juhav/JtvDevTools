@@ -16,19 +16,47 @@ public enum HttpMethod
     DELETE
 }
 
-public class ApiOperation
+//public class BaseUrl
+//{
+//    private string name = "";
+//    private string url = "";
+
+//    public string Name 
+//    {
+//        get => name;
+//        set => name = (value ?? "").Trim();
+//    }
+
+//    public string Url 
+//    {
+//        get => url;
+//        set => url = (value ?? "").Trim();
+//    }
+//}
+
+public class ApiRequest
 {
+    private Dictionary<string, string> headers = new Dictionary<string, string>();
+    private Dictionary<string, string> queryParams = new Dictionary<string, string>();
     private string authenticatorName = "";
 
-    public int Id { get; set; }
-    public string? BaseUrl { get; set; }
+    public Guid Id { get; set; }
     public string? Name { get; set; }
-    public string? ApiName { get; set; }
     public HttpMethod Method { get; set; }
+    public string? BaseUrl { get; set; }
     public string? Resource { get; set; }
-    public string? Body { get; set; }
-    public Dictionary<string, string> Headers { get; }
-    public Dictionary<string, string> QueryParams { get; }
+    
+    public Dictionary<string, string> Headers 
+    {
+        get => headers;
+        set => headers = (value != null ? value : new Dictionary<string, string>());
+    }
+    
+    public Dictionary<string, string> QueryParams
+    {
+        get => queryParams;
+        set => queryParams = (value != null ? value : new Dictionary<string, string>());
+    }
 
     public string AuthenticatorName
     {
@@ -40,9 +68,11 @@ public class ApiOperation
     public string? Pwd { get; set; }
     public string? ClientCertificate { get; set; }
     public bool PrettyPrint { get; set; }
+    public string? Body { get; set; }
 
-    public ApiOperation()
+    public ApiRequest()
     {
+        Id = Guid.NewGuid();
         Headers = new Dictionary<string, string>();
         QueryParams = new Dictionary<string, string>();
     }

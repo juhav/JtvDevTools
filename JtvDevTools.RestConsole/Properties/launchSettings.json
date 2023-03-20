@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JtvDevTools.RestConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "data/sample-request.json"
+    }
+  }
+}

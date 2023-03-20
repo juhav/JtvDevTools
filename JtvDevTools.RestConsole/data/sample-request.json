@@ -1,0 +1,17 @@
+{
+  "Id": "180f3801-4c30-465e-9d19-83207710185c",
+  "Name": "Sample request",
+  "Method": "GET",
+  "BaseUrl": "https://api.restful-api.dev",
+  "Resource": "objects/<=Input(\"Id?\")>",
+  "Headers": {
+    "Cache-Control": "no-cache"
+  },
+  "QueryParams": {},
+  "AuthenticatorName": "",
+  "User": null,
+  "Pwd": null,
+  "ClientCertificate": "",
+  "PrettyPrint": true,
+  "Body": "<=Var(\"test\")>"
+}
