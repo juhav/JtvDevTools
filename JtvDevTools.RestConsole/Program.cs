@@ -12,39 +12,45 @@ internal class Program
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Usage: JtvDevTools.RestConsole <request.json>");
+                Console.WriteLine("Usage: JtvDevTools.RestConsole <request.txt>");
                 return;
             }
 
-            var requestJsonFile = args[0];
+            var requestFile = args[0];
+            var variablesFile = Path.Combine(Path.GetDirectoryName(requestFile)!, "variables.txt");
 
-            if (!File.Exists(requestJsonFile))
+            if (!File.Exists(requestFile))
             {
-                Console.WriteLine($"Request file not found '{requestJsonFile}'!");
+                Console.WriteLine($"Request file not found '{requestFile}'!");
                 return;
             }
 
-            var json = File.ReadAllText(requestJsonFile, Encoding.UTF8);
-            var request = GetApiRequestFromJson(json);
+            Dictionary<string, string> variables;
+            if (File.Exists(variablesFile))
+            {
+                var variablesText = File.ReadAllText(variablesFile, Encoding.UTF8);
+                variables = Utils.GetKeyValuePairs(variablesText);
+            }
+            else
+            {
+                variables = new Dictionary<string, string>();
+            }
+
+            var parser = new Parser(variables);
+            var requestText = File.ReadAllText(requestFile, Encoding.UTF8);
+
+            parser.Parse(requestText);
+            var request = parser.ApiRequest;
 
             if (request == null)
             {
-                Console.WriteLine($"Request is null after deserialization!");
+                Console.WriteLine($"Request is null after parsing!");
                 return;
             }
 
             Evaluate(request);
-            //if (!File.Exists(variablesFile))
-            //{
-            //    Console.WriteLine($"Variables file not found '{variablesFile}'!");
-            //    return;
-            //}
 
-
-            //var variablesText = File.ReadAllText(variablesFile, Encoding.UTF8);
-            //var variables = Utils.GetKeyValuePairs(variablesText);
             var http = new HttpService();
-
 
             var fgColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.White;

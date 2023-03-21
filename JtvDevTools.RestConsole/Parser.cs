@@ -8,7 +8,7 @@ namespace JtvDevTools.RestConsole;
 
 public class Parser
 {
-    private readonly Dictionary<string, string> variables = new Dictionary<string, string>();
+    private readonly CodingSeb.ExpressionEvaluator.ExpressionEvaluator evaluator;
 
     public enum MessageSection
     {
@@ -19,19 +19,36 @@ public class Parser
         Body
     }
 
-    public ApiRequest Operation { get; private set; }
+    public ApiRequest ApiRequest { get; private set; }
 
     public Parser(Dictionary<string, string> variables)
     {
-        this.variables = variables;
-        Operation = new ApiRequest();
+        evaluator = new CodingSeb.ExpressionEvaluator.ExpressionEvaluator()
+        {
+            Context = new EvaluatorContext()
+            {
+                Variables = variables
+            }
+        };
+
+        ApiRequest = new ApiRequest();
     }
 
-    public void Parse(string instructions)
+    public void Parse(string requestText)
     {
-        string[] lines = instructions.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        if (string.IsNullOrWhiteSpace(requestText)) return;
 
-        var body = new StringBuilder(4096);
+        var bodyIndex = requestText.IndexOf("[BODY]", StringComparison.InvariantCultureIgnoreCase);
+
+        if (bodyIndex == -1) return;
+       
+        var requestVariablesText = requestText.Substring(0, bodyIndex);
+        var bodyText = requestText.Substring(bodyIndex + 6);
+
+        requestVariablesText = Evaluate(requestVariablesText);
+        ApiRequest.Body = Evaluate(bodyText).Trim();
+
+        string[] lines = requestVariablesText.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         MessageSection currentSection = MessageSection.Undefined;
 
@@ -58,7 +75,6 @@ public class Parser
                         break;
 
                     case "[BODY]":
-                        currentSection = MessageSection.Body;
                         break;
 
                     default:
@@ -82,76 +98,58 @@ public class Parser
                         break;
 
                     case MessageSection.Body:
-                        body.AppendLine(lines[i]);
-                        break;
+                         break;
                 }
             }
         }
 
-        Operation.Body = EvaluateBody(body);
     }
 
-    private string EvaluateBody(StringBuilder body)
+    private string Evaluate(string? text)
     {
-        var matches = System.Text.RegularExpressions.Regex.Matches(body.ToString(), @"\<\=.+?\>");
+        if (string.IsNullOrWhiteSpace(text)) return "";
+
+        var matches = System.Text.RegularExpressions.Regex.Matches(text, @"\{\!.+?\!\}");
+
+        if (matches.Count == 0) return text;
+
+        var sb = new StringBuilder(4096);
+        sb.Append(text);
 
         foreach (System.Text.RegularExpressions.Match match in matches)
         {
-            var value = match.Value.Trim("<=> ".ToCharArray());
-            var tokens = value.Split("()".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var value = match.Value.Trim("{}! ".ToCharArray());
+            var result = (string)evaluator.Evaluate(value);
 
-            switch (tokens[0].ToUpperInvariant())
-            {
-                case "FILETOBASE64":
-                    var filename = tokens[1].Trim('\"');
-
-                    if (File.Exists(filename))
-                    {
-                        body = body.Replace(match.Value, Utils.FileToBase64(filename));
-                    }
-                    else
-                    {
-                        throw new ApplicationException($"File not found: {filename}");
-                    }
-                    break;
-
-                case "INPUT":
-                    Console.Write(tokens[1]);
-                    Console.Write(" ");
-                    var input = Console.ReadLine();
-                    body = body.Replace(match.Value, input);
-                    break;
-            }
-
+            sb = sb.Replace(match.Value, result);
         }
         // <= fileToBase64("c:\temp\test.txt")>
         // <= guid()>
         // <= guid("N")>
         // <= randomInt(1,10)>
         // <= randomLine("c:\temp\test.txt")>
+        // <= var("XAPI.TEST.BASEURL")>
 
-        return body.ToString();
+        return sb.ToString();
     }
 
     private void ProcessHeader(string s)
     {
         Utils.GetKeyValuePair(s, out string key, out string value);
-        value = GetGlobalVariable(value);
 
         if (!string.IsNullOrWhiteSpace(key))
         {
-            Operation.Headers.Add(key, value);
+            ApiRequest.Headers.Add(key, value);
         }
     }
 
     private void ProcessQueryParam(string s)
     {
         Utils.GetKeyValuePair(s, out string key, out string value);
-        value = GetGlobalVariable(value);
 
         if (!string.IsNullOrWhiteSpace(key))
         {
-            Operation.QueryParams.Add(key, value);
+            ApiRequest.QueryParams.Add(key, value);
         }
     }
 
@@ -165,79 +163,58 @@ public class Parser
         }
     }
 
-    private string GetGlobalVariable(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value)) return value;
-
-        if (value.StartsWith('<') && value.EndsWith('>'))
-        {
-            value = value.Trim("<>".ToCharArray());
-
-            if (variables.TryGetValue(value, out string? variable))
-            {
-                value = variable;
-            }
-            else
-            {
-                throw new ApplicationException($"Variable '{value}' not found.");
-            }
-        }
-
-        return value;
-    }
-
     private void SetVariable(string key, string value)
     {
-        value = GetGlobalVariable(value);
-
-        var ucaseKey = key.ToUpperInvariant();
-
         switch (key.ToUpperInvariant())
         {
             case "METHOD":
-                Operation.Method = HttpMethod.GET;
+                ApiRequest.Method = HttpMethod.Undefined;
+                
                 if (Enum.TryParse(value, true, out HttpMethod method))
                 {
-                    Operation.Method = method;
+                    ApiRequest.Method = method;
                 }
                 break;
 
             case "RESOURCE":
-                Operation.Resource = value;
+                ApiRequest.Resource = value;
                 break;
 
             case "BASEURL":
-                //Operation.BaseUrl.Add(value);
+                ApiRequest.BaseUrl = value;
                 break;
 
             case "USER":
-                Operation.User = value;
+                ApiRequest.User = value;
                 break;
 
             case "PWD":
-                Operation.Pwd = value;
+                ApiRequest.Pwd = value;
                 break;
 
             case "CLIENTCERT":
             case "CLIENT CERT":
-                Operation.ClientCertificate = value.Replace(" ", "");
+                ApiRequest.ClientCertificate = value.Replace(" ", "");
                 break;
 
             case "AUTH":
-                Operation.AuthenticatorName = value;
+                ApiRequest.AuthenticatorName = value;
                 break;
 
             case "PRETTYPRINT":
             case "PRETTY PRINT":
-                Operation.PrettyPrint = value.ToLowerInvariant() == "true";
+                ApiRequest.PrettyPrint = value.ToLowerInvariant() == "true";
                 break;
 
-            //case "DEFAULTCREDENTIALS":
-            //case "DEFAULT CREDENTIALS":
-            //    Operation.UseDefaultCredentials = value.ToLowerInvariant() == "true"; ;
-            //    break;
+            case "ID":
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    ApiRequest.Id = new Guid(value);
+                }
+                break;
 
             case "NAME":
+                ApiRequest.Name = value.Trim();
                 break;
 
             default:

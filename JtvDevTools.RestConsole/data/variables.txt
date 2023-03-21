@@ -1,1 +1,1 @@
-﻿TEST.BASEURL = https://catfact.ninja/
+﻿TEST.BASEURL = https://api.restful-api.dev

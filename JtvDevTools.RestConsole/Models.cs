@@ -10,7 +10,8 @@ namespace JtvDevTools.RestConsole;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum HttpMethod
 {
-    GET = 0,
+    Undefined = 0,
+    GET,
     POST,
     PUT,
     DELETE

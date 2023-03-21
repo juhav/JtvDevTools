@@ -55,11 +55,10 @@
 
 public class EvaluatorContext
 {
-    public Dictionary<string, string> variables = new Dictionary<string, string>();
+    public Dictionary<string, string> Variables = new Dictionary<string, string>();
 
     public EvaluatorContext()
     {
-        variables.Add("test", "test-value");
     }
 
     public string? Input(string prompt)
@@ -104,7 +103,7 @@ public class EvaluatorContext
 
     public string Var(string name)
     {
-        return variables[name];
+        return Variables[name];
     }
 
     public string RandomLine(string fileName)

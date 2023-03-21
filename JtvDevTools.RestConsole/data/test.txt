@@ -1,19 +1,20 @@
-﻿[Request]
+﻿[REQUEST] 
+Id = C339A91A-E8CA-4673-9889-CD6D1FD81DDE
 Name = Get something
-BaseUrl = DEV https://catfact.ninja/
-BaseUrl = TEST https://catfact.ninja/
+BaseUrl = {! Var("TEST.BASEURL") !}
 Method = GET
-Resource = fact
+Resource = objects
 Auth = NTLM
 User =
 Pwd =
 ClientCert = 
 Pretty Print = true
 
-[Headers]
+[HEADERS]
 
-[Query]
+[QUERY]
 
-[Body]
-
-
+[BODY]
+{
+  "Test": "Hello"
+}
