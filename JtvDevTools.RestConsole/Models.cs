@@ -17,24 +17,6 @@ public enum HttpMethod
     DELETE
 }
 
-//public class BaseUrl
-//{
-//    private string name = "";
-//    private string url = "";
-
-//    public string Name 
-//    {
-//        get => name;
-//        set => name = (value ?? "").Trim();
-//    }
-
-//    public string Url 
-//    {
-//        get => url;
-//        set => url = (value ?? "").Trim();
-//    }
-//}
-
 public class ApiRequest
 {
     private Dictionary<string, string> headers = new Dictionary<string, string>();
