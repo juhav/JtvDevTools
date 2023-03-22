@@ -10,7 +10,6 @@ namespace JtvDevTools.RestConsole;
 
 public static class Utils
 {
-    
     public static Dictionary<string, string> GetKeyValuePairs(string text)
     {
         var result = new Dictionary<string, string>();

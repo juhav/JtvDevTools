@@ -87,6 +87,11 @@ internal class Program
             return;
         }
 
+        var contentType = (response.ContentType ?? "");
+        var contentLength = response.Content != null ? response.Content.Length : 0;
+
+        Console.Write("HTTP Status: ");
+
         if (response.IsSuccessStatusCode)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -101,11 +106,12 @@ internal class Program
         Console.WriteLine(response.StatusCode.ToString());
 
         Console.ForegroundColor = fgColor;
-        Console.Write(elapsedMilliseconds);
-        Console.WriteLine(" ms");
+        Console.WriteLine($"Elapsed Time: {elapsedMilliseconds} ms");
+        Console.WriteLine($"Content Type: {contentType}");
+        Console.WriteLine($"Content Length: {contentLength} bytes");
         Console.WriteLine();
 
-        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+        Console.ForegroundColor = ConsoleColor.DarkGray;
         if (response.Headers != null)
         {
             foreach (var header in response.Headers)
@@ -128,7 +134,6 @@ internal class Program
 
         Console.ForegroundColor = fgColor;
 
-        var contentType = (response.ContentType ?? "");
 
         if (operation.PrettyPrint)
         {
@@ -151,4 +156,5 @@ internal class Program
         }
     }
 
+    
 }
