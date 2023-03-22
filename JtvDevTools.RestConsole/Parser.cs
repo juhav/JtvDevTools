@@ -45,8 +45,8 @@ public class Parser
         var requestVariablesText = requestText.Substring(0, bodyIndex);
         var bodyText = requestText.Substring(bodyIndex + 6);
 
-        requestVariablesText = Evaluate(requestVariablesText);
-        ApiRequest.Body = Evaluate(bodyText).Trim();
+        requestVariablesText = EvaluateExpressions(requestVariablesText);
+        ApiRequest.Body = EvaluateExpressions(bodyText).Trim();
 
         string[] lines = requestVariablesText.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -105,7 +105,7 @@ public class Parser
 
     }
 
-    private string Evaluate(string? text)
+    private string EvaluateExpressions(string? text)
     {
         if (string.IsNullOrWhiteSpace(text)) return "";
 
@@ -123,12 +123,6 @@ public class Parser
 
             sb = sb.Replace(match.Value, result);
         }
-        // <= fileToBase64("c:\temp\test.txt")>
-        // <= guid()>
-        // <= guid("N")>
-        // <= randomInt(1,10)>
-        // <= randomLine("c:\temp\test.txt")>
-        // <= var("XAPI.TEST.BASEURL")>
 
         return sb.ToString();
     }

@@ -48,8 +48,6 @@ internal class Program
                 return;
             }
 
-            Evaluate(request);
-
             var http = new HttpService();
 
             var fgColor = Console.ForegroundColor;
@@ -153,91 +151,4 @@ internal class Program
         }
     }
 
-    private static void Evaluate(ApiRequest request)
-    {
-        var sb = new StringBuilder(32768);
-
-        var eval = new CodingSeb.ExpressionEvaluator.ExpressionEvaluator();
-        
-        eval.Context = new EvaluatorContext();
-
-        request.BaseUrl = Evaluate(request.BaseUrl, sb, eval);
-        request.Resource = Evaluate(request.Resource, sb, eval);
-        request.Body = Evaluate(request.Body, sb, eval);
-        request.User = Evaluate(request.User, sb, eval);
-        request.Pwd = Evaluate(request.Pwd, sb, eval);
-        request.ClientCertificate = Evaluate(request.ClientCertificate, sb, eval);
-    }
-
-    private static string Evaluate(string? text, StringBuilder sb, CodingSeb.ExpressionEvaluator.ExpressionEvaluator evaluator)
-    {
-        if (string.IsNullOrWhiteSpace(text)) return "";
-
-        sb.Clear();
-
-        var matches = System.Text.RegularExpressions.Regex.Matches(text, @"\<\=.+?\>");
-
-        if (matches.Count == 0) return text;
-
-        sb.Append(text);
-
-        foreach (System.Text.RegularExpressions.Match match in matches)
-        {
-            var value = match.Value.Trim("<=> ".ToCharArray());
-            var result = (string)evaluator.Evaluate(value);
-
-            sb = sb.Replace(match.Value, result);
-        }
-        // <= fileToBase64("c:\temp\test.txt")>
-        // <= guid()>
-        // <= guid("N")>
-        // <= randomInt(1,10)>
-        // <= randomLine("c:\temp\test.txt")>
-        // <= var("XAPI.TEST.BASEURL")>
-
-        return sb.ToString();
-    }
-
-    public static string GetApiRequestAsJson()
-    {
-        var request = new ApiRequest()
-        {
-            AuthenticatorName = "NTLM",
-            Body = "",
-            ClientCertificate = "",
-            Method = HttpMethod.GET,
-            Name = "Sample request",
-            Resource = "api/v1/sample",
-            
-        };
-        request.Headers.Add("Cache-Control", "no-cache");
-
-        var result = System.Text.Json.JsonSerializer.Serialize(request, new System.Text.Json.JsonSerializerOptions()
-        {
-            WriteIndented = true
-        });
-
-        return result;
-    }
-
-    public static ApiRequest? GetApiRequestFromJson(string json)
-    {
-        var request = new ApiRequest()
-        {
-            AuthenticatorName = "NTLM",
-            Body = "",
-            ClientCertificate = "",
-            Method = HttpMethod.GET,
-            Name = "Sample request",
-            Resource = "api/v1/sample",
-        };
-
-        var result = System.Text.Json.JsonSerializer.Deserialize<ApiRequest>(json, new System.Text.Json.JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = false,
-            WriteIndented = true
-        });
-
-        return result;
-    }
 }

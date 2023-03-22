@@ -55,6 +55,8 @@
 
 public class EvaluatorContext
 {
+    private Random rng = new Random();
+
     public Dictionary<string, string> Variables = new Dictionary<string, string>();
 
     public EvaluatorContext()
@@ -73,7 +75,6 @@ public class EvaluatorContext
 
     public string? RandomInt(int min, int max)
     {
-        var rng = new Random();
         var number = rng.Next(min, max + 1);
 
         return number.ToString();
@@ -110,7 +111,10 @@ public class EvaluatorContext
     {
         if (File.Exists(fileName))
         {
-            return "";
+            var lines = File.ReadAllLines(fileName);
+            int i = rng.Next(0, lines.Length);
+
+            return lines[i];
         }
         else
         {

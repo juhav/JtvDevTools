@@ -112,7 +112,7 @@ public static class X509Helper
                     continue;
                 }
             }
-
+            
             var certVM = new CertificateViewModel()
             {
                 FriendlyName = cert.FriendlyName,

@@ -15,36 +15,43 @@ namespace JtvDevTools.Commands
         {
             if (input == null) return null;
 
-            var xml = string.Join("\r\n", input);
+            try
+            {
+                var xml = string.Join("\r\n", input);
 
-            MemoryStream mStream = new MemoryStream();
-            System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(mStream, Encoding.Unicode);
-            System.Xml.XmlDocument document = new System.Xml.XmlDocument();
+                MemoryStream mStream = new MemoryStream();
+                System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(mStream, Encoding.Unicode);
+                System.Xml.XmlDocument document = new System.Xml.XmlDocument();
 
-            // Load the XmlDocument with the XML.
-            document.LoadXml(xml);
+                // Load the XmlDocument with the XML.
+                document.LoadXml(xml);
 
-            writer.Formatting = System.Xml.Formatting.Indented;
+                writer.Formatting = System.Xml.Formatting.Indented;
 
-            // Write the XML into a formatting XmlTextWriter
-            document.WriteContentTo(writer);
-            writer.Flush();
-            mStream.Flush();
+                // Write the XML into a formatting XmlTextWriter
+                document.WriteContentTo(writer);
+                writer.Flush();
+                mStream.Flush();
 
-            // Have to rewind the MemoryStream in order to read
-            // its contents.
-            mStream.Position = 0;
+                // Have to rewind the MemoryStream in order to read
+                // its contents.
+                mStream.Position = 0;
 
-            // Read MemoryStream contents into a StreamReader.
-            StreamReader sReader = new StreamReader(mStream);
+                // Read MemoryStream contents into a StreamReader.
+                StreamReader sReader = new StreamReader(mStream);
 
-            // Extract the text from the StreamReader.
-            string formattedXml = sReader.ReadToEnd();
+                // Extract the text from the StreamReader.
+                string formattedXml = sReader.ReadToEnd();
 
-            mStream.Close();
-            writer.Close();
+                mStream.Close();
+                writer.Close();
 
-            return formattedXml.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                return formattedXml.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            catch (Exception ex)
+            {
+                return new string[] { ex.Message };
+            }
         }
     }
 }
