@@ -208,7 +208,11 @@ public class Parser
                 break;
 
             case "NAME":
-                ApiRequest.Name = value.Trim();
+                ApiRequest.Name = value;
+                break;
+            
+            case "SAVERESPONSEBODYTOFILE":
+                ApiRequest.SaveResponseBodyToFile = value;
                 break;
 
             default:
