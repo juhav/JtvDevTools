@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using RestSharp;
 using System.Diagnostics;
 using System.Text;
 
@@ -10,14 +11,15 @@ internal class Program
     {
         try
         {
-            if (args.Length == 0)
+            if (args.Length < 2)
             {
-                Console.WriteLine("Usage: JtvDevTools.RestConsole <request.txt>");
+                Console.WriteLine("Usage: JtvDevTools.RestConsole <request.txt> <variables.txt> mode");
                 return;
             }
 
             var requestFile = args[0];
-            var variablesFile = Path.Combine(Path.GetDirectoryName(requestFile)!, "variables.txt");
+            var variablesFile = args[1];
+            var outputMode = RequestOutputMode.All;
 
             if (!File.Exists(requestFile))
             {
@@ -36,11 +38,17 @@ internal class Program
                 variables = new Dictionary<string, string>();
             }
 
+            if (args.Length > 2)
+            {
+                outputMode = Enum.Parse<RequestOutputMode>(args[2], true);
+            }
+
             var parser = new Parser(variables);
             var requestText = File.ReadAllText(requestFile, Encoding.UTF8);
 
             parser.Parse(requestText);
             var request = parser.ApiRequest;
+            request.OutputMode = outputMode;
 
             if (request == null)
             {
@@ -56,7 +64,8 @@ internal class Program
             Console.Write(" ");
             Console.Write(request.BaseUrl);
             Console.Write("/");
-            Console.WriteLine(request.Resource);
+            Console.Write(request.Resource);
+            Console.Write(" ");
             Console.ForegroundColor = fgColor;
 
             var stopWatch = Stopwatch.StartNew();
@@ -90,71 +99,117 @@ internal class Program
         var contentType = (response.ContentType ?? "");
         var contentLength = response.Content != null ? response.Content.Length : 0;
 
-        Console.Write("HTTP Status: ");
-
-        if (response.IsSuccessStatusCode)
+        if (operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.StatusCode)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-        }
+            Console.Write("[");
 
-        Console.Write((int)response.StatusCode);
-        Console.Write(" - ");
-        Console.WriteLine(response.StatusCode.ToString());
-
-        Console.ForegroundColor = fgColor;
-        Console.WriteLine($"Elapsed Time: {elapsedMilliseconds} ms");
-        Console.WriteLine($"Content Type: {contentType}");
-        Console.WriteLine($"Content Length: {contentLength} bytes");
-        Console.WriteLine();
-
-        Console.ForegroundColor = ConsoleColor.DarkGray;
-        if (response.Headers != null)
-        {
-            foreach (var header in response.Headers)
+            if (response.IsSuccessStatusCode)
             {
-                Console.Write(header.Name);
-                Console.Write(": ");
-                Console.WriteLine(header.Value?.ToString());
+                Console.ForegroundColor = ConsoleColor.Green;
             }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+
+            Console.Write((int)response.StatusCode);
+            Console.Write(" - ");
+            Console.Write(response.StatusCode.ToString());
+
+            Console.ForegroundColor = fgColor;
+            Console.Write("] ");
+
+            Console.Write($"{elapsedMilliseconds} ms");
+            //Console.WriteLine($"Content Type: {contentType}");
+            Console.WriteLine($", {contentLength} bytes");
         }
 
-        Console.WriteLine();
+        //if (operation.OutputMode == RequestOutputMode.All)
+        //{
+        //    Console.ForegroundColor = fgColor;
+        //    Console.WriteLine($"Elapsed Time: {elapsedMilliseconds} ms");
+        //    Console.WriteLine($"Content Type: {contentType}");
+        //    Console.WriteLine($"Content Length: {contentLength} bytes");
+        //    Console.WriteLine();
+        //}
+
+        PrintHeaders(operation, response);
 
         if (!response.IsSuccessful)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(response?.ErrorMessage);
-            Console.ForegroundColor = fgColor; 
+            Console.ForegroundColor = fgColor;
             return;
         }
 
         Console.ForegroundColor = fgColor;
 
 
-        if (operation.PrettyPrint)
+        bool isOutputFile = !string.IsNullOrWhiteSpace(operation.SaveResponseBodyToFile);
+        bool isOutputModeWithBody = operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.Body;
+
+        if (isOutputFile || isOutputModeWithBody)
         {
-            if (contentType.Contains("application/json") || contentType.Contains("application/problem+json"))
+            if (operation.PrettyPrint)
             {
-                Console.WriteLine(Utils.PrettyJson(response.Content));
-            }
-            else if (contentType.Contains("text/xml") || contentType.Contains("application/xml"))
-            {
-                Console.WriteLine(Utils.PrettyXML(response.Content));
+                if (contentType.Contains("application/json") || contentType.Contains("application/problem+json"))
+                {
+                    var json = Utils.PrettyJson(response.Content);
+
+                    if (isOutputModeWithBody)
+                    {
+                        Console.WriteLine(json);
+                    }
+
+                    if (isOutputFile)
+                    {
+                        File.WriteAllText(operation.SaveResponseBodyToFile, json, Encoding.UTF8);
+                    }
+                }
+                else if (contentType.Contains("text/xml") || contentType.Contains("application/xml"))
+                {
+                    var xml = Utils.PrettyXML(response.Content);
+
+                    if (isOutputModeWithBody)
+                    {
+                        Console.WriteLine(xml);
+                    }
+
+                    if (isOutputFile)
+                    {
+                        File.WriteAllText(operation.SaveResponseBodyToFile, xml, Encoding.UTF8);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(response.Content);
+                }
             }
             else
             {
                 Console.WriteLine(response.Content);
             }
         }
-        else
-        {
-            Console.WriteLine(response.Content);
-        }
+
     }
 
-    
+    private static void PrintHeaders(ApiRequest operation, RestResponse response)
+    {
+        if (!(operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.Headers)) return;
+        if (response.Headers == null) return;
+
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+
+        foreach (var header in response.Headers)
+        {
+            Console.Write(header.Name);
+            Console.Write(": ");
+            Console.WriteLine(header.Value?.ToString());
+        }
+
+        Console.WriteLine();
+    }
+
+
 }
