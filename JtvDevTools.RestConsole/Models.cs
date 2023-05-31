@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +16,16 @@ public enum HttpMethod
     PUT,
     DELETE
 }
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum RequestOutputMode
+{
+    All = 0,
+    Body = 1,
+    Headers = 2,
+    StatusCode = 3
+}
+
 
 public class ApiRequest
 {
@@ -52,6 +62,8 @@ public class ApiRequest
     public string? ClientCertificate { get; set; }
     public bool PrettyPrint { get; set; }
     public string? Body { get; set; }
+    public RequestOutputMode OutputMode { get; set; }
+    public string? SaveResponseBodyToFile { get; set; }
 
     public ApiRequest()
     {
