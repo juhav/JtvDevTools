@@ -64,6 +64,7 @@ public class ApiRequest
     public string? Body { get; set; }
     public RequestOutputMode OutputMode { get; set; }
     public string? SaveResponseBodyToFile { get; set; }
+    public bool PreAuthenticate { get; set; }
 
     public ApiRequest()
     {

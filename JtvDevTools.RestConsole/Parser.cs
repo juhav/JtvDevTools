@@ -215,6 +215,10 @@ public class Parser
                 ApiRequest.SaveResponseBodyToFile = value;
                 break;
 
+            case "PREAUTHENTICATE":
+                ApiRequest.PreAuthenticate = value.ToLowerInvariant() == "true";
+                break;
+
             default:
                 throw new ApplicationException($"Unknown variable: {key}.");
         }

@@ -33,7 +33,8 @@ public class HttpService
 
         var options = new RestClientOptions()
         {
-            BaseUrl = new Uri(baseUrl)          
+            BaseUrl = new Uri(baseUrl),
+            PreAuthenticate = apiRequest.PreAuthenticate
         };
 
         switch (authenticatorName)
@@ -54,7 +55,7 @@ public class HttpService
         SetClientCertificate(options, apiRequest.ClientCertificate);
 
         var client = new RestClient(options);
-
+        
         switch (authenticatorName)
         {
             case "BASIC":
