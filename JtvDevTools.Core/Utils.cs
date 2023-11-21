@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JtvDevTools.RestConsole;
+namespace JtvDevTools.Core;
 
 public static class Utils
 {
@@ -157,5 +159,26 @@ public static class Utils
 
         return null;
     }
+
+    public static string Encrypt(X509Certificate2 cert, string text)
+    {
+        if (string.IsNullOrEmpty(text)) return "";
+
+        using (RSA rsa = cert.GetRSAPublicKey())
+        {
+            var bytes = Encoding.UTF8.GetBytes(text);
+            return Convert.ToBase64String(rsa.Encrypt(bytes, RSAEncryptionPadding.OaepSHA256));
+        }
+    }
+
+    public static string Decrypt(X509Certificate2 cert, string text)
+    {
+        using (RSA rsa = cert.GetRSAPrivateKey())
+        {
+            var bytes = Convert.FromBase64String(text);
+            return Encoding.UTF8.GetString(rsa.Decrypt(bytes, RSAEncryptionPadding.OaepSHA256));
+        }
+    }
+
 }
 

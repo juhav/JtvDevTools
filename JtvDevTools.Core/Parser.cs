@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JtvDevTools.RestConsole;
+namespace JtvDevTools.Core;
 
 public class Parser
 {
@@ -38,12 +38,20 @@ public class Parser
     {
         if (string.IsNullOrWhiteSpace(requestText)) return;
 
-        var bodyIndex = requestText.IndexOf("[BODY]", StringComparison.InvariantCultureIgnoreCase);
+        int bodyIndex = requestText.IndexOf("[BODY]", StringComparison.InvariantCultureIgnoreCase);
+        string requestVariablesText;
+        string bodyText;
 
-        if (bodyIndex == -1) return;
-       
-        var requestVariablesText = requestText.Substring(0, bodyIndex);
-        var bodyText = requestText.Substring(bodyIndex + 6);
+        if (bodyIndex == -1)
+        {
+            requestVariablesText = requestText;
+            bodyText = "";
+        }
+        else
+        {
+            requestVariablesText = requestText.Substring(0, bodyIndex);
+            bodyText = requestText.Substring(bodyIndex + 6);
+        }
 
         requestVariablesText = EvaluateExpressions(requestVariablesText);
         ApiRequest.Body = EvaluateExpressions(bodyText).Trim();
@@ -186,6 +194,7 @@ public class Parser
                 ApiRequest.Pwd = value;
                 break;
 
+            case "CLIENTCERTIFICATE":
             case "CLIENTCERT":
             case "CLIENT CERT":
                 ApiRequest.ClientCertificate = value.Replace(" ", "");

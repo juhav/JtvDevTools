@@ -1,78 +1,65 @@
+using JtvDevTools.Core;
+using JtvDevTools.RestConsole;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Diagnostics;
 using System.Text;
+using HttpMethod = JtvDevTools.Core.HttpMethod;
 
 namespace JtvDevTools.RestConsole;
 
 internal class Program
 {
+    private static void PrintHelp()
+    {
+        Console.WriteLine("Usage: JtvDevTools.RestConsole new|test|send");
+        Console.WriteLine("# new");
+        Console.WriteLine("  Prints empty request template to console.");
+        Console.WriteLine("");
+        Console.WriteLine("# test <test file>");
+        Console.WriteLine("  Run multiple http requests in test mode.");
+        Console.WriteLine("");
+        Console.WriteLine("# send <request file> <variables file> <output mode>");
+        Console.WriteLine("  Sends the http request from the given request file.");
+        Console.WriteLine("");
+        Console.WriteLine("# credentials <name> <user> <pwd>");
+        Console.WriteLine("  Adds new credentials to cache.");
+        Console.WriteLine("");
+    }
+
     static void Main(string[] args)
     {
+        //var cert = Utils.GetCertificateFromStore(System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine, "thumbprint");
+
+        //var en = Utils.Encrypt(cert, "pwd_is_test");
+        //var de = Utils.Decrypt(cert, en);
+
         try
         {
-            if (args.Length < 2)
+            if (args.Length == 0)
             {
-                Console.WriteLine("Usage: JtvDevTools.RestConsole <request.txt> <variables.txt> mode");
+                PrintHelp();
                 return;
             }
 
-            var requestFile = args[0];
-            var variablesFile = args[1];
-            var outputMode = RequestOutputMode.All;
-
-            if (!File.Exists(requestFile))
+            if (args[0] == "new")
             {
-                Console.WriteLine($"Request file not found '{requestFile}'!");
+                PrintRequestTemplate(args);
                 return;
             }
 
-            Dictionary<string, string> variables;
-            if (File.Exists(variablesFile))
+            if (args[0] == "test")
             {
-                var variablesText = File.ReadAllText(variablesFile, Encoding.UTF8);
-                variables = Utils.GetKeyValuePairs(variablesText);
-            }
-            else
-            {
-                variables = new Dictionary<string, string>();
-            }
-
-            if (args.Length > 2)
-            {
-                outputMode = Enum.Parse<RequestOutputMode>(args[2], true);
-            }
-
-            var parser = new Parser(variables);
-            var requestText = File.ReadAllText(requestFile, Encoding.UTF8);
-
-            parser.Parse(requestText);
-            var request = parser.ApiRequest;
-            request.OutputMode = outputMode;
-
-            if (request == null)
-            {
-                Console.WriteLine($"Request is null after parsing!");
                 return;
             }
 
-            var http = new HttpService();
+            if (args[0] == "send")
+            {
+                SendRequest(args);
+                return;
+            }
 
-            var fgColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(request.Method.ToString().ToUpper());
-            Console.Write(" ");
-            Console.Write(request.BaseUrl);
-            Console.Write("/");
-            Console.Write(request.Resource);
-            Console.Write(" ");
-            Console.ForegroundColor = fgColor;
-
-            var stopWatch = Stopwatch.StartNew();
-            var response = http.Send(request);
-            stopWatch.Stop();
-
-            PrintResponse(request, response, stopWatch.ElapsedMilliseconds);
+            PrintHelp();
         }
         catch (Exception ex)
         {
@@ -211,5 +198,128 @@ internal class Program
         Console.WriteLine();
     }
 
+    private static void PrintRequestTemplate(string[] args)
+    {
+
+        var ar = new ApiRequest()
+        {
+            BaseUrl = "https://api",
+            Method = HttpMethod.GET,
+            Resource = "v1/api/",
+            Name = "Get request",
+            PrettyPrint = true
+        };
+
+        Console.WriteLine(ar.ToString());
+    }
+
+    private static void SendRequest(string[] args)
+    {
+        var requestFile = args[0];
+        var variablesFile = args[1];
+        var outputMode = RequestOutputMode.All;
+
+        if (!File.Exists(requestFile))
+        {
+            Console.WriteLine($"Request file not found '{requestFile}'!");
+            return;
+        }
+
+        Dictionary<string, string> variables;
+        if (File.Exists(variablesFile))
+        {
+            var variablesText = File.ReadAllText(variablesFile, Encoding.UTF8);
+            variables = Utils.GetKeyValuePairs(variablesText);
+        }
+        else
+        {
+            variables = new Dictionary<string, string>();
+        }
+
+        if (args.Length > 2)
+        {
+            outputMode = Enum.Parse<RequestOutputMode>(args[2], true);
+        }
+
+        var parser = new Parser(variables);
+        var requestText = File.ReadAllText(requestFile, Encoding.UTF8);
+
+        parser.Parse(requestText);
+        var request = parser.ApiRequest;
+        request.OutputMode = outputMode;
+
+        if (request == null)
+        {
+            Console.WriteLine($"Request is null after parsing!");
+            return;
+        }
+
+        var http = new HttpService();
+
+        var fgColor = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write(request.Method.ToString().ToUpper());
+        Console.Write(" ");
+        Console.Write(request.BaseUrl);
+        Console.Write("/");
+        Console.Write(request.Resource);
+        Console.Write(" ");
+        Console.ForegroundColor = fgColor;
+
+        var stopWatch = Stopwatch.StartNew();
+        var response = http.Send(request);
+        stopWatch.Stop();
+
+        PrintResponse(request, response, stopWatch.ElapsedMilliseconds);
+    }
+
+    private static void Test(List<ApiRequest> requests)
+    {
+        Console.Clear();
+        Console.SetCursorPosition(0, 0);
+
+        foreach (var request in requests)
+        {
+            Console.Write("[    ] ");
+            Console.WriteLine(request.Name);
+        }
+
+        Console.SetCursorPosition(0, 0);
+
+        foreach (var request in requests)
+        {
+        }
+
+        Thread.Sleep(2000);
+        PrintPass();
+        Thread.Sleep(2000);
+        PrintPass();
+        Thread.Sleep(2000);
+        PrintFail();
+        Thread.Sleep(2000);
+        PrintPass();
+    }
+
+    private static void PrintPass()
+    {
+        var pos = Console.GetCursorPosition();
+
+        Console.SetCursorPosition(1, pos.Top);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("PASS");
+        Console.ResetColor();
+        Console.SetCursorPosition(1, pos.Top + 1);
+    }
+
+    private static void PrintFail()
+    {
+        var pos = Console.GetCursorPosition();
+
+        Console.SetCursorPosition(1, pos.Top);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("FAIL");
+        Console.ResetColor();
+        Console.SetCursorPosition(1, pos.Top + 1);
+    }
 
 }

@@ -7,9 +7,9 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using HttpMethod = JtvDevTools.RestConsole.HttpMethod;
+using HttpMethod = JtvDevTools.Core.HttpMethod;
 
-namespace JtvDevTools.RestConsole;
+namespace JtvDevTools.Core;
 
 public class HttpService
 {

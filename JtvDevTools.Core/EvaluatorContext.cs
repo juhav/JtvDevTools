@@ -1,4 +1,4 @@
-﻿namespace JtvDevTools.RestConsole;
+﻿namespace JtvDevTools.Core;
 
 public class EvaluatorContext
 {

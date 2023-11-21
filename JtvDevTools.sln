@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.Core", "JtvDevT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JtvDevTools.RestConsole", "JtvDevTools.RestConsole\JtvDevTools.RestConsole.csproj", "{0158E76D-DEC3-46C7-9521-493190F0DE2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JtvDevTools.RestClient", "JtvDevTools.RestClient\JtvDevTools.RestClient.csproj", "{31D9EAB5-9188-4443-ADEC-A72E3439504D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0158E76D-DEC3-46C7-9521-493190F0DE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D9EAB5-9188-4443-ADEC-A72E3439504D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D9EAB5-9188-4443-ADEC-A72E3439504D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D9EAB5-9188-4443-ADEC-A72E3439504D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D9EAB5-9188-4443-ADEC-A72E3439504D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
