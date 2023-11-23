@@ -8,7 +8,6 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace JtvDevTools.Core
 {
-
     public class HttpService
     {
         public HttpService()
@@ -49,21 +48,18 @@ namespace JtvDevTools.Core
                         options.UseDefaultCredentials = true;
                     }
                     break;
+
+                case "BASIC":
+                    if (string.IsNullOrWhiteSpace(user)) throw new ApplicationException("User is not set for BASIC authentication.");
+                    if (string.IsNullOrWhiteSpace(pwd)) throw new ApplicationException("Password is not set for BASIC authentication.");
+
+                    options.Authenticator = new HttpBasicAuthenticator(user, pwd);
+                    break;
             }
 
             SetClientCertificate(options, apiRequest.ClientCertificate);
 
             var client = new RestSharp.RestClient(options);
-
-            switch (authenticatorName)
-            {
-                case "BASIC":
-                    if (string.IsNullOrWhiteSpace(user)) throw new ApplicationException("User is not set for BASIC authentication.");
-                    if (string.IsNullOrWhiteSpace(pwd)) throw new ApplicationException("Password is not set for BASIC authentication.");
-
-                    client.Authenticator = new HttpBasicAuthenticator(user, pwd);
-                    break;
-            }
 
             var request = new RestRequest(apiRequest.Resource);
             request.RequestFormat = DataFormat.Json;

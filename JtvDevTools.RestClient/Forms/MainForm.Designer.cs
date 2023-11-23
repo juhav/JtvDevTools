@@ -179,26 +179,26 @@
             this.insertFileToBase64ToolStripMenuItem,
             this.selectCertificateToolStripMenuItem});
             this.RequestContextMenuStrip.Name = "RequestContextMenuStrip";
-            this.RequestContextMenuStrip.Size = new System.Drawing.Size(178, 70);
+            this.RequestContextMenuStrip.Size = new System.Drawing.Size(181, 92);
             // 
             // insertGuidToolStripMenuItem
             // 
             this.insertGuidToolStripMenuItem.Name = "insertGuidToolStripMenuItem";
-            this.insertGuidToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.insertGuidToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.insertGuidToolStripMenuItem.Text = "Insert Guid";
             this.insertGuidToolStripMenuItem.Click += new System.EventHandler(this.insertGuidToolStripMenuItem_Click);
             // 
             // insertFileToBase64ToolStripMenuItem
             // 
             this.insertFileToBase64ToolStripMenuItem.Name = "insertFileToBase64ToolStripMenuItem";
-            this.insertFileToBase64ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.insertFileToBase64ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.insertFileToBase64ToolStripMenuItem.Text = "Insert File to Base64";
             this.insertFileToBase64ToolStripMenuItem.Click += new System.EventHandler(this.insertFileToBase64ToolStripMenuItem_Click);
             // 
             // selectCertificateToolStripMenuItem
             // 
             this.selectCertificateToolStripMenuItem.Name = "selectCertificateToolStripMenuItem";
-            this.selectCertificateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.selectCertificateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.selectCertificateToolStripMenuItem.Text = "Select Certificate";
             this.selectCertificateToolStripMenuItem.Click += new System.EventHandler(this.selectCertificateToolStripMenuItem_Click);
             // 

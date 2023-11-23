@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace JtvDevTools.Core
 {
     public class Parser
     {
+        private readonly Dictionary<string, string> variables;
         private readonly CodingSeb.ExpressionEvaluator.ExpressionEvaluator evaluator;
 
         public enum MessageSection
@@ -23,12 +25,15 @@ namespace JtvDevTools.Core
 
         public Parser(Dictionary<string, string> variables)
         {
+            this.variables = variables;
+
             evaluator = new CodingSeb.ExpressionEvaluator.ExpressionEvaluator()
             {
                 Context = new EvaluatorContext()
                 {
                     Variables = variables
-                }
+                },
+                OptionCaseSensitiveEvaluationActive = false
             };
 
             ApiRequest = new ApiRequest();
@@ -126,8 +131,18 @@ namespace JtvDevTools.Core
 
             foreach (System.Text.RegularExpressions.Match match in matches)
             {
-                var value = match.Value.Trim("{}! ".ToCharArray());
-                var result = (string)evaluator.Evaluate(value);
+                string value = match.Value.Trim("{}! ".ToCharArray());
+                string result;
+
+                if (variables.ContainsKey(value))
+                {
+                    result = variables[value];
+                }
+
+                else
+                {
+                    result = (string)evaluator.Evaluate(value);
+                }
 
                 sb = sb.Replace(match.Value, result);
             }

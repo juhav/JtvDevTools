@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace JtvDevTools.RestClient
     public partial class MainForm : Form
     {
         private readonly HttpService httpService = new HttpService();
-
+        private readonly string appDataFolder;
+        private readonly Dictionary<string, string> variables = new Dictionary<string, string>();
         private Style BlueStyle;
         private Style GreenStyle;
         private Style GrayStyle;
@@ -36,6 +38,14 @@ namespace JtvDevTools.RestClient
             GrayStyle = new TextStyle(grayBrush, null, FontStyle.Bold);
 
             txtRequest.Text = "[Request]";
+
+            appDataFolder = WindowsFormsHelper.GetAppDataFolder();
+            var variablesFile = Path.Combine(appDataFolder, "variables.txt");
+            if (File.Exists(variablesFile))
+            {
+                var text = File.ReadAllText(variablesFile, Encoding.UTF8);
+                variables = Utils.GetKeyValuePairs(text);
+            }
         }
 
         private void NewRequestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,13 +73,16 @@ namespace JtvDevTools.RestClient
 
         private void insertGuidToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtRequest.InsertText(Guid.NewGuid().ToString());   
+            txtRequest.InsertText(Guid.NewGuid().ToString());
         }
 
         private void insertFileToBase64ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtRequest.InsertText("<= FileToBase64(\"\")>");
+            var fileName = WindowsFormsHelper.PickFile();
 
+            if (string.IsNullOrEmpty(fileName)) return;
+
+            txtRequest.InsertText("{! FileToBase64(\""+ fileName.Replace('\\', '/') +"\") !}");
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -86,13 +99,13 @@ namespace JtvDevTools.RestClient
 
         private StringBuilder SendInternal(Dictionary<string, string> dictionary)
         {
-            var parser = new Parser(new Dictionary<string, string>());
-            
+            var parser = new Parser(variables);
+
             parser.Parse(txtRequest.Text);
 
             var request = parser.ApiRequest;
             var sw = Stopwatch.StartNew();
-            var response = httpService.Send(request);  
+            var response = httpService.Send(request);
             sw.Stop();
 
             return PrintResponse(request, response, sw.ElapsedMilliseconds);
@@ -102,7 +115,7 @@ namespace JtvDevTools.RestClient
         {
             var sb = e.Result as StringBuilder;
 
-            txtResponse.Text = sb.ToString();   
+            txtResponse.Text = sb.ToString();
         }
 
         private StringBuilder PrintResponse(ApiRequest operation, RestSharp.RestResponse response, long elapsedMilliseconds)
@@ -247,9 +260,24 @@ namespace JtvDevTools.RestClient
 
                 if (result == DialogResult.OK)
                 {
-                    txtRequest.InsertText(form.CertificateThumbprint);
+                    for (int i = 0; i < 50; i++)
+                    {
+                        if (i >= txtRequest.Lines.Count) break;
+
+                        if (txtRequest.Lines[i].StartsWith("ClientCertificate"))
+                        {
+                            txtRequest.Selection = new Range(txtRequest, i);
+                            txtRequest.InsertText("ClientCertificate = " + form.CertificateThumbprint);
+                            break;
+                        }
+                    }
+
                 }
             }
         }
+
+
+
+
     }
 }

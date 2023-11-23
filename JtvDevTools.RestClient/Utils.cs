@@ -15,7 +15,7 @@ namespace JtvDevTools.Core
     {
         public static Dictionary<string, string> GetKeyValuePairs(string text)
         {
-            var result = new Dictionary<string, string>();
+            var result = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
             string[] lines = text.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
