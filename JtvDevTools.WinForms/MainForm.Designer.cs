@@ -49,6 +49,8 @@ namespace JtvDevTools.WinForms
             TrimToolStripMenuItem = new ToolStripMenuItem();
             UniqueToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripMainMenuItem = new ToolStripMenuItem();
+            SQLToolsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
             LogToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtEditor).BeginInit();
@@ -75,7 +77,19 @@ namespace JtvDevTools.WinForms
             // 
             // txtEditor
             // 
-            txtEditor.AutoCompleteBracketsList = new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' };
+            txtEditor.AutoCompleteBracketsList = new char[]
+    {
+    '(',
+    ')',
+    '{',
+    '}',
+    '[',
+    ']',
+    '"',
+    '"',
+    '\'',
+    '\''
+    };
             txtEditor.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
             txtEditor.AutoScrollMinSize = new Size(25, 15);
             txtEditor.BackBrush = null;
@@ -102,7 +116,19 @@ namespace JtvDevTools.WinForms
             // 
             // txtLog
             // 
-            txtLog.AutoCompleteBracketsList = new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' };
+            txtLog.AutoCompleteBracketsList = new char[]
+    {
+    '(',
+    ')',
+    '{',
+    '}',
+    '[',
+    ']',
+    '"',
+    '"',
+    '\'',
+    '\''
+    };
             txtLog.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
             txtLog.AutoScrollMinSize = new Size(25, 15);
             txtLog.BackBrush = null;
@@ -240,17 +266,29 @@ namespace JtvDevTools.WinForms
             // 
             // ViewToolStripMainMenuItem
             // 
-            ViewToolStripMainMenuItem.DropDownItems.AddRange(new ToolStripItem[] { LogToolStripMenuItem });
+            ViewToolStripMainMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SQLToolsToolStripMenuItem, toolStripMenuItem1, LogToolStripMenuItem });
             ViewToolStripMainMenuItem.Name = "ViewToolStripMainMenuItem";
             ViewToolStripMainMenuItem.Size = new Size(44, 20);
             ViewToolStripMainMenuItem.Text = "View";
+            // 
+            // SQLToolsToolStripMenuItem
+            // 
+            SQLToolsToolStripMenuItem.Name = "SQLToolsToolStripMenuItem";
+            SQLToolsToolStripMenuItem.Size = new Size(180, 22);
+            SQLToolsToolStripMenuItem.Text = "SQL Tools";
+            SQLToolsToolStripMenuItem.Click += SQLToolsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(177, 6);
             // 
             // LogToolStripMenuItem
             // 
             LogToolStripMenuItem.Checked = true;
             LogToolStripMenuItem.CheckState = CheckState.Checked;
             LogToolStripMenuItem.Name = "LogToolStripMenuItem";
-            LogToolStripMenuItem.Size = new Size(94, 22);
+            LogToolStripMenuItem.Size = new Size(180, 22);
             LogToolStripMenuItem.Text = "Log";
             LogToolStripMenuItem.Click += LogToolStripMenuItem_Click;
             // 
@@ -277,7 +315,6 @@ namespace JtvDevTools.WinForms
 
         #endregion
         private TableLayoutPanel tableLayoutPanel1;
-        private FastColoredTextBoxNS.FastColoredTextBox txtEditor;
         private FastColoredTextBoxNS.FastColoredTextBox txtLog;
         private MenuStrip MainMenuStrip;
         private ToolStripMenuItem EditToolStripMainMenuItem;
@@ -295,6 +332,9 @@ namespace JtvDevTools.WinForms
         private ToolStripMenuItem NewToolStripMenuItem;
         private ToolStripMenuItem ViewToolStripMainMenuItem;
         private ToolStripMenuItem LogToolStripMenuItem;
+        private ToolStripMenuItem SQLToolsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        internal FastColoredTextBoxNS.FastColoredTextBox txtEditor;
     }
 }
 

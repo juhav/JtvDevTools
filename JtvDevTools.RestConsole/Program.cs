@@ -16,14 +16,8 @@ internal class Program
         Console.WriteLine("# new");
         Console.WriteLine("  Prints empty request template to console.");
         Console.WriteLine("");
-        Console.WriteLine("# test <test file>");
-        Console.WriteLine("  Run multiple http requests in test mode.");
-        Console.WriteLine("");
         Console.WriteLine("# send <request file> <variables file> <output mode>");
         Console.WriteLine("  Sends the http request from the given request file.");
-        Console.WriteLine("");
-        Console.WriteLine("# credentials <name> <user> <pwd>");
-        Console.WriteLine("  Adds new credentials to cache.");
         Console.WriteLine("");
     }
 
@@ -48,11 +42,6 @@ internal class Program
                 return;
             }
 
-            if (args[0] == "test")
-            {
-                return;
-            }
-
             if (args[0] == "send")
             {
                 SendRequest(args);
@@ -69,8 +58,6 @@ internal class Program
 
     private static void PrintResponse(ApiRequest operation, RestSharp.RestResponse? response, long elapsedMilliseconds)
     {
-        var fgColor = Console.ForegroundColor;
-
         if (operation == null)
         {
             Console.WriteLine("API operation is null.");
@@ -103,22 +90,12 @@ internal class Program
             Console.Write(" - ");
             Console.Write(response.StatusCode.ToString());
 
-            Console.ForegroundColor = fgColor;
+            Console.ResetColor();
             Console.Write("] ");
 
             Console.Write($"{elapsedMilliseconds} ms");
-            //Console.WriteLine($"Content Type: {contentType}");
             Console.WriteLine($", {contentLength} bytes");
         }
-
-        //if (operation.OutputMode == RequestOutputMode.All)
-        //{
-        //    Console.ForegroundColor = fgColor;
-        //    Console.WriteLine($"Elapsed Time: {elapsedMilliseconds} ms");
-        //    Console.WriteLine($"Content Type: {contentType}");
-        //    Console.WriteLine($"Content Length: {contentLength} bytes");
-        //    Console.WriteLine();
-        //}
 
         PrintHeaders(operation, response);
 
@@ -126,12 +103,11 @@ internal class Program
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(response?.ErrorMessage);
-            Console.ForegroundColor = fgColor;
+            Console.ResetColor();
             return;
         }
 
-        Console.ForegroundColor = fgColor;
-
+        Console.ResetColor();
 
         bool isOutputFile = !string.IsNullOrWhiteSpace(operation.SaveResponseBodyToFile);
         bool isOutputModeWithBody = operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.Body;
@@ -200,8 +176,7 @@ internal class Program
 
     private static void PrintRequestTemplate(string[] args)
     {
-
-        var ar = new ApiRequest()
+        var request = new ApiRequest()
         {
             BaseUrl = "https://api",
             Method = HttpMethod.GET,
@@ -210,13 +185,13 @@ internal class Program
             PrettyPrint = true
         };
 
-        Console.WriteLine(ar.ToString());
+        Console.WriteLine(request.ToString());
     }
 
     private static void SendRequest(string[] args)
     {
-        var requestFile = args[0];
-        var variablesFile = args[1];
+        var requestFile = args[1];
+        var variablesFile = args[2];
         var outputMode = RequestOutputMode.All;
 
         if (!File.Exists(requestFile))
@@ -236,9 +211,9 @@ internal class Program
             variables = new Dictionary<string, string>();
         }
 
-        if (args.Length > 2)
+        if (args.Length > 3)
         {
-            outputMode = Enum.Parse<RequestOutputMode>(args[2], true);
+            outputMode = Enum.Parse<RequestOutputMode>(args[3], true);
         }
 
         var parser = new Parser(variables);
@@ -273,53 +248,53 @@ internal class Program
         PrintResponse(request, response, stopWatch.ElapsedMilliseconds);
     }
 
-    private static void Test(List<ApiRequest> requests)
-    {
-        Console.Clear();
-        Console.SetCursorPosition(0, 0);
+    //private static void Test(List<ApiRequest> requests)
+    //{
+    //    Console.Clear();
+    //    Console.SetCursorPosition(0, 0);
 
-        foreach (var request in requests)
-        {
-            Console.Write("[    ] ");
-            Console.WriteLine(request.Name);
-        }
+    //    foreach (var request in requests)
+    //    {
+    //        Console.Write("[    ] ");
+    //        Console.WriteLine(request.Name);
+    //    }
 
-        Console.SetCursorPosition(0, 0);
+    //    Console.SetCursorPosition(0, 0);
 
-        foreach (var request in requests)
-        {
-        }
+    //    foreach (var request in requests)
+    //    {
+    //    }
 
-        Thread.Sleep(2000);
-        PrintPass();
-        Thread.Sleep(2000);
-        PrintPass();
-        Thread.Sleep(2000);
-        PrintFail();
-        Thread.Sleep(2000);
-        PrintPass();
-    }
+    //    Thread.Sleep(2000);
+    //    PrintPass();
+    //    Thread.Sleep(2000);
+    //    PrintPass();
+    //    Thread.Sleep(2000);
+    //    PrintFail();
+    //    Thread.Sleep(2000);
+    //    PrintPass();
+    //}
 
-    private static void PrintPass()
-    {
-        var pos = Console.GetCursorPosition();
+    //private static void PrintPass()
+    //{
+    //    var pos = Console.GetCursorPosition();
 
-        Console.SetCursorPosition(1, pos.Top);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("PASS");
-        Console.ResetColor();
-        Console.SetCursorPosition(1, pos.Top + 1);
-    }
+    //    Console.SetCursorPosition(1, pos.Top);
+    //    Console.ForegroundColor = ConsoleColor.Green;
+    //    Console.WriteLine("PASS");
+    //    Console.ResetColor();
+    //    Console.SetCursorPosition(1, pos.Top + 1);
+    //}
 
-    private static void PrintFail()
-    {
-        var pos = Console.GetCursorPosition();
+    //private static void PrintFail()
+    //{
+    //    var pos = Console.GetCursorPosition();
 
-        Console.SetCursorPosition(1, pos.Top);
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("FAIL");
-        Console.ResetColor();
-        Console.SetCursorPosition(1, pos.Top + 1);
-    }
+    //    Console.SetCursorPosition(1, pos.Top);
+    //    Console.ForegroundColor = ConsoleColor.Red;
+    //    Console.WriteLine("FAIL");
+    //    Console.ResetColor();
+    //    Console.SetCursorPosition(1, pos.Top + 1);
+    //}
 
 }

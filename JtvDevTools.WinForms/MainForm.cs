@@ -14,11 +14,13 @@ namespace JtvDevTools.WinForms
     public partial class MainForm : Form
     {
         private Dictionary<int, TextProcessingCommandBase> commands = new Dictionary<int, TextProcessingCommandBase>();
+        private SqlToolsForm sqlToolsForm;
 
         public MainForm()
         {
             InitializeComponent();
 
+            sqlToolsForm = new SqlToolsForm(this);
             commands = Utils.GetClassesOfType<TextProcessingCommandBase>().ToDictionary(x => x.Id);
 
         }
@@ -148,5 +150,9 @@ namespace JtvDevTools.WinForms
             }
         }
 
+        private void SQLToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sqlToolsForm.Show();
+        }
     }
 }

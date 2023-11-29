@@ -72,5 +72,13 @@ namespace JtvDevTools.Core
                 throw new ApplicationException($"File not found: {fileName}");
             }
         }
+
+        public string Decrypt(string text, string thumbprint)
+        {
+            var cert = Utils.GetCertificateFromStore(System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine, thumbprint);
+            var plainText = Utils.Decrypt(cert, text);
+
+            return plainText;
+        }
     }
 }
