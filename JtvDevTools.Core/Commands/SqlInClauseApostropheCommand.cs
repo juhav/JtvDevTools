@@ -5,8 +5,13 @@ namespace JtvDevTools.Commands
     public class SqlInClauseApostropheCommand : TextProcessingCommandBase
     {
         public override int Id { get => Consts.Commands.SqlInClauseApostrophe; }
+        
+        public override string Name
+        {
+            get => "SQL in ('a', 'b', 'c')";
+        }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string[] Process(string[] input)
         {
             input = RemoveEmptyLines(input);
 
@@ -20,7 +25,7 @@ namespace JtvDevTools.Commands
             }
             else if (input.Length > 1)
             {
-                var result = new StringBuilder();
+                var result = new StringBuilder(4096);
 
                 result.AppendLine("in (");
 

@@ -11,7 +11,12 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.ListDuplicates;
         }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "List Duplicate Lines";
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
 

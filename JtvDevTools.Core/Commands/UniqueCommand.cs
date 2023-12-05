@@ -4,31 +4,34 @@ using System.Linq;
 
 namespace JtvDevTools.Commands
 {
-    public class UniqueCommandOptions : TextProcessingCommandOptionsBase
-    {
-        public bool IsCaseSensitive { get; set; }
-
-        public UniqueCommandOptions()
-        {
-            IsCaseSensitive = true;
-        }
-    }
-
     public class UniqueCommand : TextProcessingCommandBase
     {
         public override int Id 
         { 
             get => Consts.Commands.Unique;  
-        } 
+        }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Unique Lines";
+        }
+
+        public UniqueCommand()
+        {
+            Parameters = new TextProcessingCommandParameters();
+
+            Parameters.Add("Case sensitive", true);
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
 
             HashSet<string> hashset;
-            var myOptions = (options as UniqueCommandOptions) ?? new UniqueCommandOptions();
 
-            if (myOptions.IsCaseSensitive)  
+            bool isCaseSensitive = Parameters.Parameters["Case sensitive"].Value.ToLowerInvariant() == "true";
+
+            if (isCaseSensitive)  
             {
                 hashset = new HashSet<string>(StringComparer.CurrentCulture);
             }

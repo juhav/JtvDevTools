@@ -12,7 +12,12 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.FormatJson;
         }
 
-        public override string[]? Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Format JSON";
+        }
+
+        public override string[]? Process(string[] input)
         {
             if (input == null) return null;
 

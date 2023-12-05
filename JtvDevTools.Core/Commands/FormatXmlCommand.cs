@@ -11,7 +11,12 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.FormatXml;
         }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Format XML";
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
 

@@ -1,4 +1,4 @@
-﻿namespace JtvDevTools
+﻿namespace JtvDevTools.WinForms.Forms
 {
     partial class PrependAppendForm
     {

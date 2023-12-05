@@ -1,4 +1,4 @@
-﻿namespace JtvDevTools.WinForms
+﻿namespace JtvDevTools.WinForms.Forms
 {
     partial class SqlToolsForm
     {

@@ -4,16 +4,6 @@ using System.Linq;
 
 namespace JtvDevTools.Commands
 {
-    public class JoinCommandOptions : TextProcessingCommandOptionsBase
-    {
-        public string Separator { get; set; }
-
-        public JoinCommandOptions()
-        {
-            Separator = "";
-        }
-    }
-
     public class JoinCommand : TextProcessingCommandBase
     {
         public override int Id
@@ -21,13 +11,18 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.Join;
         }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Join Lines";
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
 
-            var myOptions = (options as JoinCommandOptions) ?? new JoinCommandOptions();
+            var separator = ",";
 
-            return new string[] { string.Join(myOptions.Separator, input) };
+            return new string[] { string.Join(separator, input) };
         }
     }
 }

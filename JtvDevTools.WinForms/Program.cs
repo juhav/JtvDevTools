@@ -1,3 +1,5 @@
+using JtvDevTools.WinForms.Forms;
+
 namespace JtvDevTools.WinForms
 {
     internal static class Program

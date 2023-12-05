@@ -6,13 +6,6 @@ using System.Threading.Tasks;
 
 namespace JtvDevTools.Commands
 {
-    public class PrependAppendCommandOptions : TextProcessingCommandOptionsBase
-    {
-        public string TextToPrepend { get; set; }
-
-        public string TextToAppend { get; set; }
-    }
-
     public class PrependAppendCommand : TextProcessingCommandBase
     {
         public override int Id
@@ -20,20 +13,35 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.PrependAppend;
         }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Prepend and Append to Lines";
+        }
+
+        public PrependAppendCommand()
+        {
+            Parameters = new TextProcessingCommandParameters();
+
+            Parameters.Add("String to Prepend", "");
+            Parameters.Add("String to Append", "");
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
 
             var sb = new StringBuilder(1024);
             List<string> result = new List<string>();
-            var myOptions = (options as PrependAppendCommandOptions) ?? new PrependAppendCommandOptions();
+
+            var textToPrepend = Parameters.Parameters["String to Prepend"].Value;
+            var textToAppend = Parameters.Parameters["String to Append"].Value;
 
             for (int i = 0; i < input.Length; i++)
             {
                 sb.Clear();
-                sb.Append(myOptions.TextToPrepend);
+                sb.Append(textToPrepend);
                 sb.Append(input[i]);
-                sb.Append(myOptions.TextToAppend);
+                sb.Append(textToAppend);
 
                 result.Add(sb.ToString());    
             }

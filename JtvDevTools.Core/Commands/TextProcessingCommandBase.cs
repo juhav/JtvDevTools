@@ -19,18 +19,89 @@ namespace JtvDevTools.Commands
             public const int Join = 8;
             public const int SqlInClause = 9;
             public const int SqlInClauseApostrophe = 10;
+            public const int Base64Encode = 11;
+            public const int Base64Decode = 12;
         }
     }
 
-    public class TextProcessingCommandOptionsBase
+    public enum TextProcessingCommandParameterType
     {
+        String = 0,
+        Int = 1,
+        Bool = 2
+    }
+
+    public class TextProcessingCommandParameter
+    {
+        private string value = "";
+
+        public string Name { get; set; }
+        public TextProcessingCommandParameterType ParameterType { get; set; }
+        
+        public string? Value 
+        { 
+            get
+            {
+                return this.value;
+            }
+            set
+            {
+                if (ParameterType == TextProcessingCommandParameterType.Bool)
+                {
+                    value = (value ?? "").Trim().ToUpperInvariant();
+
+                    this.value = "false";
+
+                    if (value == "TRUE" || value == "YES" || value == "Y" || value == "1") { this.value = "true"; }
+
+                }
+                else
+                {
+                    this.value = value;
+                }
+            }
+        }
+    }
+
+    public class TextProcessingCommandParameters
+    {
+        private Dictionary<string, TextProcessingCommandParameter> parameters = new Dictionary<string, TextProcessingCommandParameter>(StringComparer.InvariantCultureIgnoreCase);
+
+        public Dictionary<string, TextProcessingCommandParameter> Parameters
+        {
+            get => parameters;
+        }
+
+        public void Add(string key, string value)
+        {
+            parameters.Add(key, new TextProcessingCommandParameter()
+            {
+                Name = key,
+                ParameterType = TextProcessingCommandParameterType.String,
+                Value = value
+            });
+        }
+
+        internal void Add(string key, bool value)
+        {
+            parameters.Add(key, new TextProcessingCommandParameter()
+            {
+                Name = key,
+                ParameterType = TextProcessingCommandParameterType.Bool,
+                Value = value.ToString().ToLowerInvariant()
+            });
+        }
     }
 
     public abstract class TextProcessingCommandBase
     {
         public abstract int Id { get; }
 
-        public abstract string[] Process(string[] input, TextProcessingCommandOptionsBase options);
+        public abstract string Name { get; }
+
+        public abstract string[] Process(string[] input);
+
+        public TextProcessingCommandParameters? Parameters { get; protected set;  }
 
         protected string[] RemoveEmptyLines(string[] input)
         {

@@ -9,7 +9,12 @@ namespace JtvDevTools.Commands
             get => Consts.Commands.RemoveEmptyLines;
         }
 
-        public override string[] Process(string[] input, TextProcessingCommandOptionsBase options)
+        public override string Name
+        {
+            get => "Remove Empty Lines";
+        }
+
+        public override string[] Process(string[] input)
         {
             if (input == null) return null;
             

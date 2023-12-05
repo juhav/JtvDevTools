@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace JtvDevTools
+namespace JtvDevTools.WinForms.Forms
 {
-    public partial class PrependAppendForm : Form
+    public partial class InputForm : Form
     {
-        public PrependAppendForm()
+        public InputForm()
         {
             InitializeComponent();
+        }
+
+        private void lblLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

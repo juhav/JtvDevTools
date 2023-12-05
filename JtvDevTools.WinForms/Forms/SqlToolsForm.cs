@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
-namespace JtvDevTools.WinForms
+namespace JtvDevTools.WinForms.Forms
 {
     public partial class SqlToolsForm : Form
     {
