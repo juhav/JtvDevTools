@@ -75,7 +75,7 @@ namespace JtvDevTools.Core
 
         public string Decrypt(string text, string thumbprint)
         {
-            var cert = Utils.GetCertificateFromStore(System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine, thumbprint);
+            var cert = Core.Utils.GetCertificateFromStore(System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine, thumbprint);
             var plainText = Utils.Decrypt(cert, text);
 
             return plainText;

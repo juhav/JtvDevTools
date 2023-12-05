@@ -1,10 +1,12 @@
 ﻿using FastColoredTextBoxNS;
 using JtvDevTools.Commands;
 using JtvDevTools.Core;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +18,7 @@ namespace JtvDevTools.WinForms.Forms
 {
     public partial class MainForm : Form
     {
+        private readonly HttpService httpService = new HttpService();
         private Dictionary<int, TextProcessingCommandBase> commands = new Dictionary<int, TextProcessingCommandBase>();
         private SqlToolsForm sqlToolsForm;
         private DataTable editorDataTable;
@@ -351,6 +354,168 @@ namespace JtvDevTools.WinForms.Forms
 
                 }
             }
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                e.Result = SendInternal(e.Argument as Dictionary<string, string>);
+            }
+            catch (Exception ex)
+            {
+                e.Result = new StringBuilder(ex.Message);
+            }
+        }
+
+        private StringBuilder SendInternal(Dictionary<string, string> variables)
+        {
+            var parser = new Parser(variables);
+
+            parser.Parse(txtRequest.Text);
+
+            var request = parser.ApiRequest;
+            var sw = Stopwatch.StartNew();
+            var response = httpService.Send(request);
+            sw.Stop();
+
+            return PrintResponse(request, response, sw.ElapsedMilliseconds);
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var sb = e.Result as StringBuilder;
+
+            txtResponse.Text = sb.ToString();
+        }
+
+        private StringBuilder PrintResponse(ApiRequest operation, RestSharp.RestResponse response, long elapsedMilliseconds)
+        {
+            var sb = new StringBuilder(4096);
+
+            if (operation == null)
+            {
+                sb.AppendLine("API operation is null.");
+                return sb;
+            }
+
+            if (response == null)
+            {
+                sb.AppendLine("Response is null.");
+                return sb;
+            }
+
+            var contentType = (response.ContentType ?? "");
+            var contentLength = response.Content != null ? response.Content.Length : 0;
+
+            if (operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.StatusCode)
+            {
+                sb.Append("[");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+
+                sb.Append((int)response.StatusCode);
+                sb.Append(" - ");
+                sb.Append(response.StatusCode.ToString());
+                sb.Append("] ");
+
+                sb.Append($"{elapsedMilliseconds} ms");
+                //sb.AppendLine($"Content Type: {contentType}");
+                sb.AppendLine($", {contentLength} bytes");
+                sb.AppendLine();
+            }
+
+            //if (operation.OutputMode == RequestOutputMode.All)
+            //{
+            //    Console.ForegroundColor = fgColor;
+            //    sb.AppendLine($"Elapsed Time: {elapsedMilliseconds} ms");
+            //    sb.AppendLine($"Content Type: {contentType}");
+            //    sb.AppendLine($"Content Length: {contentLength} bytes");
+            //    sb.AppendLine();
+            //}
+
+            PrintHeaders(sb, operation, response);
+
+            if (!response.IsSuccessful)
+            {
+                sb.AppendLine(response?.ErrorMessage);
+                return sb;
+            }
+
+            bool isOutputFile = !string.IsNullOrWhiteSpace(operation.SaveResponseBodyToFile);
+            bool isOutputModeWithBody = operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.Body;
+
+            if (isOutputFile || isOutputModeWithBody)
+            {
+                if (operation.PrettyPrint)
+                {
+                    if (contentType.Contains("application/json") || contentType.Contains("application/problem+json"))
+                    {
+                        var json = Core.Utils.PrettyJson(response.Content);
+
+                        if (isOutputModeWithBody)
+                        {
+                            sb.AppendLine(json);
+                        }
+
+                        if (isOutputFile)
+                        {
+                            System.IO.File.WriteAllText(operation.SaveResponseBodyToFile, json, Encoding.UTF8);
+                        }
+                    }
+                    else if (contentType.Contains("text/xml") || contentType.Contains("application/xml"))
+                    {
+                        var xml = Core.Utils.PrettyXML(response.Content);
+
+                        if (isOutputModeWithBody)
+                        {
+                            sb.AppendLine(xml);
+                        }
+
+                        if (isOutputFile)
+                        {
+                            System.IO.File.WriteAllText(operation.SaveResponseBodyToFile, xml, Encoding.UTF8);
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine(response.Content);
+                    }
+                }
+                else
+                {
+                    sb.AppendLine(response.Content);
+                }
+            }
+
+            return sb;
+        }
+
+        private static void PrintHeaders(StringBuilder sb, ApiRequest operation, RestResponse response)
+        {
+            if (response.Headers == null) return;
+
+            foreach (var header in response.Headers)
+            {
+                sb.Append(header.Name);
+                sb.Append(": ");
+                sb.AppendLine(header.Value?.ToString());
+            }
+
+            sb.AppendLine();
+        }
+
+        private void HttpClientSendToolStripButton_Click(object sender, EventArgs e)
+        {
+            txtResponse.Text = "Loading...";
+            BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
         }
     }
 }

@@ -64,8 +64,9 @@ namespace JtvDevTools.WinForms.Forms
             toolStrip3 = new ToolStrip();
             HttpClientRequestToolStripDropDownButton = new ToolStripDropDownButton();
             HttpClientNewRequestToolStripMenuItem = new ToolStripMenuItem();
-            HttpClientSendToolStripButton = new ToolStripButton();
             HtpClientSelectClientCertificateToolStripMenuItem = new ToolStripMenuItem();
+            HttpClientSendToolStripButton = new ToolStripButton();
+            BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)txtEditor).BeginInit();
             MainMenuStrip.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -488,6 +489,13 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientNewRequestToolStripMenuItem.Text = "New";
             HttpClientNewRequestToolStripMenuItem.Click += HttpClientNewRequestToolStripMenuItem_Click;
             // 
+            // HtpClientSelectClientCertificateToolStripMenuItem
+            // 
+            HtpClientSelectClientCertificateToolStripMenuItem.Name = "HtpClientSelectClientCertificateToolStripMenuItem";
+            HtpClientSelectClientCertificateToolStripMenuItem.Size = new Size(205, 22);
+            HtpClientSelectClientCertificateToolStripMenuItem.Text = "Select Client Certificate...";
+            HtpClientSelectClientCertificateToolStripMenuItem.Click += HtpClientSelectClientCertificateToolStripMenuItem_Click;
+            // 
             // HttpClientSendToolStripButton
             // 
             HttpClientSendToolStripButton.Image = (Image)resources.GetObject("HttpClientSendToolStripButton.Image");
@@ -495,13 +503,12 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientSendToolStripButton.Name = "HttpClientSendToolStripButton";
             HttpClientSendToolStripButton.Size = new Size(53, 22);
             HttpClientSendToolStripButton.Text = "Send";
+            HttpClientSendToolStripButton.Click += HttpClientSendToolStripButton_Click;
             // 
-            // HtpClientSelectClientCertificateToolStripMenuItem
+            // BackgroundWorker
             // 
-            HtpClientSelectClientCertificateToolStripMenuItem.Name = "HtpClientSelectClientCertificateToolStripMenuItem";
-            HtpClientSelectClientCertificateToolStripMenuItem.Size = new Size(205, 22);
-            HtpClientSelectClientCertificateToolStripMenuItem.Text = "Select Client Certificate...";
-            HtpClientSelectClientCertificateToolStripMenuItem.Click += HtpClientSelectClientCertificateToolStripMenuItem_Click;
+            BackgroundWorker.DoWork += BackgroundWorker_DoWork;
+            BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             // 
             // MainForm
             // 
@@ -576,6 +583,7 @@ namespace JtvDevTools.WinForms.Forms
         private ToolStripMenuItem HttpClientNewRequestToolStripMenuItem;
         private ToolStripButton HttpClientSendToolStripButton;
         private ToolStripMenuItem HtpClientSelectClientCertificateToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker;
     }
 }
 
