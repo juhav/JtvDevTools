@@ -35,8 +35,10 @@
     {
     }
 
-    public static void SetColumnSortMode(DataGridView dataGridView, DataGridViewColumnSortMode sortMode = DataGridViewColumnSortMode.NotSortable)
+    public static void SetColumnSortMode(DataGridView? dataGridView, DataGridViewColumnSortMode sortMode = DataGridViewColumnSortMode.NotSortable)
     {
+        if (dataGridView == null) return;
+
         foreach (DataGridViewColumn c in dataGridView.Columns)
         {
             c.SortMode = sortMode;

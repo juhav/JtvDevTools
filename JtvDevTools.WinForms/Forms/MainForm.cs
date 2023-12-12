@@ -1,6 +1,7 @@
 ﻿using FastColoredTextBoxNS;
 using JtvDevTools.Commands;
 using JtvDevTools.Core;
+using NLua;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace JtvDevTools.WinForms.Forms
 {
@@ -120,7 +122,8 @@ namespace JtvDevTools.WinForms.Forms
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtEditor.Text = "";
+            RunLuaScript();
+            //txtEditor.Text = "";
         }
 
         private void SQLToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,124 +131,9 @@ namespace JtvDevTools.WinForms.Forms
             sqlToolsForm.Show();
         }
 
-        private void CreateTableEditor()
-        {
-            editorDataTable = new DataTable();
-
-            for (int i = 0; i < 15; i++)
-            {
-                var c = new DataColumn()
-                {
-                    ColumnName = "C" + (i + 1).ToString(),
-                    DataType = typeof(string),
-                    DefaultValue = "",
-                };
-
-                editorDataTable.Columns.Add(c);
-            }
-
-            for (int i = 0; i < 20; i++)
-            {
-                var row = editorDataTable.NewRow();
-                editorDataTable.Rows.Add(row);
-            }
-
-            dgvEditor.DataSource = editorDataTable;
-
-            foreach (DataGridViewColumn column in dgvEditor.Columns)
-            {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
-        }
-
-        private void SetRowNumber(DataGridView dgv)
-        {
-            foreach (DataGridViewRow row in dgv.Rows)
-            {
-                row.HeaderCell.Value = (row.Index + 1).ToString();
-            }
-
-            dgvEditor.Refresh();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CreateTableEditor();
-            SetRowNumber(dgvEditor);
-
-            Type dgvType = dgvEditor.GetType();
-            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
-            pi.SetValue(dgvEditor, true, null);
-        }
-
-        private void DataGridEditor_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            var rowHeaderText = (e.RowIndex + 1).ToString();
-            var dgv = sender as DataGridView;
-            using (SolidBrush brush = new SolidBrush(dgv.RowHeadersDefaultCellStyle.ForeColor))
-            {
-                var textFormat = new StringFormat()
-                {
-                    Alignment = StringAlignment.Far,
-                    LineAlignment = StringAlignment.Center
-                };
-
-                var bounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, dgv.RowHeadersWidth - 1, e.RowBounds.Height);
-                e.Graphics.DrawString(rowHeaderText, this.Font, brush, bounds, textFormat);
-            }
-        }
-
-        private void DataGridEditor_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var dgv = sender as DataGridView;
-
-            dgv.ClearSelection();
-            dgv.SelectionMode = DataGridViewSelectionMode.FullColumnSelect;
-            dgv.Columns[e.ColumnIndex].Selected = true;
-        }
-
-        private void DataGridEditor_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            var dgv = sender as DataGridView;
-
-            dgv.ClearSelection();
-            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv.Rows[e.RowIndex].Selected = true;
-
-        }
-
-        private void DataGridEditor_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
-
-            var dgv = sender as DataGridView;
-
-            dgv.ClearSelection();
-            dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-        }
-
-        private void TableEditorTrimToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DataGridViewHelper.TrimSelectedCells(dgvEditor);
-        }
-
-        private void TableEditorInsertGuidToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DataGridViewHelper.InsertNewGuidToSelectedCells(dgvEditor);
-        }
-
-        private void DataGridEditor_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
-        private void DataGridEditor_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                DataGridViewHelper.ClearSelectedCells(dgvEditor);
-            }
+            TableEditorUserControl.Dock = DockStyle.Fill;
         }
 
         private void NewRowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -265,48 +153,11 @@ namespace JtvDevTools.WinForms.Forms
             });
         }
 
-        private void DataGridEditor_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
-        {
-            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-        }
+
 
         private void TextEditorNewToolStripButton_Click(object sender, EventArgs e)
         {
             txtEditor.Text = "";
-        }
-
-        private void TableEditorDeleteColumnsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //dgvEditor.DataSource = null;
-            //dgvEditor.Columns.Clear();
-            //dgvEditor.Rows.Clear();
-            //dgvEditor.Refresh();
-
-            var dataColumns = new List<DataColumn>();
-            foreach (DataGridViewColumn column in dgvEditor.SelectedColumns)
-            {
-                var dataColumn = editorDataTable.Columns[column.DataPropertyName];
-                dataColumns.Add(dataColumn);
-            }
-
-            dataColumns.ForEach(c => editorDataTable.Columns.Remove(c));
-            //dgvEditor.DataSource = editorDataTable;
-        }
-
-        private void TableEditorAddColumnToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            editorDataTable.Columns.Add(new DataColumn()
-            {
-                AllowDBNull = false,
-                ColumnName = "Column_" + Guid.NewGuid().ToString("N"),
-                DataType = typeof(string),
-                DefaultValue = ""
-            });
-        }
-
-        private void dgvEditor_DataMemberChanged(object sender, EventArgs e)
-        {
-            DataGridViewHelper.SetColumnSortMode(sender as DataGridView);
         }
 
         private void HttpClientNewRequestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -517,5 +368,41 @@ namespace JtvDevTools.WinForms.Forms
             txtResponse.Text = "Loading...";
             BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
         }
+
+        private void RunLuaScript()
+        {
+            var sb = new StringBuilder();
+
+            using (Lua lua = new Lua())
+            {
+                lua.LoadCLRPackage();
+
+                lua.State.Encoding = Encoding.UTF8;
+                lua["Strings"] = new Strings();
+                lua["lines"] = txtEditor.Lines.ToArray();
+                lua["txtEditor"] = txtEditor;
+
+                sb.AppendLine("for i = 0, lines.Length - 1, 1");
+                sb.AppendLine("do");
+                sb.AppendLine("   lines[i] = Strings:Trim(lines[i])");
+                sb.AppendLine("end");
+
+                lua.DoString(sb.ToString());
+                
+                var lines = (string[])lua["lines"];
+                txtEditor.Text = string.Join("\r\n", lines);
+            }
+        }
+    }
+
+    public class Strings
+    {
+        public string Trim(string s)
+        {
+            if (s == null) return "";
+            
+            return s.Trim();
+        }
+
     }
 }

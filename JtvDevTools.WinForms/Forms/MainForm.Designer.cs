@@ -31,9 +31,6 @@ namespace JtvDevTools.WinForms.Forms
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             txtEditor = new FastColoredTextBoxNS.FastColoredTextBox();
             MainMenuStrip = new MenuStrip();
             FileToolStripMainMenuItem = new ToolStripMenuItem();
@@ -46,17 +43,6 @@ namespace JtvDevTools.WinForms.Forms
             TextEditorNewToolStripButton = new ToolStripButton();
             TextEditorEditToolStripDropDownButton = new ToolStripDropDownButton();
             tabPage2 = new TabPage();
-            dgvEditor = new DataGridView();
-            toolStrip1 = new ToolStrip();
-            TableEditorNewToolStripDropDownButton = new ToolStripDropDownButton();
-            NewRowToolStripMenuItem = new ToolStripMenuItem();
-            NewColumnToolStripMenuItem = new ToolStripMenuItem();
-            TableEditorToolStripDropDownButton = new ToolStripDropDownButton();
-            TableEditorTrimToolStripMenuItem = new ToolStripMenuItem();
-            TableEditorInsertGuidToolStripMenuItem = new ToolStripMenuItem();
-            TableEditorColumnToolStripDropDownButton = new ToolStripDropDownButton();
-            TableEditorAddColumnToolStripMenuItem = new ToolStripMenuItem();
-            TableEditorDeleteColumnsToolStripMenuItem = new ToolStripMenuItem();
             tabPage3 = new TabPage();
             HttpClientSplitContainer = new SplitContainer();
             txtRequest = new FastColoredTextBoxNS.FastColoredTextBox();
@@ -67,14 +53,13 @@ namespace JtvDevTools.WinForms.Forms
             HtpClientSelectClientCertificateToolStripMenuItem = new ToolStripMenuItem();
             HttpClientSendToolStripButton = new ToolStripButton();
             BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            TableEditorUserControl = new UserControls.TableEditorUserControl();
             ((System.ComponentModel.ISupportInitialize)txtEditor).BeginInit();
             MainMenuStrip.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             toolStrip2.SuspendLayout();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEditor).BeginInit();
-            toolStrip1.SuspendLayout();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)HttpClientSplitContainer).BeginInit();
             HttpClientSplitContainer.Panel1.SuspendLayout();
@@ -217,8 +202,7 @@ namespace JtvDevTools.WinForms.Forms
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(dgvEditor);
-            tabPage2.Controls.Add(toolStrip1);
+            tabPage2.Controls.Add(TableEditorUserControl);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -226,137 +210,6 @@ namespace JtvDevTools.WinForms.Forms
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Table Editor";
             tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dgvEditor
-            // 
-            dgvEditor.AllowUserToAddRows = false;
-            dgvEditor.AllowUserToOrderColumns = true;
-            dgvEditor.AllowUserToResizeRows = false;
-            dgvEditor.BackgroundColor = Color.FromArgb(20, 20, 20);
-            dgvEditor.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dgvEditor.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(40, 40, 40);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = Color.Gainsboro;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvEditor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(20, 20, 20);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.Gainsboro;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvEditor.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvEditor.Dock = DockStyle.Fill;
-            dgvEditor.EnableHeadersVisualStyles = false;
-            dgvEditor.Location = new Point(3, 28);
-            dgvEditor.Name = "dgvEditor";
-            dgvEditor.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(40, 40, 40);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Gainsboro;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvEditor.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dgvEditor.RowTemplate.Height = 25;
-            dgvEditor.Size = new Size(1237, 654);
-            dgvEditor.TabIndex = 0;
-            dgvEditor.DataMemberChanged += dgvEditor_DataMemberChanged;
-            dgvEditor.CellMouseClick += DataGridEditor_CellMouseClick;
-            dgvEditor.ColumnAdded += DataGridEditor_ColumnAdded;
-            dgvEditor.ColumnHeaderMouseClick += DataGridEditor_ColumnHeaderMouseClick;
-            dgvEditor.RowHeaderMouseClick += DataGridEditor_RowHeaderMouseClick;
-            dgvEditor.RowPostPaint += DataGridEditor_RowPostPaint;
-            dgvEditor.KeyDown += DataGridEditor_KeyDown;
-            dgvEditor.KeyPress += DataGridEditor_KeyPress;
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { TableEditorNewToolStripDropDownButton, TableEditorToolStripDropDownButton, TableEditorColumnToolStripDropDownButton });
-            toolStrip1.Location = new Point(3, 3);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1237, 25);
-            toolStrip1.TabIndex = 1;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // TableEditorNewToolStripDropDownButton
-            // 
-            TableEditorNewToolStripDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            TableEditorNewToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { NewRowToolStripMenuItem, NewColumnToolStripMenuItem });
-            TableEditorNewToolStripDropDownButton.Image = (Image)resources.GetObject("TableEditorNewToolStripDropDownButton.Image");
-            TableEditorNewToolStripDropDownButton.ImageTransparentColor = Color.Magenta;
-            TableEditorNewToolStripDropDownButton.Name = "TableEditorNewToolStripDropDownButton";
-            TableEditorNewToolStripDropDownButton.Size = new Size(44, 22);
-            TableEditorNewToolStripDropDownButton.Text = "New";
-            // 
-            // NewRowToolStripMenuItem
-            // 
-            NewRowToolStripMenuItem.Name = "NewRowToolStripMenuItem";
-            NewRowToolStripMenuItem.Size = new Size(117, 22);
-            NewRowToolStripMenuItem.Text = "Row";
-            NewRowToolStripMenuItem.Click += NewRowToolStripMenuItem_Click;
-            // 
-            // NewColumnToolStripMenuItem
-            // 
-            NewColumnToolStripMenuItem.Name = "NewColumnToolStripMenuItem";
-            NewColumnToolStripMenuItem.Size = new Size(117, 22);
-            NewColumnToolStripMenuItem.Text = "Column";
-            NewColumnToolStripMenuItem.Click += NewColumnToolStripMenuItem_Click;
-            // 
-            // TableEditorToolStripDropDownButton
-            // 
-            TableEditorToolStripDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            TableEditorToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { TableEditorTrimToolStripMenuItem, TableEditorInsertGuidToolStripMenuItem });
-            TableEditorToolStripDropDownButton.Image = (Image)resources.GetObject("TableEditorToolStripDropDownButton.Image");
-            TableEditorToolStripDropDownButton.ImageTransparentColor = Color.Magenta;
-            TableEditorToolStripDropDownButton.Name = "TableEditorToolStripDropDownButton";
-            TableEditorToolStripDropDownButton.Size = new Size(40, 22);
-            TableEditorToolStripDropDownButton.Text = "Edit";
-            // 
-            // TableEditorTrimToolStripMenuItem
-            // 
-            TableEditorTrimToolStripMenuItem.Name = "TableEditorTrimToolStripMenuItem";
-            TableEditorTrimToolStripMenuItem.Size = new Size(131, 22);
-            TableEditorTrimToolStripMenuItem.Text = "Trim";
-            TableEditorTrimToolStripMenuItem.Click += TableEditorTrimToolStripMenuItem_Click;
-            // 
-            // TableEditorInsertGuidToolStripMenuItem
-            // 
-            TableEditorInsertGuidToolStripMenuItem.Name = "TableEditorInsertGuidToolStripMenuItem";
-            TableEditorInsertGuidToolStripMenuItem.Size = new Size(131, 22);
-            TableEditorInsertGuidToolStripMenuItem.Text = "Insert Guid";
-            TableEditorInsertGuidToolStripMenuItem.Click += TableEditorInsertGuidToolStripMenuItem_Click;
-            // 
-            // TableEditorColumnToolStripDropDownButton
-            // 
-            TableEditorColumnToolStripDropDownButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            TableEditorColumnToolStripDropDownButton.DropDownItems.AddRange(new ToolStripItem[] { TableEditorAddColumnToolStripMenuItem, TableEditorDeleteColumnsToolStripMenuItem });
-            TableEditorColumnToolStripDropDownButton.Image = (Image)resources.GetObject("TableEditorColumnToolStripDropDownButton.Image");
-            TableEditorColumnToolStripDropDownButton.ImageTransparentColor = Color.Magenta;
-            TableEditorColumnToolStripDropDownButton.Name = "TableEditorColumnToolStripDropDownButton";
-            TableEditorColumnToolStripDropDownButton.Size = new Size(68, 22);
-            TableEditorColumnToolStripDropDownButton.Text = "Columns";
-            // 
-            // TableEditorAddColumnToolStripMenuItem
-            // 
-            TableEditorAddColumnToolStripMenuItem.Name = "TableEditorAddColumnToolStripMenuItem";
-            TableEditorAddColumnToolStripMenuItem.Size = new Size(158, 22);
-            TableEditorAddColumnToolStripMenuItem.Text = "Add Column";
-            TableEditorAddColumnToolStripMenuItem.Click += TableEditorAddColumnToolStripMenuItem_Click;
-            // 
-            // TableEditorDeleteColumnsToolStripMenuItem
-            // 
-            TableEditorDeleteColumnsToolStripMenuItem.Name = "TableEditorDeleteColumnsToolStripMenuItem";
-            TableEditorDeleteColumnsToolStripMenuItem.Size = new Size(158, 22);
-            TableEditorDeleteColumnsToolStripMenuItem.Text = "Delete Columns";
-            TableEditorDeleteColumnsToolStripMenuItem.Click += TableEditorDeleteColumnsToolStripMenuItem_Click;
             // 
             // tabPage3
             // 
@@ -403,7 +256,7 @@ namespace JtvDevTools.WinForms.Forms
     '\''
     };
             txtRequest.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
-            txtRequest.AutoScrollMinSize = new Size(88, 15);
+            txtRequest.AutoScrollMinSize = new Size(65, 15);
             txtRequest.BackBrush = null;
             txtRequest.BackColor = Color.FromArgb(20, 20, 20);
             txtRequest.CharHeight = 15;
@@ -441,7 +294,7 @@ namespace JtvDevTools.WinForms.Forms
     '\''
     };
             txtResponse.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
-            txtResponse.AutoScrollMinSize = new Size(95, 15);
+            txtResponse.AutoScrollMinSize = new Size(72, 15);
             txtResponse.BackBrush = null;
             txtResponse.BackColor = Color.FromArgb(20, 20, 20);
             txtResponse.CharHeight = 15;
@@ -510,6 +363,13 @@ namespace JtvDevTools.WinForms.Forms
             BackgroundWorker.DoWork += BackgroundWorker_DoWork;
             BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             // 
+            // TableEditorUserControl
+            // 
+            TableEditorUserControl.Location = new Point(51, 33);
+            TableEditorUserControl.Name = "TableEditorUserControl";
+            TableEditorUserControl.Size = new Size(1074, 448);
+            TableEditorUserControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -532,10 +392,6 @@ namespace JtvDevTools.WinForms.Forms
             toolStrip2.ResumeLayout(false);
             toolStrip2.PerformLayout();
             tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEditor).EndInit();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             HttpClientSplitContainer.Panel1.ResumeLayout(false);
@@ -561,29 +417,19 @@ namespace JtvDevTools.WinForms.Forms
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
-        private DataGridView dgvEditor;
         private SplitContainer HttpClientSplitContainer;
         private FastColoredTextBoxNS.FastColoredTextBox txtRequest;
         private FastColoredTextBoxNS.FastColoredTextBox txtResponse;
-        private ToolStrip toolStrip1;
-        private ToolStripDropDownButton TableEditorToolStripDropDownButton;
-        private ToolStripMenuItem TableEditorTrimToolStripMenuItem;
-        private ToolStripMenuItem TableEditorInsertGuidToolStripMenuItem;
-        private ToolStripDropDownButton TableEditorNewToolStripDropDownButton;
-        private ToolStripMenuItem NewRowToolStripMenuItem;
-        private ToolStripMenuItem NewColumnToolStripMenuItem;
         private ToolStrip toolStrip2;
         private ToolStripDropDownButton TextEditorEditToolStripDropDownButton;
         private ToolStripButton TextEditorNewToolStripButton;
         private ToolStrip toolStrip3;
-        private ToolStripDropDownButton TableEditorColumnToolStripDropDownButton;
-        private ToolStripMenuItem TableEditorAddColumnToolStripMenuItem;
-        private ToolStripMenuItem TableEditorDeleteColumnsToolStripMenuItem;
         private ToolStripDropDownButton HttpClientRequestToolStripDropDownButton;
         private ToolStripMenuItem HttpClientNewRequestToolStripMenuItem;
         private ToolStripButton HttpClientSendToolStripButton;
         private ToolStripMenuItem HtpClientSelectClientCertificateToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
+        private UserControls.TableEditorUserControl TableEditorUserControl;
     }
 }
 
