@@ -21,9 +21,9 @@
 
         public override string[] Process(string[] input)
         {
-            if (input == null) return null;
+            if (input == null) return new string[] { };
 
-            var trimChars = Parameters.Parameters["Trim Chars"].Value;
+            var trimChars = Parameters!.Dictionary["Trim Chars"].Value;
 
             if (!string.IsNullOrEmpty(trimChars))
             {

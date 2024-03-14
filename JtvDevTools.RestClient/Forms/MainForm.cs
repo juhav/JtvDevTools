@@ -52,12 +52,18 @@ namespace JtvDevTools.RestClient
         {
             var r = new ApiRequest()
             {
-                BaseUrl = "https://base-url",
+                BaseUrl = "dev",
+                Resource = "fact",
                 Method = HttpMethod.GET,
                 PrettyPrint = true
             };
 
+            r.BaseUrls.Add("dev", "https://catfact.ninja");
+            r.BaseUrls.Add("test", "https://catfact.ninja");
+            r.BaseUrls.Add("prod", "");
+
             txtRequest.Text = r.ToString();
+            txtRequestBody.Text = "";
         }
 
         private void txtRequest_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,7 +79,9 @@ namespace JtvDevTools.RestClient
 
         private void insertGuidToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtRequest.InsertText(Guid.NewGuid().ToString());
+            var source = GetContectMenuSourceTextBox(sender);
+
+            InsertTextToFastColoredTextBox(source, Guid.NewGuid().ToString());
         }
 
         private void insertFileToBase64ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -82,7 +90,7 @@ namespace JtvDevTools.RestClient
 
             if (string.IsNullOrEmpty(fileName)) return;
 
-            txtRequest.InsertText("{! FileToBase64(\""+ fileName.Replace('\\', '/') +"\") !}");
+            InsertTextToFastColoredTextBox(RequestContextMenuStrip.SourceControl as FastColoredTextBox, "{! FileToBase64(\"" + fileName.Replace('\\', '/') + "\") !}");
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -101,7 +109,7 @@ namespace JtvDevTools.RestClient
         {
             var parser = new Parser(variables);
 
-            parser.Parse(txtRequest.Text);
+            parser.Parse(txtRequest.Text, txtRequestBody.Text);
 
             var request = parser.ApiRequest;
             var sw = Stopwatch.StartNew();
@@ -260,10 +268,8 @@ namespace JtvDevTools.RestClient
 
                 if (result == DialogResult.OK)
                 {
-                    for (int i = 0; i < 50; i++)
+                    for (int i = 0; i < txtRequest.Lines.Count; i++)
                     {
-                        if (i >= txtRequest.Lines.Count) break;
-
                         if (txtRequest.Lines[i].StartsWith("ClientCertificate"))
                         {
                             txtRequest.Selection = new Range(txtRequest, i);
@@ -276,8 +282,35 @@ namespace JtvDevTools.RestClient
             }
         }
 
+        private void btnSendRequest_Click(object sender, EventArgs e)
+        {
+            txtResponse.Text = "Loading...";
+            BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
+        }
 
+        private FastColoredTextBox GetContectMenuSourceTextBox(object sender)
+        {
+            try
+            {
+                return (((sender as ToolStripMenuItem)?.Owner as ContextMenuStrip)?.SourceControl as FastColoredTextBox);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
-
+        private void InsertTextToFastColoredTextBox(FastColoredTextBox target, string text)
+        {
+            if (target == null || string.IsNullOrEmpty(text)) return;
+         
+            try
+            {
+                target.InsertText(text);
+            }
+            catch
+            {
+            }
+        }
     }
 }

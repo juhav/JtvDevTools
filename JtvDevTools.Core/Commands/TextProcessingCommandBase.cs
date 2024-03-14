@@ -65,16 +65,16 @@ namespace JtvDevTools.Commands
 
     public class TextProcessingCommandParameters
     {
-        private Dictionary<string, TextProcessingCommandParameter> parameters = new Dictionary<string, TextProcessingCommandParameter>(StringComparer.InvariantCultureIgnoreCase);
+        private Dictionary<string, TextProcessingCommandParameter> dictionary = new Dictionary<string, TextProcessingCommandParameter>(StringComparer.InvariantCultureIgnoreCase);
 
-        public Dictionary<string, TextProcessingCommandParameter> Parameters
+        public Dictionary<string, TextProcessingCommandParameter> Dictionary
         {
-            get => parameters;
+            get => dictionary;
         }
 
         public void Add(string key, string value)
         {
-            parameters.Add(key, new TextProcessingCommandParameter()
+            dictionary.Add(key, new TextProcessingCommandParameter()
             {
                 Name = key,
                 ParameterType = TextProcessingCommandParameterType.String,
@@ -84,7 +84,7 @@ namespace JtvDevTools.Commands
 
         internal void Add(string key, bool value)
         {
-            parameters.Add(key, new TextProcessingCommandParameter()
+            dictionary.Add(key, new TextProcessingCommandParameter()
             {
                 Name = key,
                 ParameterType = TextProcessingCommandParameterType.Bool,

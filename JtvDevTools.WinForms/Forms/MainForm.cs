@@ -1,7 +1,8 @@
 ﻿using FastColoredTextBoxNS;
+using IronPython.Hosting;
 using JtvDevTools.Commands;
 using JtvDevTools.Core;
-using NLua;
+using JtvDevTools.WinForms.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace JtvDevTools.WinForms.Forms
         private readonly HttpService httpService = new HttpService();
         private Dictionary<int, TextProcessingCommandBase> commands = new Dictionary<int, TextProcessingCommandBase>();
         private SqlToolsForm sqlToolsForm;
-        private DataTable editorDataTable;
+        //private DataTable editorDataTable;
 
         private Style BlueStyle;
         private Style GreenStyle;
@@ -122,8 +123,7 @@ namespace JtvDevTools.WinForms.Forms
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RunLuaScript();
-            //txtEditor.Text = "";
+            txtEditor.Text = "";
         }
 
         private void SQLToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,25 +135,6 @@ namespace JtvDevTools.WinForms.Forms
         {
             TableEditorUserControl.Dock = DockStyle.Fill;
         }
-
-        private void NewRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var row = editorDataTable.NewRow();
-            editorDataTable.Rows.Add(row);
-        }
-
-        private void NewColumnToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            editorDataTable.Columns.Add(new DataColumn()
-            {
-                AllowDBNull = false,
-                ColumnName = "Column_" + Guid.NewGuid().ToString("N"),
-                DataType = typeof(string),
-                DefaultValue = ""
-            });
-        }
-
-
 
         private void TextEditorNewToolStripButton_Click(object sender, EventArgs e)
         {
@@ -369,40 +350,48 @@ namespace JtvDevTools.WinForms.Forms
             BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
         }
 
-        private void RunLuaScript()
+        private void btnRunPythonScript_Click(object sender, EventArgs e)
         {
-            var sb = new StringBuilder();
-
-            using (Lua lua = new Lua())
+            try
             {
-                lua.LoadCLRPackage();
+                var code = txtScript.Text; // new StringBuilder();
+                                           //code.AppendLine("import clr");
+                                           //code.AppendLine("import System");
+                                           //code.AppendLine("from System import String");
+                                           //code.AppendLine("");
 
-                lua.State.Encoding = Encoding.UTF8;
-                lua["Strings"] = new Strings();
-                lua["lines"] = txtEditor.Lines.ToArray();
-                lua["txtEditor"] = txtEditor;
+                //code.AppendLine("table.SetValue(1, 1, 'Hello!')");
+                //code.AppendLine("");
 
-                sb.AppendLine("for i = 0, lines.Length - 1, 1");
-                sb.AppendLine("do");
-                sb.AppendLine("   lines[i] = Strings:Trim(lines[i])");
-                sb.AppendLine("end");
+                var engine = Python.CreateEngine();
+                var scope = engine.CreateScope();
+                var lines = new Lines();
+                lines.Set(txtEditor.Lines.ToArray());
 
-                lua.DoString(sb.ToString());
-                
-                var lines = (string[])lua["lines"];
-                txtEditor.Text = string.Join("\r\n", lines);
+                scope.SetVariable("lines", lines);
+                scope.SetVariable("table", TableEditorUserControl.Table);
+
+                engine.Execute(code.ToString(), scope);
+
+                var result = scope.GetVariable("lines");
+                var x = scope.GetVariable("table");
+                txtEditor.Text = string.Join("\r\n", result.Get());
+            }
+            catch (Exception ex)
+            {
+                txtScript.Text = txtScript.Text + "\r\n" + ex.Message;
             }
         }
     }
 
-    public class Strings
-    {
-        public string Trim(string s)
-        {
-            if (s == null) return "";
-            
-            return s.Trim();
-        }
-
-    }
 }
+/*
+ import clr
+import System
+from System import DateTime
+
+d = DateTime.Now
+lines[0] = d.ToString("yyyy-MM-dd")
+table.SetValue(0, 0, d.ToString("yyyy-MM-dd"))
+
+ * */

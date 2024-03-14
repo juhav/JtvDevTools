@@ -46,6 +46,10 @@
             this.selectCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtResponse = new FastColoredTextBoxNS.FastColoredTextBox();
             this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnSendRequest = new System.Windows.Forms.ToolStripButton();
+            this.RequestBodySplitContainer = new System.Windows.Forms.SplitContainer();
+            this.txtRequestBody = new FastColoredTextBoxNS.FastColoredTextBox();
             this.MainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -54,6 +58,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRequest)).BeginInit();
             this.RequestContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtResponse)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RequestBodySplitContainer)).BeginInit();
+            this.RequestBodySplitContainer.Panel1.SuspendLayout();
+            this.RequestBodySplitContainer.Panel2.SuspendLayout();
+            this.RequestBodySplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRequestBody)).BeginInit();
             this.SuspendLayout();
             // 
             // MainMenuStrip
@@ -122,17 +132,17 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtRequest);
+            this.splitContainer1.Panel1.Controls.Add(this.RequestBodySplitContainer);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.txtResponse);
-            this.splitContainer1.Size = new System.Drawing.Size(1139, 773);
+            this.splitContainer1.Size = new System.Drawing.Size(1139, 748);
             this.splitContainer1.SplitterDistance = 556;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -166,7 +176,7 @@
             this.txtRequest.Paddings = new System.Windows.Forms.Padding(0);
             this.txtRequest.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtRequest.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRequest.ServiceColors")));
-            this.txtRequest.Size = new System.Drawing.Size(556, 773);
+            this.txtRequest.Size = new System.Drawing.Size(556, 374);
             this.txtRequest.TabIndex = 0;
             this.txtRequest.Text = "[Request]";
             this.txtRequest.Zoom = 100;
@@ -179,26 +189,26 @@
             this.insertFileToBase64ToolStripMenuItem,
             this.selectCertificateToolStripMenuItem});
             this.RequestContextMenuStrip.Name = "RequestContextMenuStrip";
-            this.RequestContextMenuStrip.Size = new System.Drawing.Size(181, 92);
+            this.RequestContextMenuStrip.Size = new System.Drawing.Size(178, 70);
             // 
             // insertGuidToolStripMenuItem
             // 
             this.insertGuidToolStripMenuItem.Name = "insertGuidToolStripMenuItem";
-            this.insertGuidToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertGuidToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.insertGuidToolStripMenuItem.Text = "Insert Guid";
             this.insertGuidToolStripMenuItem.Click += new System.EventHandler(this.insertGuidToolStripMenuItem_Click);
             // 
             // insertFileToBase64ToolStripMenuItem
             // 
             this.insertFileToBase64ToolStripMenuItem.Name = "insertFileToBase64ToolStripMenuItem";
-            this.insertFileToBase64ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertFileToBase64ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.insertFileToBase64ToolStripMenuItem.Text = "Insert File to Base64";
             this.insertFileToBase64ToolStripMenuItem.Click += new System.EventHandler(this.insertFileToBase64ToolStripMenuItem_Click);
             // 
             // selectCertificateToolStripMenuItem
             // 
             this.selectCertificateToolStripMenuItem.Name = "selectCertificateToolStripMenuItem";
-            this.selectCertificateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectCertificateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.selectCertificateToolStripMenuItem.Text = "Select Certificate";
             this.selectCertificateToolStripMenuItem.Click += new System.EventHandler(this.selectCertificateToolStripMenuItem_Click);
             // 
@@ -232,7 +242,7 @@
             this.txtResponse.ReadOnly = true;
             this.txtResponse.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtResponse.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtResponse.ServiceColors")));
-            this.txtResponse.Size = new System.Drawing.Size(579, 773);
+            this.txtResponse.Size = new System.Drawing.Size(579, 748);
             this.txtResponse.TabIndex = 0;
             this.txtResponse.Text = "[Response]";
             this.txtResponse.Zoom = 100;
@@ -242,12 +252,84 @@
             this.BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
             this.BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSendRequest});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1139, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnSendRequest
+            // 
+            this.btnSendRequest.Image = ((System.Drawing.Image)(resources.GetObject("btnSendRequest.Image")));
+            this.btnSendRequest.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSendRequest.Name = "btnSendRequest";
+            this.btnSendRequest.Size = new System.Drawing.Size(53, 22);
+            this.btnSendRequest.Text = "Send";
+            this.btnSendRequest.Click += new System.EventHandler(this.btnSendRequest_Click);
+            // 
+            // RequestBodySplitContainer
+            // 
+            this.RequestBodySplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RequestBodySplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.RequestBodySplitContainer.Name = "RequestBodySplitContainer";
+            this.RequestBodySplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // RequestBodySplitContainer.Panel1
+            // 
+            this.RequestBodySplitContainer.Panel1.Controls.Add(this.txtRequest);
+            // 
+            // RequestBodySplitContainer.Panel2
+            // 
+            this.RequestBodySplitContainer.Panel2.Controls.Add(this.txtRequestBody);
+            this.RequestBodySplitContainer.Size = new System.Drawing.Size(556, 748);
+            this.RequestBodySplitContainer.SplitterDistance = 374;
+            this.RequestBodySplitContainer.TabIndex = 1;
+            // 
+            // txtRequestBody
+            // 
+            this.txtRequestBody.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.txtRequestBody.AutoScrollMinSize = new System.Drawing.Size(25, 15);
+            this.txtRequestBody.BackBrush = null;
+            this.txtRequestBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.txtRequestBody.CharHeight = 15;
+            this.txtRequestBody.CharWidth = 7;
+            this.txtRequestBody.ContextMenuStrip = this.RequestContextMenuStrip;
+            this.txtRequestBody.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtRequestBody.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.txtRequestBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRequestBody.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.txtRequestBody.ForeColor = System.Drawing.Color.Gainsboro;
+            this.txtRequestBody.IsReplaceMode = false;
+            this.txtRequestBody.Location = new System.Drawing.Point(0, 0);
+            this.txtRequestBody.Name = "txtRequestBody";
+            this.txtRequestBody.Paddings = new System.Windows.Forms.Padding(0);
+            this.txtRequestBody.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.txtRequestBody.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRequestBody.ServiceColors")));
+            this.txtRequestBody.Size = new System.Drawing.Size(556, 370);
+            this.txtRequestBody.TabIndex = 1;
+            this.txtRequestBody.Zoom = 100;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 797);
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.MainMenuStrip);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -261,6 +343,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRequest)).EndInit();
             this.RequestContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtResponse)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.RequestBodySplitContainer.Panel1.ResumeLayout(false);
+            this.RequestBodySplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RequestBodySplitContainer)).EndInit();
+            this.RequestBodySplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtRequestBody)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +373,10 @@
         private System.Windows.Forms.ToolStripMenuItem SendRequestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectCertificateToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton btnSendRequest;
+        private System.Windows.Forms.SplitContainer RequestBodySplitContainer;
+        private FastColoredTextBoxNS.FastColoredTextBox txtRequestBody;
     }
 }
 

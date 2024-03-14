@@ -43,6 +43,7 @@ namespace JtvDevTools.WinForms.Forms
             TextEditorNewToolStripButton = new ToolStripButton();
             TextEditorEditToolStripDropDownButton = new ToolStripDropDownButton();
             tabPage2 = new TabPage();
+            TableEditorUserControl = new UserControls.TableEditorUserControl();
             tabPage3 = new TabPage();
             HttpClientSplitContainer = new SplitContainer();
             txtRequest = new FastColoredTextBoxNS.FastColoredTextBox();
@@ -52,8 +53,11 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientNewRequestToolStripMenuItem = new ToolStripMenuItem();
             HtpClientSelectClientCertificateToolStripMenuItem = new ToolStripMenuItem();
             HttpClientSendToolStripButton = new ToolStripButton();
+            tabPage4 = new TabPage();
+            txtScript = new FastColoredTextBoxNS.FastColoredTextBox();
+            toolStrip1 = new ToolStrip();
+            btnRunPythonScript = new ToolStripButton();
             BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            TableEditorUserControl = new UserControls.TableEditorUserControl();
             ((System.ComponentModel.ISupportInitialize)txtEditor).BeginInit();
             MainMenuStrip.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -68,6 +72,9 @@ namespace JtvDevTools.WinForms.Forms
             ((System.ComponentModel.ISupportInitialize)txtRequest).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtResponse).BeginInit();
             toolStrip3.SuspendLayout();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtScript).BeginInit();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // txtEditor
@@ -153,6 +160,7 @@ namespace JtvDevTools.WinForms.Forms
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 24);
             tabControl1.Name = "tabControl1";
@@ -210,6 +218,13 @@ namespace JtvDevTools.WinForms.Forms
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Table Editor";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // TableEditorUserControl
+            // 
+            TableEditorUserControl.Location = new Point(51, 33);
+            TableEditorUserControl.Name = "TableEditorUserControl";
+            TableEditorUserControl.Size = new Size(1074, 448);
+            TableEditorUserControl.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -358,17 +373,79 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientSendToolStripButton.Text = "Send";
             HttpClientSendToolStripButton.Click += HttpClientSendToolStripButton_Click;
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(txtScript);
+            tabPage4.Controls.Add(toolStrip1);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(1243, 685);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Ironpython";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtScript
+            // 
+            txtScript.AutoCompleteBracketsList = new char[]
+    {
+    '(',
+    ')',
+    '{',
+    '}',
+    '[',
+    ']',
+    '"',
+    '"',
+    '\'',
+    '\''
+    };
+            txtScript.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
+            txtScript.AutoScrollMinSize = new Size(39, 15);
+            txtScript.BackBrush = null;
+            txtScript.BackColor = Color.FromArgb(20, 20, 20);
+            txtScript.CaretColor = Color.WhiteSmoke;
+            txtScript.CharHeight = 15;
+            txtScript.CharWidth = 7;
+            txtScript.Cursor = Cursors.IBeam;
+            txtScript.DisabledColor = Color.FromArgb(100, 180, 180, 180);
+            txtScript.Dock = DockStyle.Fill;
+            txtScript.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtScript.ForeColor = Color.Gainsboro;
+            txtScript.IsReplaceMode = false;
+            txtScript.Location = new Point(3, 28);
+            txtScript.Margin = new Padding(4, 3, 4, 3);
+            txtScript.Name = "txtScript";
+            txtScript.Paddings = new Padding(0);
+            txtScript.ReservedCountOfLineNumberChars = 3;
+            txtScript.SelectionColor = Color.FromArgb(60, 0, 0, 255);
+            txtScript.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtScript.ServiceColors");
+            txtScript.Size = new Size(1237, 654);
+            txtScript.TabIndex = 6;
+            txtScript.Zoom = 100;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnRunPythonScript });
+            toolStrip1.Location = new Point(3, 3);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(1237, 25);
+            toolStrip1.TabIndex = 0;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // btnRunPythonScript
+            // 
+            btnRunPythonScript.Image = (Image)resources.GetObject("btnRunPythonScript.Image");
+            btnRunPythonScript.ImageTransparentColor = Color.Magenta;
+            btnRunPythonScript.Name = "btnRunPythonScript";
+            btnRunPythonScript.Size = new Size(81, 22);
+            btnRunPythonScript.Text = "Run Script";
+            btnRunPythonScript.Click += btnRunPythonScript_Click;
+            // 
             // BackgroundWorker
             // 
             BackgroundWorker.DoWork += BackgroundWorker_DoWork;
             BackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            // 
-            // TableEditorUserControl
-            // 
-            TableEditorUserControl.Location = new Point(51, 33);
-            TableEditorUserControl.Name = "TableEditorUserControl";
-            TableEditorUserControl.Size = new Size(1074, 448);
-            TableEditorUserControl.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -402,6 +479,11 @@ namespace JtvDevTools.WinForms.Forms
             ((System.ComponentModel.ISupportInitialize)txtResponse).EndInit();
             toolStrip3.ResumeLayout(false);
             toolStrip3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtScript).EndInit();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -430,6 +512,10 @@ namespace JtvDevTools.WinForms.Forms
         private ToolStripMenuItem HtpClientSelectClientCertificateToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
         private UserControls.TableEditorUserControl TableEditorUserControl;
+        private TabPage tabPage4;
+        internal FastColoredTextBoxNS.FastColoredTextBox txtScript;
+        private ToolStrip toolStrip1;
+        private ToolStripButton btnRunPythonScript;
     }
 }
 

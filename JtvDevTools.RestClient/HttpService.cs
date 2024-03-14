@@ -18,7 +18,11 @@ namespace JtvDevTools.Core
         {
             if (apiRequest == null) throw new ArgumentException(nameof(apiRequest));
 
-            var baseUrl = apiRequest.BaseUrl;
+            if (!apiRequest.BaseUrls.TryGetValue(apiRequest.BaseUrl, out string baseUrl))
+            {
+                throw new ArgumentException("Base url is invalid, set possible values in the [BaseUrls] section and use correct key from that section.");
+            }
+
             var user = apiRequest.User;
             var pwd = apiRequest.Pwd;
             var authenticatorName = apiRequest.AuthenticatorName;
@@ -37,7 +41,7 @@ namespace JtvDevTools.Core
 
             switch (authenticatorName)
             {
-                case "NTLM":
+                case "WINDOWS":
                     if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(pwd))
                     {
                         options.Credentials = new NetworkCredential(user, pwd);

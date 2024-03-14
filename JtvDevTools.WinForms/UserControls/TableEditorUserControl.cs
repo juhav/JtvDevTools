@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JtvDevTools.WinForms.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,12 @@ namespace JtvDevTools.WinForms.UserControls
 {
     public partial class TableEditorUserControl : UserControl
     {
-        private DataTable editorDataTable;
+        private Table table;
+
+        public Table Table
+        {
+            get => table;
+        }
 
         public TableEditorUserControl()
         {
@@ -23,7 +29,8 @@ namespace JtvDevTools.WinForms.UserControls
 
         private void CreateTableEditor()
         {
-            editorDataTable = new DataTable();
+            table = new Table();
+            table.DataTable = new DataTable();
 
             for (int i = 0; i < 15; i++)
             {
@@ -34,16 +41,16 @@ namespace JtvDevTools.WinForms.UserControls
                     DefaultValue = "",
                 };
 
-                editorDataTable.Columns.Add(c);
+                table.DataTable.Columns.Add(c);
             }
 
             for (int i = 0; i < 20; i++)
             {
-                var row = editorDataTable.NewRow();
-                editorDataTable.Rows.Add(row);
+                var row = table.DataTable.NewRow();
+                table.DataTable.Rows.Add(row);
             }
 
-            dgvEditor.DataSource = editorDataTable;
+            dgvEditor.DataSource = table.DataTable;
 
             foreach (DataGridViewColumn column in dgvEditor.Columns)
             {
@@ -89,6 +96,11 @@ namespace JtvDevTools.WinForms.UserControls
             {
                 DataGridViewHelper.ClearSelectedCells(dgvEditor);
             }
+            else if (e.Control && e.KeyCode == Keys.C)
+            {
+                var data = dgvEditor.GetClipboardContent();
+
+            }
         }
 
         private void dgvEditor_KeyPress(object sender, KeyPressEventArgs e)
@@ -129,13 +141,13 @@ namespace JtvDevTools.WinForms.UserControls
 
         private void NewRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var row = editorDataTable.NewRow();
-            editorDataTable.Rows.Add(row);
+            var row = table.DataTable.NewRow();
+            table.DataTable.Rows.Add(row);
         }
 
         private void TableEditorAddColumnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            editorDataTable.Columns.Add(new DataColumn()
+            table.DataTable.Columns.Add(new DataColumn()
             {
                 AllowDBNull = false,
                 ColumnName = "Column_" + Guid.NewGuid().ToString("N"),
@@ -149,11 +161,11 @@ namespace JtvDevTools.WinForms.UserControls
             var dataColumns = new List<DataColumn>();
             foreach (DataGridViewColumn column in dgvEditor.SelectedColumns)
             {
-                var dataColumn = editorDataTable.Columns[column.DataPropertyName];
+                var dataColumn = table.DataTable.Columns[column.DataPropertyName];
                 dataColumns.Add(dataColumn);
             }
 
-            dataColumns.ForEach(c => editorDataTable.Columns.Remove(c));
+            dataColumns.ForEach(c => table.DataTable.Columns.Remove(c));
         }
 
         private void TableEditorTrimToolStripMenuItem_Click(object sender, EventArgs e)

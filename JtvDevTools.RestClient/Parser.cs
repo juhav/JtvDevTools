@@ -15,6 +15,7 @@ namespace JtvDevTools.Core
         public enum MessageSection
         {
             Undefined = 0,
+            BaseUrls,
             Variables,
             Query,
             Headers,
@@ -39,29 +40,14 @@ namespace JtvDevTools.Core
             ApiRequest = new ApiRequest();
         }
 
-        public void Parse(string requestText)
+        public void Parse(string requestText, string body)
         {
             if (string.IsNullOrWhiteSpace(requestText)) return;
 
-            int bodyIndex = requestText.IndexOf("[BODY]", StringComparison.InvariantCultureIgnoreCase);
-            string requestVariablesText;
-            string bodyText;
+            requestText = EvaluateExpressions(requestText);
+            ApiRequest.Body = EvaluateExpressions(body).Trim();
 
-            if (bodyIndex == -1)
-            {
-                requestVariablesText = requestText;
-                bodyText = "";
-            }
-            else
-            {
-                requestVariablesText = requestText.Substring(0, bodyIndex);
-                bodyText = requestText.Substring(bodyIndex + 6);
-            }
-
-            requestVariablesText = EvaluateExpressions(requestVariablesText);
-            ApiRequest.Body = EvaluateExpressions(bodyText).Trim();
-
-            string[] lines = requestVariablesText.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = requestText.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             MessageSection currentSection = MessageSection.Undefined;
 
@@ -75,6 +61,10 @@ namespace JtvDevTools.Core
                 {
                     switch (lines[i].ToUpperInvariant())
                     {
+                        case "[BASEURLS]":
+                            currentSection = MessageSection.BaseUrls;
+                            break;
+
                         case "[REQUEST]":
                             currentSection = MessageSection.Variables;
                             break;
@@ -87,9 +77,6 @@ namespace JtvDevTools.Core
                             currentSection = MessageSection.Headers;
                             break;
 
-                        case "[BODY]":
-                            break;
-
                         default:
                             throw new ApplicationException($"Unknown section in request: {lines[i]}.");
                     }
@@ -98,6 +85,10 @@ namespace JtvDevTools.Core
                 {
                     switch (currentSection)
                     {
+                        case MessageSection.BaseUrls:
+                            ProcessBaseUrl(lines[i]);
+                            break;
+
                         case MessageSection.Variables:
                             ProcessVariable(lines[i]);
                             break;
@@ -117,6 +108,7 @@ namespace JtvDevTools.Core
             }
 
         }
+
 
         private string EvaluateExpressions(string text)
         {
@@ -148,6 +140,16 @@ namespace JtvDevTools.Core
             }
 
             return sb.ToString();
+        }
+
+        private void ProcessBaseUrl(string s)
+        {
+            Utils.GetKeyValuePair(s, out string key, out string value);
+
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+                ApiRequest.BaseUrls.Add(key, value);
+            }
         }
 
         private void ProcessHeader(string s)

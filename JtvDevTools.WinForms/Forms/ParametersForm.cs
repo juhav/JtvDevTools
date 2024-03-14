@@ -27,7 +27,7 @@ namespace JtvDevTools.WinForms.Forms
             dt.Columns.Add(new DataColumn() { ColumnName = "Value", DataType = typeof(string) });
             dt.Columns.Add(new DataColumn() { ColumnName = "Type", DataType = typeof(int) });
 
-            foreach (var p in commandParameters.Parameters.Values)
+            foreach (var p in commandParameters.Dictionary.Values)
             {
                 var row = dt.NewRow();
 
@@ -47,7 +47,7 @@ namespace JtvDevTools.WinForms.Forms
                 var key = row[0] as string;
                 var value = row[1] as string;
 
-                commandParameters.Parameters[key].Value = value;
+                commandParameters.Dictionary[key].Value = value;
             }
 
             return result;

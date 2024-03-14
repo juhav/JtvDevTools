@@ -33,8 +33,8 @@ namespace JtvDevTools.Commands
             var sb = new StringBuilder(1024);
             List<string> result = new List<string>();
 
-            var textToPrepend = Parameters.Parameters["String to Prepend"].Value;
-            var textToAppend = Parameters.Parameters["String to Append"].Value;
+            var textToPrepend = Parameters.Dictionary["String to Prepend"].Value;
+            var textToAppend = Parameters.Dictionary["String to Append"].Value;
 
             for (int i = 0; i < input.Length; i++)
             {

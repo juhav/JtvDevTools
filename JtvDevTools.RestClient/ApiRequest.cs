@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace JtvDevTools.Core
         private Dictionary<string, string> headers = new Dictionary<string, string>();
         private Dictionary<string, string> queryParams = new Dictionary<string, string>();
 
+        private Dictionary<string, string> baseUrls = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         private string authenticatorName = "";
         private string apiName = "";
         private string baseUrl = "";
@@ -35,6 +37,12 @@ namespace JtvDevTools.Core
         {
             get => baseUrl;
             set => baseUrl = (value ?? "").Trim().TrimEnd('/').ToLowerInvariant();
+        }
+
+        public Dictionary<string, string> BaseUrls
+        {
+            get => baseUrls;
+            set => baseUrls = (value ?? new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase));
         }
 
         public string Body
@@ -137,6 +145,15 @@ namespace JtvDevTools.Core
         {
             var sb = new StringBuilder(1024);
 
+            sb.AppendLine("[BaseUrls]");
+            foreach (var url in BaseUrls)
+            {
+                sb.AppendLine($"{url.Key} = {url.Value}");
+            }
+
+            sb.AppendLine("");
+
+
             sb.AppendLine("[Request]");
             sb.AppendLine($"Id = {Id.ToString()}");
             sb.AppendLine($"Name = {Name}");
@@ -167,9 +184,6 @@ namespace JtvDevTools.Core
                 sb.AppendLine($"{kvpair.Key} = {kvpair.Value}");
             }
             sb.AppendLine();
-
-            sb.AppendLine("[Body]");
-            sb.AppendLine(Body);
 
             return sb.ToString();
         }

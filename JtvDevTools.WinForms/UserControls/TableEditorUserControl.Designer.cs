@@ -132,6 +132,7 @@ namespace JtvDevTools.WinForms.UserControls
             // 
             // dgvEditor
             // 
+            dgvEditor.AllowDrop = true;
             dgvEditor.AllowUserToAddRows = false;
             dgvEditor.AllowUserToOrderColumns = true;
             dgvEditor.AllowUserToResizeRows = false;

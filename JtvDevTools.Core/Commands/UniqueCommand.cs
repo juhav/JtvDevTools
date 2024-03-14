@@ -29,7 +29,7 @@ namespace JtvDevTools.Commands
 
             HashSet<string> hashset;
 
-            bool isCaseSensitive = Parameters.Parameters["Case sensitive"].Value.ToLowerInvariant() == "true";
+            bool isCaseSensitive = Parameters.Dictionary["Case sensitive"].Value.ToLowerInvariant() == "true";
 
             if (isCaseSensitive)  
             {
