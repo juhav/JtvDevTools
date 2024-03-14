@@ -79,9 +79,9 @@ namespace JtvDevTools.RestClient
 
         private void insertGuidToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var source = GetContectMenuSourceTextBox(sender);
+            var source = WindowsFormsHelper.GetContextMenuSourceTextBox(sender);
 
-            InsertTextToFastColoredTextBox(source, Guid.NewGuid().ToString());
+            WindowsFormsHelper.InsertTextToFastColoredTextBox(source, Guid.NewGuid().ToString());
         }
 
         private void insertFileToBase64ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace JtvDevTools.RestClient
 
             if (string.IsNullOrEmpty(fileName)) return;
 
-            InsertTextToFastColoredTextBox(RequestContextMenuStrip.SourceControl as FastColoredTextBox, "{! FileToBase64(\"" + fileName.Replace('\\', '/') + "\") !}");
+            WindowsFormsHelper.InsertTextToFastColoredTextBox(RequestContextMenuStrip.SourceControl as FastColoredTextBox, "{! FileToBase64(\"" + fileName.Replace('\\', '/') + "\") !}");
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -288,29 +288,6 @@ namespace JtvDevTools.RestClient
             BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
         }
 
-        private FastColoredTextBox GetContectMenuSourceTextBox(object sender)
-        {
-            try
-            {
-                return (((sender as ToolStripMenuItem)?.Owner as ContextMenuStrip)?.SourceControl as FastColoredTextBox);
-            }
-            catch
-            {
-                return null;
-            }
-        }
 
-        private void InsertTextToFastColoredTextBox(FastColoredTextBox target, string text)
-        {
-            if (target == null || string.IsNullOrEmpty(text)) return;
-         
-            try
-            {
-                target.InsertText(text);
-            }
-            catch
-            {
-            }
-        }
     }
 }

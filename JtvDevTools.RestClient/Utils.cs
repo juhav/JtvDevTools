@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Security;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -179,6 +180,24 @@ namespace JtvDevTools.Core
                 var bytes = Convert.FromBase64String(text);
                 return Encoding.UTF8.GetString(rsa.Decrypt(bytes, RSAEncryptionPadding.OaepSHA256));
             }
+        }
+
+        public static string GetMyDocumentsAbsoluteFileName(string folder, string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(folder)) return null;
+            if (string.IsNullOrWhiteSpace(fileName)) return null;
+
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            path = Path.Combine(path, folder);
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var absoluteFileName = Path.Combine(path, fileName);
+
+            return absoluteFileName;
         }
 
     }

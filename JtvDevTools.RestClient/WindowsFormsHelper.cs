@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FastColoredTextBoxNS;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -50,6 +51,31 @@ namespace JtvDevTools.RestClient
             }
 
             return folder;
+        }
+
+        public static FastColoredTextBox GetContextMenuSourceTextBox(object sender)
+        {
+            try
+            {
+                return (((sender as ToolStripMenuItem)?.Owner as ContextMenuStrip)?.SourceControl as FastColoredTextBox);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static void InsertTextToFastColoredTextBox(FastColoredTextBox target, string text)
+        {
+            if (target == null || string.IsNullOrEmpty(text)) return;
+
+            try
+            {
+                target.InsertText(text);
+            }
+            catch
+            {
+            }
         }
     }
 }
