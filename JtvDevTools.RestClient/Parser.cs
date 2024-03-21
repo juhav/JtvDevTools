@@ -15,7 +15,6 @@ namespace JtvDevTools.Core
         public enum MessageSection
         {
             Undefined = 0,
-            BaseUrls,
             Variables,
             Query,
             Headers,
@@ -61,10 +60,6 @@ namespace JtvDevTools.Core
                 {
                     switch (lines[i].ToUpperInvariant())
                     {
-                        case "[BASEURLS]":
-                            currentSection = MessageSection.BaseUrls;
-                            break;
-
                         case "[REQUEST]":
                             currentSection = MessageSection.Variables;
                             break;
@@ -85,10 +80,6 @@ namespace JtvDevTools.Core
                 {
                     switch (currentSection)
                     {
-                        case MessageSection.BaseUrls:
-                            ProcessBaseUrl(lines[i]);
-                            break;
-
                         case MessageSection.Variables:
                             ProcessVariable(lines[i]);
                             break;
@@ -114,7 +105,7 @@ namespace JtvDevTools.Core
         {
             if (string.IsNullOrWhiteSpace(text)) return "";
 
-            var matches = System.Text.RegularExpressions.Regex.Matches(text, @"\{\!.+?\!\}");
+            var matches = System.Text.RegularExpressions.Regex.Matches(text, @"\%.+?\%");
 
             if (matches.Count == 0) return text;
 
@@ -123,7 +114,7 @@ namespace JtvDevTools.Core
 
             foreach (System.Text.RegularExpressions.Match match in matches)
             {
-                string value = match.Value.Trim("{}! ".ToCharArray());
+                string value = match.Value.Trim("% ".ToCharArray());
                 string result;
 
                 if (variables.ContainsKey(value))
@@ -140,16 +131,6 @@ namespace JtvDevTools.Core
             }
 
             return sb.ToString();
-        }
-
-        private void ProcessBaseUrl(string s)
-        {
-            Utils.GetKeyValuePair(s, out string key, out string value);
-
-            if (!string.IsNullOrWhiteSpace(key))
-            {
-                ApiRequest.BaseUrls.Add(key, value);
-            }
         }
 
         private void ProcessHeader(string s)

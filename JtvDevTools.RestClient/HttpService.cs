@@ -18,23 +18,18 @@ namespace JtvDevTools.Core
         {
             if (apiRequest == null) throw new ArgumentException(nameof(apiRequest));
 
-            if (!apiRequest.BaseUrls.TryGetValue(apiRequest.BaseUrl, out string baseUrl))
-            {
-                throw new ArgumentException("Base url is invalid, set possible values in the [BaseUrls] section and use correct key from that section.");
-            }
-
             var user = apiRequest.User;
             var pwd = apiRequest.Pwd;
             var authenticatorName = apiRequest.AuthenticatorName;
 
-            if (string.IsNullOrWhiteSpace(baseUrl))
+            if (string.IsNullOrWhiteSpace(apiRequest.BaseUrl))
             {
-                throw new ArgumentException(nameof(baseUrl));
+                throw new ArgumentException("BaseUrl");
             }
 
             var options = new RestClientOptions()
             {
-                BaseUrl = new Uri(baseUrl),
+                BaseUrl = new Uri(apiRequest.BaseUrl),
                 PreAuthenticate = apiRequest.PreAuthenticate,
                 UseDefaultCredentials = false
             };

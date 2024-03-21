@@ -43,7 +43,7 @@ namespace JtvDevTools.RestClient
 
         public static string GetAppDataFolder()
         {
-            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "JtvRestClient");
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "JtvRestClient");
 
             if (!Directory.Exists(folder))
             {

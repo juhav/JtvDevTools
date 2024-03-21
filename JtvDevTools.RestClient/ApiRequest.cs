@@ -13,7 +13,6 @@ namespace JtvDevTools.Core
         private Dictionary<string, string> headers = new Dictionary<string, string>();
         private Dictionary<string, string> queryParams = new Dictionary<string, string>();
 
-        private Dictionary<string, string> baseUrls = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         private string authenticatorName = "";
         private string apiName = "";
         private string baseUrl = "";
@@ -37,12 +36,6 @@ namespace JtvDevTools.Core
         {
             get => baseUrl;
             set => baseUrl = (value ?? "").Trim().TrimEnd('/').ToLowerInvariant();
-        }
-
-        public Dictionary<string, string> BaseUrls
-        {
-            get => baseUrls;
-            set => baseUrls = (value ?? new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase));
         }
 
         public string Body
@@ -144,14 +137,6 @@ namespace JtvDevTools.Core
         public override string ToString()
         {
             var sb = new StringBuilder(1024);
-
-            sb.AppendLine("[BaseUrls]");
-            foreach (var url in BaseUrls)
-            {
-                sb.AppendLine($"{url.Key} = {url.Value}");
-            }
-
-            sb.AppendLine("");
 
 
             sb.AppendLine("[Request]");

@@ -92,6 +92,18 @@
     <Compile Include="Enums.cs" />
     <Compile Include="EvaluatorContext.cs" />
     <Compile Include="ExpressionEvaluator.cs" />
+    <Compile Include="Forms\SelectVariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectVariableForm.Designer.cs">
+      <DependentUpon>SelectVariableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\VariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VariableForm.Designer.cs">
+      <DependentUpon>VariableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HttpService.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -99,6 +111,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDatabase.cs" />
+    <Compile Include="LiteDB\LiteDB.cs" />
+    <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\Variable.cs" />
+    <Compile Include="MyAppContext.cs" />
+    <Compile Include="MyAppUtils.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,11 +127,35 @@
     <Compile Include="Forms\SelectCertificateForm.Designer.cs">
       <DependentUpon>SelectCertificateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RequestUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RequestUserControl.Designer.cs">
+      <DependentUpon>RequestUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VariablesEditorUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\VariablesEditorUserControl.Designer.cs">
+      <DependentUpon>VariablesEditorUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VariablesTextEditorUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\VariablesTextEditorUserControl.Designer.cs">
+      <DependentUpon>VariablesTextEditorUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="WindowsFormsHelper.cs" />
     <Compile Include="X509Helper.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectVariableForm.resx">
+      <DependentUpon>SelectVariableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VariableForm.resx">
+      <DependentUpon>VariableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -126,6 +168,15 @@
     </Compile>
     <EmbeddedResource Include="Forms\SelectCertificateForm.resx">
       <DependentUpon>SelectCertificateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RequestUserControl.resx">
+      <DependentUpon>RequestUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\VariablesEditorUserControl.resx">
+      <DependentUpon>VariablesEditorUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\VariablesTextEditorUserControl.resx">
+      <DependentUpon>VariablesTextEditorUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -141,8 +192,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

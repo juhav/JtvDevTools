@@ -74,9 +74,19 @@ namespace JtvDevTools.Core
         {
             if (string.IsNullOrWhiteSpace(json)) return "";
 
-            dynamic parsedJson = (JsonConvert.DeserializeObject(json));
+            string result = "";
 
-            return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+            try
+            {
+                dynamic parsedJson = (JsonConvert.DeserializeObject(json));
+                result = JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+            }
+            catch
+            {
+                result = json;
+            }
+
+            return result;
         }
 
         public static string PrettyXML(string xml)
