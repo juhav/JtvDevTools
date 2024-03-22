@@ -53,21 +53,6 @@ namespace JtvDevTools.RestClient
             Application.Exit();
         }
 
-        private void SaveRequestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Save
-        }
-
-        private void APIsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Edit APIs
-        }
-
-        private void CredentialsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Edit Credentials
-        }
-
         private void VariablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach(TabPage p in MainTabControl.TabPages)

@@ -14,7 +14,8 @@ namespace JtvDevTools.RestClient.Forms
     {
         private readonly MyAppContext myAppContext;
         private readonly DataTable dt;
-
+        private bool ignoreEvents = false;
+        private string filterText = "";
         public ApiRequest SelectedRequest { get; private set; }
 
         public SelectRequestForm(MyAppContext myAppContext)
@@ -29,14 +30,17 @@ namespace JtvDevTools.RestClient.Forms
             dt.Columns.Add("Method", typeof(string));
             dt.Columns.Add("BaseUrl", typeof(string));
             dt.Columns.Add("Resource", typeof(string));
+            dt.Columns.Add("Name", typeof(string));
         }
 
         public void SetGridDataSource()
         {
+            ignoreEvents = true;
             SelectedRequest = null;
             dgvRequests.DataSource = null;
             dt.Rows.Clear();
 
+            var hashset = new HashSet<string>();
             foreach (var request in myAppContext.Requests.Values)
             {
                 var row = dt.NewRow();
@@ -46,13 +50,17 @@ namespace JtvDevTools.RestClient.Forms
                 row["Method"] = request.Method.ToString();
                 row["BaseUrl"] = request.BaseUrl;
                 row["Resource"] = request.Resource;
+                row["Name"] = request.Name;
 
                 dt.Rows.Add(row);
+
+                hashset.Add(request.ApiName);
             }
 
             dgvRequests.AutoGenerateColumns = true;
             dgvRequests.DataSource = dt;
            
+            ignoreEvents = false;
         }
 
         private void dgvRequests_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -71,9 +79,19 @@ namespace JtvDevTools.RestClient.Forms
 
         private void dgvRequests_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
-            if (e.Column.DataPropertyName == "Id")
+            switch (e.Column.DataPropertyName)
             {
-                e.Column.Visible = false;
+                case "Id":
+                    e.Column.Visible = false;
+                    break;
+
+                case "BaseUrl":
+                    e.Column.Width = 250;
+                    break;
+
+                case "Name":
+                    e.Column.Width = 250;
+                    break;
             }
         }
 
@@ -95,15 +113,29 @@ namespace JtvDevTools.RestClient.Forms
 
         private void Search()
         {
-            if (string.IsNullOrWhiteSpace(SearchToolStripTextBox.Text))
+            filterText = SearchToolStripTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(filterText))
             {
                 dt.DefaultView.RowFilter = null;
             }
             else
             {
-                dt.DefaultView.RowFilter = $"API LIKE '%{SearchToolStripTextBox.Text}%'";
+                dt.DefaultView.RowFilter = $"API LIKE '%{filterText}%' OR Name LIKE '%{filterText}%'";
             }
         }
 
+        private void APIFilterToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SearchToolStripTextBox_Leave(object sender, EventArgs e)
+        {
+            if (filterText != SearchToolStripTextBox.Text)
+            {
+                SearchToolStripTextBox.Text = filterText;
+            }
+        }
     }
 }

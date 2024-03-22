@@ -76,7 +76,6 @@
             this.SaveRequestToolStripMenuItem.Name = "SaveRequestToolStripMenuItem";
             this.SaveRequestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.SaveRequestToolStripMenuItem.Text = "Save Request";
-            this.SaveRequestToolStripMenuItem.Click += new System.EventHandler(this.SaveRequestToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
