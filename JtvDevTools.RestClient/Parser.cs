@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -5,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JtvDevTools.Core
+namespace JtvDevTools.RestClient
 {
     public class Parser
     {
@@ -100,7 +101,6 @@ namespace JtvDevTools.Core
 
         }
 
-
         private string EvaluateExpressions(string text)
         {
             if (string.IsNullOrWhiteSpace(text)) return "";
@@ -172,12 +172,7 @@ namespace JtvDevTools.Core
                     break;
 
                 case "METHOD":
-                    ApiRequest.Method = HttpMethod.Undefined;
-
-                    if (Enum.TryParse(value, true, out HttpMethod method))
-                    {
-                        ApiRequest.Method = method;
-                    }
+                    ApiRequest.Method = ParseHttpMethod(value);
                     break;
 
                 case "RESOURCE":
@@ -203,7 +198,7 @@ namespace JtvDevTools.Core
                     break;
 
                 case "AUTH":
-                    ApiRequest.AuthenticatorName = value;
+                    ApiRequest.Authenticator = ParseAuthenticatorType(value);
                     break;
 
                 case "PRETTYPRINT":
@@ -239,7 +234,24 @@ namespace JtvDevTools.Core
             }
         }
 
+        private HttpMethod ParseHttpMethod(string value)
+        {
+            if (Enum.TryParse(value, true, out HttpMethod method))
+            {
+                return method;
+            }
 
+            return HttpMethod.Undefined;
+        }
 
+        private AuthenticatorType ParseAuthenticatorType(string value)
+        {
+            if (Enum.TryParse(value, true, out AuthenticatorType authType))
+            {
+                return authType;
+            }
+
+            return AuthenticatorType.None;
+        }
     }
 }

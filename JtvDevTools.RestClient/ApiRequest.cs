@@ -1,3 +1,4 @@
+using JtvDevTools.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JtvDevTools.Core
+namespace JtvDevTools.RestClient
 {
 
     public class ApiRequest
@@ -13,17 +14,17 @@ namespace JtvDevTools.Core
         private Dictionary<string, string> headers = new Dictionary<string, string>();
         private Dictionary<string, string> queryParams = new Dictionary<string, string>();
 
-        private string authenticatorName = "";
+        private AuthenticatorType authenticator;
         private string apiName = "";
         private string baseUrl = "";
         private string clientCertificate = "";
         private string name = "";
         private string resource = "";
 
-        public string AuthenticatorName
+        public AuthenticatorType Authenticator
         {
-            get => authenticatorName;
-            set => authenticatorName = (value ?? "").Trim().ToUpperInvariant();
+            get => authenticator;
+            set => authenticator = value;
         }
 
         public string ApiName
@@ -146,7 +147,7 @@ namespace JtvDevTools.Core
             sb.AppendLine($"Method = {Method.ToString().ToUpperInvariant()}");
             sb.AppendLine($"BaseUrl = {BaseUrl}");
             sb.AppendLine($"Resource = {Resource}");
-            sb.AppendLine($"Auth = {AuthenticatorName}");
+            sb.AppendLine($"Auth = {Authenticator.ToString()}");
             sb.AppendLine($"User = {User}");
             sb.AppendLine($"Pwd = {Pwd}");
             sb.AppendLine($"ClientCertificate = {ClientCertificate}");

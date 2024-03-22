@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
-namespace JtvDevTools.Core
+namespace JtvDevTools.RestClient
 {
     public class HttpService
     {
@@ -20,7 +20,6 @@ namespace JtvDevTools.Core
 
             var user = apiRequest.User;
             var pwd = apiRequest.Pwd;
-            var authenticatorName = apiRequest.AuthenticatorName;
 
             if (string.IsNullOrWhiteSpace(apiRequest.BaseUrl))
             {
@@ -34,9 +33,9 @@ namespace JtvDevTools.Core
                 UseDefaultCredentials = false
             };
 
-            switch (authenticatorName)
+            switch (apiRequest.Authenticator)
             {
-                case "WINDOWS":
+                case AuthenticatorType.Windows:
                     if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(pwd))
                     {
                         options.Credentials = new NetworkCredential(user, pwd);
@@ -48,7 +47,7 @@ namespace JtvDevTools.Core
                     }
                     break;
 
-                case "BASIC":
+                case AuthenticatorType.Basic:
                     if (string.IsNullOrWhiteSpace(user)) throw new ApplicationException("User is not set for BASIC authentication.");
                     if (string.IsNullOrWhiteSpace(pwd)) throw new ApplicationException("Password is not set for BASIC authentication.");
 

@@ -81,7 +81,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectVariableForm";
-            this.Text = "SelectVariableForm";
+            this.Text = "Select Variable";
             ((System.ComponentModel.ISupportInitialize)(this.dgvVariables)).EndInit();
             this.ResumeLayout(false);
 

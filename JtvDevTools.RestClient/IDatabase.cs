@@ -1,5 +1,6 @@
 ﻿using JtvDevTools.Core;
 using JtvDevTools.RestClient.Models;
+using System;
 using System.Collections.Generic;
 
 namespace JtvDevTools.RestClient
@@ -16,5 +17,6 @@ namespace JtvDevTools.RestClient
 
         void SaveVariable(Variable variable);
         void DeleteVariable(Variable variable);
+        Dictionary<Guid, ApiRequest> LoadRequests();
     }
 }

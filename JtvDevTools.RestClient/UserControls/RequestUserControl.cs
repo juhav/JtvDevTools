@@ -23,12 +23,15 @@ namespace JtvDevTools.RestClient.UserControls
         private Style BlueStyle;
         private Style GreenStyle;
         private Style GrayStyle;
+        
+        public ApiRequest Request { get; set; }
 
-        public RequestUserControl(MyAppContext myAppContext)
+        public RequestUserControl(MyAppContext myAppContext, ApiRequest request)
         {
             InitializeComponent();
 
             this.myAppContext = myAppContext;
+            this.Request = request;
 
             var blueBrush = new SolidBrush(Color.FromArgb(86, 156, 214));
             BlueStyle = new TextStyle(blueBrush, null, FontStyle.Bold);
@@ -38,11 +41,12 @@ namespace JtvDevTools.RestClient.UserControls
 
             var grayBrush = new SolidBrush(Color.FromArgb(127, 127, 127));
             GrayStyle = new TextStyle(grayBrush, null, FontStyle.Bold);
-        }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-
+            if (request != null)
+            {
+                txtRequest.Text = Request.ToString();
+                txtRequestBody.Text = Request.Body;
+            }
         }
 
         private void btnSendRequest_Click(object sender, EventArgs e)
@@ -53,7 +57,7 @@ namespace JtvDevTools.RestClient.UserControls
 
         private void NewRequest_Click(object sender, EventArgs e)
         {
-            var r = new ApiRequest()
+            Request = new ApiRequest()
             {
                 BaseUrl = "https://catfact.ninja",
                 Resource = "fact",
@@ -61,7 +65,7 @@ namespace JtvDevTools.RestClient.UserControls
                 PrettyPrint = true
             };
 
-            txtRequest.Text = r.ToString();
+            txtRequest.Text = Request.ToString();
             txtRequestBody.Text = "";
         }
 

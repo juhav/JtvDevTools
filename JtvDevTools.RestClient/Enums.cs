@@ -1,4 +1,4 @@
-﻿namespace JtvDevTools.Core
+﻿namespace JtvDevTools.RestClient
 {
 
     public enum HttpMethod
@@ -21,5 +21,12 @@
         Body = 1,
         Headers = 2,
         StatusCode = 3
+    }
+
+    public enum AuthenticatorType
+    {
+        None = 0,
+        Windows = 1,
+        Basic = 2
     }
 }

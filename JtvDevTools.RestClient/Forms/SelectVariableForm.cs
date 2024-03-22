@@ -26,11 +26,11 @@ namespace JtvDevTools.RestClient.Forms
         {
             InitializeComponent();
 
+            this.myAppContext = myAppContext;
+            
             dt = new DataTable();
             dt.Columns.Add("Name", typeof(string));
             dt.Columns.Add("Value", typeof(string));
-            
-            this.myAppContext = myAppContext;
         }
 
         public void SetGridDataSource()

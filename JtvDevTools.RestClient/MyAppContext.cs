@@ -1,4 +1,5 @@
-﻿using JtvDevTools.RestClient.LiteDB;
+﻿using JtvDevTools.Core;
+using JtvDevTools.RestClient.LiteDB;
 using JtvDevTools.RestClient.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace JtvDevTools.RestClient
 
         public Dictionary<string, string> Variables { get; set; }
 
+        public Dictionary<Guid, ApiRequest> Requests { get; set; }
+
         public MyAppContext()
         {
             appDataFolder = WindowsFormsHelper.GetAppDataFolder();
@@ -37,6 +40,7 @@ namespace JtvDevTools.RestClient
         public void LoadData()
         {
             Variables = Database.LoadVariables();
+            Requests = Database.LoadRequests();
         }
     }
 }

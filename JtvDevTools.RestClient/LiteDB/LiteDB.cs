@@ -33,6 +33,7 @@ namespace JtvDevTools.RestClient.LiteDB
 
             doc["_id"] = request.Id;
             doc["ApiName"] = request.ApiName;
+            doc["Authenticator"] = (int)request.Authenticator;
             doc["BaseUrl"] = request.BaseUrl;
             doc["Body"] = request.Body;
             doc["ClientCertificate"] = request.ClientCertificate;
@@ -41,6 +42,7 @@ namespace JtvDevTools.RestClient.LiteDB
             doc["PreAuthenticate"] = request.PreAuthenticate;
             doc["PrettyPrint"] = request.PrettyPrint;
             doc["Resource"] = request.Resource;
+            doc["SaveResponseBodyToFile"] = request.SaveResponseBodyToFile;
 
             // HEADERS
             var headers = new BsonDocument();
@@ -57,11 +59,6 @@ namespace JtvDevTools.RestClient.LiteDB
                 queryParams[kvpair.Key] = kvpair.Value;
             }
             doc["Query"] = queryParams;
-
-            //doc[""] = request.;
-            //doc[""] = request.;
-            //doc[""] = request.;
-            //doc[""] = request.;
 
             Upsert(Collections.Request, doc);
         }
@@ -159,5 +156,64 @@ namespace JtvDevTools.RestClient.LiteDB
             return result;
         }
 
+        public Dictionary<Guid, ApiRequest> LoadRequests()
+        {
+            var result = new Dictionary<Guid, ApiRequest>();
+
+            using (var db = new LiteDatabase($"Filename={databaseFileName}"))
+            {
+                var col = db.GetCollection(Collections.Request);
+
+                var docs = col.FindAll();
+
+                foreach (var doc in docs)
+                {
+                    var request = MapBsonDocumentToApiRequest(doc);
+
+                    result.Add(request.Id, request);
+                }
+            }
+
+            return result;
+        }
+
+        private ApiRequest MapBsonDocumentToApiRequest(BsonDocument doc)
+        {
+            var result = new ApiRequest()
+            {
+                ApiName = doc["ApiName"],
+                Authenticator = (AuthenticatorType)(int)doc["Authenticator"],
+                BaseUrl = doc["BaseUrl"],
+                Body = doc["Body"],
+                ClientCertificate = doc["ClientCertificate"],
+                ExpectedStatusCode = 200,
+                Id = doc["_id"],
+                Method = (HttpMethod)(int)doc["Method"],
+                Name = doc["Name"],
+                //OutputMode
+                PreAuthenticate = doc["PreAuthenticate"],
+                PrettyPrint = doc["PrettyPrint"],
+                Pwd = doc["Pwd"],
+                Resource = doc["Resource"],
+                SaveResponseBodyToFile = doc["SaveResponseBodyToFile"],
+                User = doc["User"]
+            };
+
+            // HEADERS
+            BsonDocument headers = (BsonDocument)doc["Headers"];
+            foreach (var kv in headers)
+            {
+                result.Headers.Add(kv.Key, kv.Value);
+            }
+
+            // QUERY PARAMS
+            BsonDocument queryParams = (BsonDocument)doc["Query"];
+            foreach (var kv in queryParams)
+            {
+                result.QueryParams.Add(kv.Key, kv.Value);
+            }
+
+            return result;
+        }
     }
 }

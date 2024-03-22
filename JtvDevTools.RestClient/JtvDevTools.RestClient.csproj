@@ -92,6 +92,12 @@
     <Compile Include="Enums.cs" />
     <Compile Include="EvaluatorContext.cs" />
     <Compile Include="ExpressionEvaluator.cs" />
+    <Compile Include="Forms\SelectRequestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectRequestForm.Designer.cs">
+      <DependentUpon>SelectRequestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SelectVariableForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     <Compile Include="X509Helper.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectRequestForm.resx">
+      <DependentUpon>SelectRequestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectVariableForm.resx">
       <DependentUpon>SelectVariableForm.cs</DependentUpon>
