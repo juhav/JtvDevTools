@@ -40,12 +40,15 @@ namespace JtvDevTools.RestClient
             ApiRequest = new ApiRequest();
         }
 
-        public void Parse(string requestText, string body)
+        public void Parse(string requestText, string body, bool evaluate = true)
         {
             if (string.IsNullOrWhiteSpace(requestText)) return;
 
-            requestText = EvaluateExpressions(requestText);
-            ApiRequest.Body = EvaluateExpressions(body).Trim();
+            if (evaluate)
+            {
+                requestText = EvaluateExpressions(requestText);
+                ApiRequest.Body = EvaluateExpressions(body).Trim();
+            }
 
             string[] lines = requestText.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 

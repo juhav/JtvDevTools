@@ -101,5 +101,25 @@ namespace JtvDevTools.RestClient
             MainTabControl.TabPages.Add(page);
             MainTabControl.SelectedTab = page;
         }
+
+        private void ReadOpenAPISpecificationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new OpenAPIForm())
+            {
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog(this);
+            }
+            //var form = new Form();
+
+            //form.Name = "OpenAPIForm";
+            //form.Text = "Read OpenAPI Specification";
+            //form.Size = new Size(600, 300);
+            //form.StartPosition = FormStartPosition.CenterParent;
+            //form.FormBorderStyle = FormBorderStyle.FixedSingle;
+            //form.MaximizeBox = false;
+            //form.MinimizeBox = false;
+
+            //form.ShowDialog(this);
+        }
     }
 }

@@ -288,11 +288,12 @@ namespace JtvDevTools.RestClient.UserControls
         {
             var parser = new Parser(myAppContext.Variables);
 
-            parser.Parse(txtRequest.Text, txtRequestBody.Text);
+            parser.Parse(txtRequest.Text, txtRequestBody.Text, false);
 
             var request = parser.ApiRequest;
 
             myAppContext.Database.SaveRequest(request);
+            myAppContext.LoadData();
         }
 
         private void InsertVariableToolStripMenuItem_Click(object sender, EventArgs e)

@@ -31,13 +31,15 @@
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VariablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTabControl = new System.Windows.Forms.TabControl();
-            this.OpenRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReadOpenAPISpecificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +59,8 @@
             this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.NewRequestToolStripMenuItem,
             this.OpenRequestToolStripMenuItem,
+            this.ReadOpenAPISpecificationToolStripMenuItem,
+            this.toolStripMenuItem2,
             this.SaveRequestToolStripMenuItem,
             this.toolStripMenuItem1,
             this.ExitToolStripMenuItem});
@@ -67,25 +71,32 @@
             // NewRequestToolStripMenuItem
             // 
             this.NewRequestToolStripMenuItem.Name = "NewRequestToolStripMenuItem";
-            this.NewRequestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NewRequestToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.NewRequestToolStripMenuItem.Text = "New Request";
             this.NewRequestToolStripMenuItem.Click += new System.EventHandler(this.NewRequestToolStripMenuItem_Click);
+            // 
+            // OpenRequestToolStripMenuItem
+            // 
+            this.OpenRequestToolStripMenuItem.Name = "OpenRequestToolStripMenuItem";
+            this.OpenRequestToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.OpenRequestToolStripMenuItem.Text = "Open Request";
+            this.OpenRequestToolStripMenuItem.Click += new System.EventHandler(this.OpenRequestToolStripMenuItem_Click);
             // 
             // SaveRequestToolStripMenuItem
             // 
             this.SaveRequestToolStripMenuItem.Name = "SaveRequestToolStripMenuItem";
-            this.SaveRequestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SaveRequestToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.SaveRequestToolStripMenuItem.Text = "Save Request";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(218, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -113,12 +124,17 @@
             this.MainTabControl.Size = new System.Drawing.Size(1139, 773);
             this.MainTabControl.TabIndex = 3;
             // 
-            // OpenRequestToolStripMenuItem
+            // ReadOpenAPISpecificationToolStripMenuItem
             // 
-            this.OpenRequestToolStripMenuItem.Name = "OpenRequestToolStripMenuItem";
-            this.OpenRequestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.OpenRequestToolStripMenuItem.Text = "Open Request";
-            this.OpenRequestToolStripMenuItem.Click += new System.EventHandler(this.OpenRequestToolStripMenuItem_Click);
+            this.ReadOpenAPISpecificationToolStripMenuItem.Name = "ReadOpenAPISpecificationToolStripMenuItem";
+            this.ReadOpenAPISpecificationToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.ReadOpenAPISpecificationToolStripMenuItem.Text = "Read OpenAPI Specification";
+            this.ReadOpenAPISpecificationToolStripMenuItem.Click += new System.EventHandler(this.ReadOpenAPISpecificationToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(218, 6);
             // 
             // MainForm
             // 
@@ -149,6 +165,8 @@
         private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem VariablesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenRequestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ReadOpenAPISpecificationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }
 
