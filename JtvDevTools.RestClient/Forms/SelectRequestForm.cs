@@ -116,7 +116,7 @@ namespace JtvDevTools.RestClient.Forms
             filterText = SearchToolStripTextBox.Text;
 
             if (string.IsNullOrWhiteSpace(filterText))
-            {
+            { 
                 dt.DefaultView.RowFilter = null;
             }
             else

@@ -54,7 +54,7 @@ namespace JtvDevTools.RestClient.LiteDB
 
             // QUERY PARAMS
             var queryParams = new BsonDocument();
-            foreach (var kvpair in request.Headers)
+            foreach (var kvpair in request.QueryParams)
             {
                 queryParams[kvpair.Key] = kvpair.Value;
             }
