@@ -97,15 +97,13 @@ internal class Program
             Console.WriteLine($", {contentLength} bytes");
         }
 
-        PrintHeaders(operation, response);
-
         if (!response.IsSuccessful)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(response?.ErrorMessage);
-            Console.ResetColor();
-            return;
         }
+
+        PrintHeaders(operation, response);
 
         Console.ResetColor();
 
@@ -247,54 +245,5 @@ internal class Program
 
         PrintResponse(request, response, stopWatch.ElapsedMilliseconds);
     }
-
-    //private static void Test(List<ApiRequest> requests)
-    //{
-    //    Console.Clear();
-    //    Console.SetCursorPosition(0, 0);
-
-    //    foreach (var request in requests)
-    //    {
-    //        Console.Write("[    ] ");
-    //        Console.WriteLine(request.Name);
-    //    }
-
-    //    Console.SetCursorPosition(0, 0);
-
-    //    foreach (var request in requests)
-    //    {
-    //    }
-
-    //    Thread.Sleep(2000);
-    //    PrintPass();
-    //    Thread.Sleep(2000);
-    //    PrintPass();
-    //    Thread.Sleep(2000);
-    //    PrintFail();
-    //    Thread.Sleep(2000);
-    //    PrintPass();
-    //}
-
-    //private static void PrintPass()
-    //{
-    //    var pos = Console.GetCursorPosition();
-
-    //    Console.SetCursorPosition(1, pos.Top);
-    //    Console.ForegroundColor = ConsoleColor.Green;
-    //    Console.WriteLine("PASS");
-    //    Console.ResetColor();
-    //    Console.SetCursorPosition(1, pos.Top + 1);
-    //}
-
-    //private static void PrintFail()
-    //{
-    //    var pos = Console.GetCursorPosition();
-
-    //    Console.SetCursorPosition(1, pos.Top);
-    //    Console.ForegroundColor = ConsoleColor.Red;
-    //    Console.WriteLine("FAIL");
-    //    Console.ResetColor();
-    //    Console.SetCursorPosition(1, pos.Top + 1);
-    //}
 
 }
