@@ -39,8 +39,8 @@ namespace JtvDevTools.Commands
         {
             if (input == null) return new string[0];
 
-            var base64EncodedBytes = System.Convert.FromBase64String(input[0]);
-            return new string[] { System.Text.Encoding.UTF8.GetString(base64EncodedBytes) };
+            var base64EncodedBytes = Convert.FromBase64String(input[0]);
+            return new string[] { Encoding.UTF8.GetString(base64EncodedBytes) };
         }
     }
 }

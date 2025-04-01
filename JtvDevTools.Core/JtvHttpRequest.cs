@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JtvDevTools.Core;
 
-public class ApiRequest
+public class JtvHttpRequest
 {
     private Dictionary<string, string> headers = new Dictionary<string, string>();
     private Dictionary<string, string> queryParams = new Dictionary<string, string>();
@@ -120,7 +120,7 @@ public class ApiRequest
         set; 
     }
 
-    public ApiRequest()
+    public JtvHttpRequest()
     {
         Id = Guid.NewGuid();
         ExpectedStatusCode = 200;
@@ -142,7 +142,7 @@ public class ApiRequest
         sb.AppendLine($"ClientCertificate = {ClientCertificate}");
         sb.AppendLine($"PrettyPrint = {PrettyPrint}");
         sb.AppendLine($"PreAuthenticate = {PreAuthenticate}");
-        sb.AppendLine($"ExpectedStatusCode = {ExpectedStatusCode}");
+        //sb.AppendLine($"ExpectedStatusCode = {ExpectedStatusCode}");
         sb.AppendLine($"SaveResponseBodyToFile = {SaveResponseBodyToFile}");
         sb.AppendLine();
 
@@ -185,17 +185,3 @@ public class ApiRequest
 }
 
 
-public class ApiResponse
-{
-    public int StatusCode { get; set; }
-   
-    public int TimeElapsed { get; set; }
-}
-
-public class ApiOperationTest
-{
-    public ApiRequest ApiRequest { get; set; }
-
-    public ApiResponse ApiResponse { get; set; }
-
-}

@@ -36,14 +36,11 @@ namespace JtvDevTools.WinForms.Forms
             FileToolStripMainMenuItem = new ToolStripMenuItem();
             NewToolStripMenuItem = new ToolStripMenuItem();
             ViewToolStripMainMenuItem = new ToolStripMenuItem();
-            SQLToolsToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             toolStrip2 = new ToolStrip();
             TextEditorNewToolStripButton = new ToolStripButton();
             TextEditorEditToolStripDropDownButton = new ToolStripDropDownButton();
-            tabPage2 = new TabPage();
-            TableEditorUserControl = new UserControls.TableEditorUserControl();
             tabPage3 = new TabPage();
             HttpClientSplitContainer = new SplitContainer();
             txtRequest = new FastColoredTextBoxNS.FastColoredTextBox();
@@ -53,17 +50,12 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientNewRequestToolStripMenuItem = new ToolStripMenuItem();
             HtpClientSelectClientCertificateToolStripMenuItem = new ToolStripMenuItem();
             HttpClientSendToolStripButton = new ToolStripButton();
-            tabPage4 = new TabPage();
-            txtScript = new FastColoredTextBoxNS.FastColoredTextBox();
-            toolStrip1 = new ToolStrip();
-            btnRunPythonScript = new ToolStripButton();
             BackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)txtEditor).BeginInit();
             MainMenuStrip.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             toolStrip2.SuspendLayout();
-            tabPage2.SuspendLayout();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)HttpClientSplitContainer).BeginInit();
             HttpClientSplitContainer.Panel1.SuspendLayout();
@@ -72,9 +64,6 @@ namespace JtvDevTools.WinForms.Forms
             ((System.ComponentModel.ISupportInitialize)txtRequest).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtResponse).BeginInit();
             toolStrip3.SuspendLayout();
-            tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtScript).BeginInit();
-            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // txtEditor
@@ -96,7 +85,7 @@ namespace JtvDevTools.WinForms.Forms
             txtEditor.AutoScrollMinSize = new Size(39, 15);
             txtEditor.BackBrush = null;
             txtEditor.BackColor = Color.FromArgb(20, 20, 20);
-            txtEditor.CaretColor = Color.WhiteSmoke;
+            txtEditor.CaretColor = Color.White;
             txtEditor.CharHeight = 15;
             txtEditor.CharWidth = 7;
             txtEditor.Cursor = Cursors.IBeam;
@@ -143,24 +132,14 @@ namespace JtvDevTools.WinForms.Forms
             // 
             // ViewToolStripMainMenuItem
             // 
-            ViewToolStripMainMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SQLToolsToolStripMenuItem });
             ViewToolStripMainMenuItem.Name = "ViewToolStripMainMenuItem";
             ViewToolStripMainMenuItem.Size = new Size(44, 20);
             ViewToolStripMainMenuItem.Text = "View";
             // 
-            // SQLToolsToolStripMenuItem
-            // 
-            SQLToolsToolStripMenuItem.Name = "SQLToolsToolStripMenuItem";
-            SQLToolsToolStripMenuItem.Size = new Size(125, 22);
-            SQLToolsToolStripMenuItem.Text = "SQL Tools";
-            SQLToolsToolStripMenuItem.Click += SQLToolsToolStripMenuItem_Click;
-            // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 24);
             tabControl1.Name = "tabControl1";
@@ -208,24 +187,6 @@ namespace JtvDevTools.WinForms.Forms
             TextEditorEditToolStripDropDownButton.Size = new Size(40, 22);
             TextEditorEditToolStripDropDownButton.Text = "Edit";
             // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(TableEditorUserControl);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1243, 685);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Table Editor";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // TableEditorUserControl
-            // 
-            TableEditorUserControl.Location = new Point(51, 33);
-            TableEditorUserControl.Name = "TableEditorUserControl";
-            TableEditorUserControl.Size = new Size(1074, 448);
-            TableEditorUserControl.TabIndex = 0;
-            // 
             // tabPage3
             // 
             tabPage3.Controls.Add(HttpClientSplitContainer);
@@ -271,9 +232,10 @@ namespace JtvDevTools.WinForms.Forms
     '\''
     };
             txtRequest.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
-            txtRequest.AutoScrollMinSize = new Size(65, 15);
+            txtRequest.AutoScrollMinSize = new Size(88, 15);
             txtRequest.BackBrush = null;
             txtRequest.BackColor = Color.FromArgb(20, 20, 20);
+            txtRequest.CaretColor = Color.White;
             txtRequest.CharHeight = 15;
             txtRequest.CharWidth = 7;
             txtRequest.Cursor = Cursors.IBeam;
@@ -309,9 +271,10 @@ namespace JtvDevTools.WinForms.Forms
     '\''
     };
             txtResponse.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
-            txtResponse.AutoScrollMinSize = new Size(72, 15);
+            txtResponse.AutoScrollMinSize = new Size(95, 15);
             txtResponse.BackBrush = null;
             txtResponse.BackColor = Color.FromArgb(20, 20, 20);
+            txtResponse.CaretColor = Color.White;
             txtResponse.CharHeight = 15;
             txtResponse.CharWidth = 7;
             txtResponse.Cursor = Cursors.IBeam;
@@ -373,75 +336,6 @@ namespace JtvDevTools.WinForms.Forms
             HttpClientSendToolStripButton.Text = "Send";
             HttpClientSendToolStripButton.Click += HttpClientSendToolStripButton_Click;
             // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(txtScript);
-            tabPage4.Controls.Add(toolStrip1);
-            tabPage4.Location = new Point(4, 24);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(1243, 685);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "Ironpython";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // txtScript
-            // 
-            txtScript.AutoCompleteBracketsList = new char[]
-    {
-    '(',
-    ')',
-    '{',
-    '}',
-    '[',
-    ']',
-    '"',
-    '"',
-    '\'',
-    '\''
-    };
-            txtScript.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\r\n^\\s*(case|default)\\s*[^:]*(?<range>:)\\s*(?<range>[^;]+);";
-            txtScript.AutoScrollMinSize = new Size(39, 15);
-            txtScript.BackBrush = null;
-            txtScript.BackColor = Color.FromArgb(20, 20, 20);
-            txtScript.CaretColor = Color.WhiteSmoke;
-            txtScript.CharHeight = 15;
-            txtScript.CharWidth = 7;
-            txtScript.Cursor = Cursors.IBeam;
-            txtScript.DisabledColor = Color.FromArgb(100, 180, 180, 180);
-            txtScript.Dock = DockStyle.Fill;
-            txtScript.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            txtScript.ForeColor = Color.Gainsboro;
-            txtScript.IsReplaceMode = false;
-            txtScript.Location = new Point(3, 28);
-            txtScript.Margin = new Padding(4, 3, 4, 3);
-            txtScript.Name = "txtScript";
-            txtScript.Paddings = new Padding(0);
-            txtScript.ReservedCountOfLineNumberChars = 3;
-            txtScript.SelectionColor = Color.FromArgb(60, 0, 0, 255);
-            txtScript.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtScript.ServiceColors");
-            txtScript.Size = new Size(1237, 654);
-            txtScript.TabIndex = 6;
-            txtScript.Zoom = 100;
-            // 
-            // toolStrip1
-            // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnRunPythonScript });
-            toolStrip1.Location = new Point(3, 3);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1237, 25);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
-            // 
-            // btnRunPythonScript
-            // 
-            btnRunPythonScript.Image = (Image)resources.GetObject("btnRunPythonScript.Image");
-            btnRunPythonScript.ImageTransparentColor = Color.Magenta;
-            btnRunPythonScript.Name = "btnRunPythonScript";
-            btnRunPythonScript.Size = new Size(81, 22);
-            btnRunPythonScript.Text = "Run Script";
-            btnRunPythonScript.Click += btnRunPythonScript_Click;
-            // 
             // BackgroundWorker
             // 
             BackgroundWorker.DoWork += BackgroundWorker_DoWork;
@@ -468,7 +362,6 @@ namespace JtvDevTools.WinForms.Forms
             tabPage1.PerformLayout();
             toolStrip2.ResumeLayout(false);
             toolStrip2.PerformLayout();
-            tabPage2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             HttpClientSplitContainer.Panel1.ResumeLayout(false);
@@ -479,11 +372,6 @@ namespace JtvDevTools.WinForms.Forms
             ((System.ComponentModel.ISupportInitialize)txtResponse).EndInit();
             toolStrip3.ResumeLayout(false);
             toolStrip3.PerformLayout();
-            tabPage4.ResumeLayout(false);
-            tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)txtScript).EndInit();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -493,11 +381,9 @@ namespace JtvDevTools.WinForms.Forms
         private ToolStripMenuItem FileToolStripMainMenuItem;
         private ToolStripMenuItem NewToolStripMenuItem;
         private ToolStripMenuItem ViewToolStripMainMenuItem;
-        private ToolStripMenuItem SQLToolsToolStripMenuItem;
         internal FastColoredTextBoxNS.FastColoredTextBox txtEditor;
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private TabPage tabPage2;
         private TabPage tabPage3;
         private SplitContainer HttpClientSplitContainer;
         private FastColoredTextBoxNS.FastColoredTextBox txtRequest;
@@ -511,11 +397,6 @@ namespace JtvDevTools.WinForms.Forms
         private ToolStripButton HttpClientSendToolStripButton;
         private ToolStripMenuItem HtpClientSelectClientCertificateToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker BackgroundWorker;
-        private UserControls.TableEditorUserControl TableEditorUserControl;
-        private TabPage tabPage4;
-        internal FastColoredTextBoxNS.FastColoredTextBox txtScript;
-        private ToolStrip toolStrip1;
-        private ToolStripButton btnRunPythonScript;
     }
 }
 

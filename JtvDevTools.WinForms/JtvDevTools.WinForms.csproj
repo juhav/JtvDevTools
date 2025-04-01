@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="FastColoredTextBox.Net5" Version="2.16.26" />
-    <PackageReference Include="IronPython" Version="3.4.1" />
   </ItemGroup>
 
   <ItemGroup>

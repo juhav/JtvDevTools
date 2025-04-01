@@ -17,14 +17,14 @@ public class HttpService
     {
     }
 
-    public RestResponse Send(ApiRequest apiRequest)
+    public RestResponse Send(JtvHttpRequest httpRequest)
     {
-        if (apiRequest == null) throw new ArgumentException(nameof(apiRequest));
+        if (httpRequest == null) throw new ArgumentException(nameof(httpRequest));
 
-        var baseUrl = apiRequest.BaseUrl;
-        var user = apiRequest.User;
-        var pwd = apiRequest.Pwd;
-        var authenticatorName = apiRequest.AuthenticatorName;
+        var baseUrl = httpRequest.BaseUrl;
+        var user = httpRequest.User;
+        var pwd = httpRequest.Pwd;
+        var authenticatorName = httpRequest.AuthenticatorName;
 
         if (string.IsNullOrWhiteSpace(baseUrl))
         {
@@ -34,7 +34,7 @@ public class HttpService
         var options = new RestClientOptions()
         {
             BaseUrl = new Uri(baseUrl),
-            PreAuthenticate = apiRequest.PreAuthenticate
+            PreAuthenticate = httpRequest.PreAuthenticate
         };
 
         switch (authenticatorName)
@@ -52,7 +52,7 @@ public class HttpService
                 break;
         }
 
-        SetClientCertificate(options, apiRequest.ClientCertificate);
+        SetClientCertificate(options, httpRequest.ClientCertificate);
 
         var client = new RestClient(options);
         
@@ -63,22 +63,22 @@ public class HttpService
                 if (string.IsNullOrWhiteSpace(pwd)) throw new ApplicationException("Password is not set for BASIC authentication.");
                 
                 options.UseDefaultCredentials = false;
-                client.Authenticator = new HttpBasicAuthenticator(user, pwd);
+                options.Authenticator = new HttpBasicAuthenticator(user, pwd);
                 break;
         }
 
-        var request = new RestRequest(apiRequest.Resource);
+        var request = new RestRequest(httpRequest.Resource);
         request.RequestFormat = DataFormat.Json;
 
-        if (apiRequest.Method != HttpMethod.GET && apiRequest.Body != null)
+        if (httpRequest.Method != HttpMethod.GET && httpRequest.Body != null)
         {
-            request.AddParameter("application/json", apiRequest.Body, ParameterType.RequestBody);
+            request.AddParameter("application/json", httpRequest.Body, ParameterType.RequestBody);
         }
 
-        SetQueryParams(request, apiRequest.QueryParams);
-        SetHeaders(request, apiRequest.Headers);
+        SetQueryParams(request, httpRequest.QueryParams);
+        SetHeaders(request, httpRequest.Headers);
 
-        switch (apiRequest.Method)
+        switch (httpRequest.Method)
         {
             case HttpMethod.GET:
                 return client.Get(request);

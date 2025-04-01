@@ -56,7 +56,7 @@ internal class Program
         }
     }
 
-    private static void PrintResponse(ApiRequest operation, RestSharp.RestResponse? response, long elapsedMilliseconds)
+    private static void PrintResponse(JtvHttpRequest operation, RestSharp.RestResponse? response, long elapsedMilliseconds)
     {
         if (operation == null)
         {
@@ -155,7 +155,7 @@ internal class Program
 
     }
 
-    private static void PrintHeaders(ApiRequest operation, RestResponse response)
+    private static void PrintHeaders(JtvHttpRequest operation, RestResponse response)
     {
         if (!(operation.OutputMode == RequestOutputMode.All || operation.OutputMode == RequestOutputMode.Headers)) return;
         if (response.Headers == null) return;
@@ -174,7 +174,7 @@ internal class Program
 
     private static void PrintRequestTemplate(string[] args)
     {
-        var request = new ApiRequest()
+        var request = new JtvHttpRequest()
         {
             BaseUrl = "https://api",
             Method = HttpMethod.GET,

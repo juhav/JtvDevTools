@@ -19,7 +19,7 @@ public class Parser
         Body
     }
 
-    public ApiRequest ApiRequest { get; private set; }
+    public JtvHttpRequest ApiRequest { get; private set; }
 
     public Parser(Dictionary<string, string> variables)
     {
@@ -31,7 +31,7 @@ public class Parser
             }
         };
 
-        ApiRequest = new ApiRequest();
+        ApiRequest = new JtvHttpRequest();
     }
 
     public void Parse(string requestText)

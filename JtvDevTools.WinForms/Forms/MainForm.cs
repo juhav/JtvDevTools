@@ -1,5 +1,4 @@
 ﻿using FastColoredTextBoxNS;
-using IronPython.Hosting;
 using JtvDevTools.Commands;
 using JtvDevTools.Core;
 using JtvDevTools.WinForms.Models;
@@ -23,7 +22,6 @@ namespace JtvDevTools.WinForms.Forms
     {
         private readonly HttpService httpService = new HttpService();
         private Dictionary<int, TextProcessingCommandBase> commands = new Dictionary<int, TextProcessingCommandBase>();
-        private SqlToolsForm sqlToolsForm;
         //private DataTable editorDataTable;
 
         private Style BlueStyle;
@@ -43,7 +41,6 @@ namespace JtvDevTools.WinForms.Forms
             var grayBrush = new SolidBrush(Color.FromArgb(127, 127, 127));
             GrayStyle = new TextStyle(grayBrush, null, FontStyle.Bold);
 
-            sqlToolsForm = new SqlToolsForm(this);
             commands = Utils.GetClassesOfType<TextProcessingCommandBase>().ToDictionary(x => x.Id);
 
             TextEditorEditToolStripDropDownButton.DropDownItems.Clear();
@@ -128,12 +125,10 @@ namespace JtvDevTools.WinForms.Forms
 
         private void SQLToolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sqlToolsForm.Show();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            TableEditorUserControl.Dock = DockStyle.Fill;
         }
 
         private void TextEditorNewToolStripButton_Click(object sender, EventArgs e)
@@ -143,7 +138,7 @@ namespace JtvDevTools.WinForms.Forms
 
         private void HttpClientNewRequestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var r = new ApiRequest()
+            var r = new JtvHttpRequest()
             {
                 BaseUrl = "https://base-url",
                 Method = Core.HttpMethod.GET,
@@ -221,7 +216,7 @@ namespace JtvDevTools.WinForms.Forms
             txtResponse.Text = sb.ToString();
         }
 
-        private StringBuilder PrintResponse(ApiRequest operation, RestSharp.RestResponse response, long elapsedMilliseconds)
+        private StringBuilder PrintResponse(JtvHttpRequest operation, RestSharp.RestResponse response, long elapsedMilliseconds)
         {
             var sb = new StringBuilder(4096);
 
@@ -330,7 +325,7 @@ namespace JtvDevTools.WinForms.Forms
             return sb;
         }
 
-        private static void PrintHeaders(StringBuilder sb, ApiRequest operation, RestResponse response)
+        private static void PrintHeaders(StringBuilder sb, JtvHttpRequest operation, RestResponse response)
         {
             if (response.Headers == null) return;
 
@@ -350,38 +345,7 @@ namespace JtvDevTools.WinForms.Forms
             BackgroundWorker.RunWorkerAsync(new Dictionary<string, string>());
         }
 
-        private void btnRunPythonScript_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var code = txtScript.Text; // new StringBuilder();
-                                           //code.AppendLine("import clr");
-                                           //code.AppendLine("import System");
-                                           //code.AppendLine("from System import String");
-                                           //code.AppendLine("");
-
-                //code.AppendLine("table.SetValue(1, 1, 'Hello!')");
-                //code.AppendLine("");
-
-                var engine = Python.CreateEngine();
-                var scope = engine.CreateScope();
-                var lines = new Lines();
-                lines.Set(txtEditor.Lines.ToArray());
-
-                scope.SetVariable("lines", lines);
-                scope.SetVariable("table", TableEditorUserControl.Table);
-
-                engine.Execute(code.ToString(), scope);
-
-                var result = scope.GetVariable("lines");
-                var x = scope.GetVariable("table");
-                txtEditor.Text = string.Join("\r\n", result.Get());
-            }
-            catch (Exception ex)
-            {
-                txtScript.Text = txtScript.Text + "\r\n" + ex.Message;
-            }
-        }
+        
     }
 
 }

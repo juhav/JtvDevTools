@@ -99,11 +99,11 @@ namespace JtvDevTools.Commands
 
         public abstract string Name { get; }
 
-        public abstract string[] Process(string[] input);
+        public abstract string[]? Process(string[] input);
 
         public TextProcessingCommandParameters? Parameters { get; protected set;  }
 
-        protected string[] RemoveEmptyLines(string[] input)
+        protected string[]? RemoveEmptyLines(string[] input)
         {
             if (input == null) return null;
 
